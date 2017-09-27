@@ -46,7 +46,7 @@
     
     mimetype: application/x-microsoft.net.object.binary.base64
     value   : The object must be serialized with 
-            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
     
     mimetype: application/x-microsoft.net.object.soap.base64
@@ -60,6 +60,7 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
@@ -68,9 +69,10 @@
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="name" use="required" type="xsd:string" />
               <xsd:attribute name="type" type="xsd:string" />
               <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
@@ -85,9 +87,10 @@
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -109,9 +112,45 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Authorization_Password_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Authorization_Username_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Registration_BirthDate_Must_Be_Be_Valid_Age" xml:space="preserve">
+    <value>Hmm, the date doesn't look right. Be sure to use your actual date of birth.</value>
+  </data>
+  <data name="Registration_ConfirmPassword_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Registration_ConfirmPassword_Not_Match_Password" xml:space="preserve">
+    <value>These passwords don't match. Try again?</value>
+  </data>
+  <data name="Registration_FirstName_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Registration_LastName_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Registration_Password_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Registration_Username_Already_Taken" xml:space="preserve">
+    <value>That username is taken. Try another.</value>
+  </data>
+  <data name="Registration_Username_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Registration_Username_Contains_Invalid_Characters" xml:space="preserve">
+    <value>Please use only letters (a-z), numbers, and periods.</value>
+  </data>
+  <data name="Registration_Username_Invalid_Length" xml:space="preserve">
+    <value>Please use between {0} and {1} characters.</value>
+  </data>
 </root>

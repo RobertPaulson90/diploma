@@ -1,71 +1,62 @@
 using System.Data.Entity;
-using Diploma.Entities;
+using Diploma.DAL.Entities;
 using SQLite.CodeFirst;
 
 namespace Diploma.DAL
 {
     public class CompanyContext : DbContext
     {
-        public CompanyContext() : base("company_db")
+        public CompanyContext()
+            : base("CompanyDb")
         {
         }
 
-        public DbSet<Employee> Employees { get; set; }
+        public DbSet<AdminEntity> Admins { get; set; }
 
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerEntity> Customers { get; set; }
 
-        public DbSet<Programmer> Programmers { get; set; }
+        public DbSet<EmployeeEntity> Employees { get; set; }
 
-        public DbSet<Manager> Managers { get; set; }
+        public DbSet<ManagerEntity> Managers { get; set; }
 
-        public DbSet<Project> Projects { get; set; }
+        public DbSet<ProgrammerEntity> Programmers { get; set; }
 
-        public DbSet<Team> Teams { get; set; }
+        public DbSet<ProjectEntity> Projects { get; set; }
 
-        public DbSet<TeamMember> TeamMembers { get; set; }
+        public DbSet<TeamMemberEntity> TeamMembers { get; set; }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<TeamEntity> Teams { get; set; }
+
+        public DbSet<UserEntity> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Employee>().ToTable("Employees")
-                .Map<Programmer>(m => m.ToTable("Programmers"))
-                .Map<Manager>(m => m.ToTable("Managers"));
+            modelBuilder.Entity<EmployeeEntity>().ToTable("Employees").Map<ProgrammerEntity>(m => m.ToTable("Programmers"))
+                .Map<ManagerEntity>(m => m.ToTable("Managers"));
 
-            modelBuilder.Entity<Programmer>()
-                .HasMany(x => x.TeamsMemberships)
-                .WithRequired(x => x.Programmer)
+            modelBuilder.Entity<ProgrammerEntity>().HasMany(x => x.TeamsMemberships).WithRequired(x => x.Programmer)
                 .HasForeignKey(x => x.ProgrammerId);
 
-            modelBuilder.Entity<Manager>()
-                .HasMany(x => x.ManagedProjects)
-                .WithRequired(x => x.Manager)
-                .HasForeignKey(x => x.ManagerId);
+            modelBuilder.Entity<ManagerEntity>().HasMany(x => x.ManagedProjects).WithRequired(x => x.ManagerEntity).HasForeignKey(x => x.ManagerId);
 
-            modelBuilder.Entity<Customer>()
-                .ToTable("Customers")
-                .HasMany(x => x.Projects)
-                .WithRequired(x => x.Customer)
+            modelBuilder.Entity<CustomerEntity>().ToTable("Customers").HasMany(x => x.Projects).WithRequired(x => x.Customer)
                 .HasForeignKey(x => x.CustomerId);
 
-            modelBuilder.Entity<Project>()
-                .HasMany(x => x.InvolvedTeams)
-                .WithMany(x => x.WorkingProjects)
-                .Map(x =>
+            modelBuilder.Entity<ProjectEntity>().ToTable("Projects").HasMany(x => x.InvolvedTeams).WithMany(x => x.WorkingProjects).Map(
+                x =>
                 {
                     x.ToTable("ProjectTeams");
                     x.MapLeftKey("ProjectId");
                     x.MapRightKey("TeamId");
                 });
 
-            modelBuilder.Entity<Team>()
-                .HasMany(x => x.InvolvedMembers)
-                .WithRequired(x => x.Team)
-                .HasForeignKey(x => x.TeamId);
+            modelBuilder.Entity<TeamEntity>().ToTable("Teams").HasMany(x => x.InvolvedMembers).WithRequired(x => x.Team).HasForeignKey(x => x.TeamId);
 
-            modelBuilder.Entity<TeamMember>();
+            modelBuilder.Entity<TeamMemberEntity>().ToTable("TeamMembers");
 
-            modelBuilder.Entity<User>();
+            modelBuilder.Entity<UserEntity>().ToTable("Users");
+
+            modelBuilder.Entity<AdminEntity>().ToTable("Admins");
 
             var sqliteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<CompanyContext>(modelBuilder, true);
             Database.SetInitializer(sqliteConnectionInitializer);

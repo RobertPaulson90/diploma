@@ -1,97 +1,65 @@
 ﻿using System;
+using System.Security.Principal;
+using System.Threading;
 using Caliburn.Micro;
-using Diploma.DAL;
-using Diploma.Entities;
+using Diploma.DAL.Entities;
+using Diploma.Framework;
+using Diploma.Framework.Validations;
+using Diploma.Infrastructure;
+using Diploma.Models;
+using FluentValidation;
 
 namespace Diploma.ViewModels
 {
-    public sealed class RegisterViewModel : Screen
+    public sealed class RegisterViewModel : ValidatableScreen<RegisterViewModel, IValidator<RegisterViewModel>>
     {
-        private string _username;
+        private readonly IMessageService _messageService;
 
-        private string _lastName;
+        private readonly IUserService _userService;
+
+        private DateTime? _birthDate;
+
+        private CancellationTokenSource _cancellationToken = new CancellationTokenSource();
+
+        private string _confirmPassword;
 
         private string _firstName;
+
+        private GenderType? _gender;
+
+        private bool _isRegistering;
+
+        private string _lastName;
 
         private string _middleName;
 
         private string _password;
 
-        private string _confirmPassword;
+        private string _username;
 
-        private DateTime? _birthDate;
+        private UserRoleType _userRole = UserRoleType.Customer;
 
-        private UserRoleType _userRole;
-
-        private GenderType _gender;
-
-        public RegisterViewModel()
+        public RegisterViewModel(IUserService userService, IMessageService messageService, IValidator<RegisterViewModel> validator)
+            : base(validator)
         {
+            _userService = userService;
+            _messageService = messageService;
             DisplayName = "Registration";
         }
 
-        public string Username
+        public DateTime? BirthDate
         {
             get
             {
-                return _username;
+                return _birthDate;
             }
 
             set
             {
-                Set(ref _username, value);
-            }
-        }
-
-        public string LastName
-        {
-            get
-            {
-                return _lastName;
-            }
-
-            set
-            {
-                Set(ref _lastName, value);
-            }
-        }
-
-        public string FirstName
-        {
-            get
-            {
-                return _firstName;
-            }
-
-            set
-            {
-                Set(ref _firstName, value);
-            }
-        }
-
-        public string MiddleName
-        {
-            get
-            {
-                return _middleName;
-            }
-
-            set
-            {
-                Set(ref _middleName, value);
-            }
-        }
-
-        public string Password
-        {
-            get
-            {
-                return _password;
-            }
-
-            set
-            {
-                Set(ref _password, value);
+                if (Set(ref _birthDate, value))
+                {
+                    Validate();
+                }
             }
         }
 
@@ -104,20 +72,119 @@ namespace Diploma.ViewModels
 
             set
             {
-                Set(ref _confirmPassword, value);
+                if (Set(ref _confirmPassword, value))
+                {
+                    Validate();
+                }
             }
         }
 
-        public DateTime? BirthDate
+        public string FirstName
         {
             get
             {
-                return _birthDate;
+                return _firstName;
             }
 
             set
             {
-                Set(ref _birthDate, value);
+                if (Set(ref _firstName, value))
+                {
+                    Validate();
+                }
+            }
+        }
+
+        public GenderType? Gender
+        {
+            get
+            {
+                return _gender;
+            }
+
+            set
+            {
+                if (Set(ref _gender, value))
+                {
+                    Validate();
+                }
+            }
+        }
+
+        public bool IsRegistering
+        {
+            get
+            {
+                return _isRegistering;
+            }
+
+            set
+            {
+                Set(ref _isRegistering, value);
+            }
+        }
+
+        public string LastName
+        {
+            get
+            {
+                return _lastName;
+            }
+
+            set
+            {
+                if (Set(ref _lastName, value))
+                {
+                    Validate();
+                }
+            }
+        }
+
+        public string MiddleName
+        {
+            get
+            {
+                return _middleName;
+            }
+
+            set
+            {
+                if (Set(ref _middleName, value))
+                {
+                    Validate();
+                }
+            }
+        }
+
+        public string Password
+        {
+            get
+            {
+                return _password;
+            }
+
+            set
+            {
+                if (Set(ref _password, value))
+                {
+                    Validate();
+                }
+            }
+        }
+
+        public string Username
+        {
+            get
+            {
+                return _username;
+            }
+
+            set
+            {
+                if (Set(ref _username, value))
+                {
+                    Validate();
+                }
             }
         }
 
@@ -130,59 +197,73 @@ namespace Diploma.ViewModels
 
             set
             {
-                Set(ref _userRole, value);
-            }
-        }
-
-        public GenderType Gender
-        {
-            get
-            {
-                return _gender;
-            }
-
-            set
-            {
-                Set(ref _gender, value);
-            }
-        }
-
-        public void Register()
-        {
-            User user;
-            switch (UserRole)
-            {
-                case UserRoleType.Customer:
-                    user = new Customer();
-                    break;
-                case UserRoleType.Programmer:
-                    user = new Programmer();
-                    break;
-                case UserRoleType.Manager:
-                    user = new Manager();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            user.FirstName = FirstName;
-            user.LastName = LastName;
-            user.BirthDate = BirthDate;
-            user.Gender = Gender;
-            user.Username = Username;
-            user.Password = Password;
-            user.MiddleName = MiddleName;
-
-            using (var context = new CompanyContext())
-            {
-                context.Users.Add(user);
-                context.SaveChanges();
+                if (Set(ref _userRole, value))
+                {
+                    Validate();
+                }
             }
         }
 
         public void Cancel()
         {
-            ((ShellViewModel)Parent).ActiveItem = new LoginViewModel();
+            CancelAsync();
+            ((ShellViewModel)Parent).ActiveItem = IoC.Get<LoginViewModel>();
+        }
+
+        public async void Register()
+        {
+            if (IsRegistering)
+            {
+                return;
+            }
+
+            if (HasErrors)
+            {
+                _messageService.Enqueue("There were problems creating your account.");
+                return;
+            }
+
+            IsRegistering = true;
+            try
+            {
+                var result = await _userService.SignUp(
+                    Username,
+                    Password,
+                    LastName,
+                    FirstName,
+                    MiddleName,
+                    UserRole,
+                    BirthDate,
+                    Gender,
+                    _cancellationToken.Token);
+
+                if (!result.Success)
+                {
+                    _messageService.Enqueue(result.NonSuccessMessage);
+                    return;
+                }
+
+                var user = result.Result;
+
+                var identity = new GenericIdentity(user.Username);
+                var principal = new GenericPrincipal(identity, new[] { user.GetUserRole() });
+                Thread.CurrentPrincipal = principal;
+
+                var dashboard = IoC.Get<DashboardViewModel>();
+                dashboard.Init(user);
+                ((ShellViewModel)Parent).ActiveItem = dashboard;
+            }
+            finally
+            {
+                IsRegistering = false;
+            }
+        }
+
+        private void CancelAsync()
+        {
+            _cancellationToken?.Cancel();
+
+            _cancellationToken = new CancellationTokenSource();
         }
     }
 }

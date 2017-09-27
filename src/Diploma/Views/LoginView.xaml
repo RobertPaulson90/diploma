@@ -1,93 +1,97 @@
 ﻿<UserControl x:Class="Diploma.Views.LoginView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:behaviors="clr-namespace:Diploma.Behaviors"
+             xmlns:behaviors="clr-namespace:Diploma.Framework.Behaviors"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:diploma="clr-namespace:Diploma"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Diploma.ViewModels"
+             d:DataContext="{d:DesignInstance viewModels:LoginViewModel}"
+             d:DesignHeight="480"
+             d:DesignWidth="640"
              mc:Ignorable="d">
-
-    <Border Padding="{StaticResource GlobalBorderPadding}" VerticalAlignment="Center">
-        <DockPanel>
-            <StackPanel x:Name="Header" DockPanel.Dock="Top">
-                <TextBlock Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
-                           Text="Sign in"
-                           TextAlignment="Center" />
-            </StackPanel>
-
-            <StackPanel x:Name="Main"
-                        MaxWidth="240"
-                        DockPanel.Dock="Top">
-
-                <Border Style="{StaticResource Divider}" />
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <materialDesign:PackIcon Grid.Row="0"
-                                             Grid.Column="0"
-                                             Margin="{StaticResource DefaultIconsMargin}"
-                                             VerticalAlignment="Bottom"
-                                             Foreground="{Binding ElementName=LoginField, Path=BorderBrush}"
-                                             Kind="Account" />
-
-                    <TextBox x:Name="LoginField"
-                             Grid.Row="0"
-                             Grid.Column="1"
-                             materialDesign:HintAssist.Hint="Username"
-                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
-
-                    <materialDesign:PackIcon Grid.Row="1"
-                                             Grid.Column="0"
-                                             Margin="{StaticResource DefaultIconsMargin}"
-                                             VerticalAlignment="Bottom"
-                                             Foreground="{Binding ElementName=PasswordField, Path=BorderBrush}"
-                                             Kind="Key" />
-
-                    <PasswordBox x:Name="PasswordField"
-                                 Grid.Row="1"
-                                 Grid.Column="1"
-                                 Margin="{StaticResource DefaultTextFieldsMargin}"
-                                 behaviors:PasswordHelper.Password="{Binding Path=Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                 materialDesign:HintAssist.Hint="Password"
-                                 materialDesign:HintAssist.IsFloating="True"
-                                 Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" />
+    <Grid x:Name="Body" Background="{StaticResource MaterialBackground}">
+        <materialDesign:Card Width="290"
+                             Margin="{StaticResource GlobalCardMargin}"
+                             Padding="{StaticResource GlobalCardPadding}"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center">
+            <DockPanel>
+                <Grid x:Name="Header" DockPanel.Dock="Top">
+                    <TextBlock Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
+                               Text="Sign in"
+                               TextAlignment="Center" />
                 </Grid>
 
-                <Border Style="{StaticResource TransparentDivider}" />
-                
-            </StackPanel>
+                <Border DockPanel.Dock="Top" Style="{StaticResource Divider}" />
 
-            <StackPanel x:Name="Footer" DockPanel.Dock="Top">
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Button x:Name="SignIn"
-                            Margin="{StaticResource DefaultButtonsSpacing}"
-                            HorizontalAlignment="Center"
-                            Content="Sign in"
-                            IsDefault="True"
-                            Style="{DynamicResource MaterialDesignRaisedButton}" />
-                    <Button x:Name="CreateNewAccount"
-                            Margin="{StaticResource DefaultButtonsSpacing}"
-                            Content="Create new account"
-                            IsCancel="True"
-                            Style="{DynamicResource MaterialDesignFlatButton}" />
-                </StackPanel>
-            </StackPanel>
-        </DockPanel>
-    </Border>
+                <Grid x:Name="Footer" DockPanel.Dock="Bottom">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button x:Name="SignIn"
+                                Margin="{StaticResource DefaultButtonsSpacing}"
+                                HorizontalAlignment="Center"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsLoging}"
+                                Content="Sign in"
+                                IsDefault="True"
+                                Style="{StaticResource MaterialDesignRaisedButtonWithIndicator}" />
+                        <Button x:Name="CreateNewAccount"
+                                Margin="{StaticResource DefaultButtonsSpacing}"
+                                Content="Create new account"
+                                Style="{DynamicResource MaterialDesignFlatButton}" />
+                    </StackPanel>
+                </Grid>
+
+                <Border DockPanel.Dock="Bottom" Style="{StaticResource TransparentDivider}" />
+
+                <Grid x:Name="Main">
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                                  Style="{StaticResource MyScroll}"
+                                  VerticalScrollBarVisibility="Auto">
+                        <Grid Grid.IsSharedSizeScope="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="Icons" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="Icons" />
+                            </Grid.ColumnDefinitions>
+
+                            <materialDesign:PackIcon Grid.Row="0"
+                                                     Grid.Column="0"
+                                                     Margin="{StaticResource DefaultIconsMargin}"
+                                                     VerticalAlignment="Bottom"
+                                                     Foreground="{Binding ElementName=LoginField, Path=BorderBrush}"
+                                                     Kind="Account" />
+
+                            <TextBox x:Name="LoginField"
+                                     Grid.Row="0"
+                                     Grid.Column="1"
+                                     materialDesign:HintAssist.Hint="Username"
+                                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
+
+                            <materialDesign:PackIcon Grid.Row="1"
+                                                     Grid.Column="0"
+                                                     Margin="{StaticResource DefaultIconsMargin}"
+                                                     VerticalAlignment="Bottom"
+                                                     Foreground="{Binding ElementName=PasswordField, Path=BorderBrush}"
+                                                     Kind="Key" />
+
+                            <PasswordBox x:Name="PasswordField"
+                                         Grid.Row="1"
+                                         Grid.Column="1"
+                                         Margin="{StaticResource DefaultTextFieldsMargin}"
+                                         behaviors:PasswordHelper.Password="{Binding Path=Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         materialDesign:HintAssist.Hint="Password"
+                                         materialDesign:HintAssist.IsFloating="True"
+                                         Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" />
+                        </Grid>
+
+                    </ScrollViewer>
+                </Grid>
+            </DockPanel>
+        </materialDesign:Card>
+    </Grid>
 </UserControl>

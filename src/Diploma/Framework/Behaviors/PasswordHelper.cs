@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Diploma.Behaviors
+namespace Diploma.Framework.Behaviors
 {
     public static class PasswordHelper
     {
@@ -24,6 +24,7 @@ namespace Diploma.Behaviors
 
         public static bool GetAttach(DependencyObject dp)
         {
+            // ReSharper disable once PossibleNullReferenceException
             return (bool)dp.GetValue(AttachProperty);
         }
 
@@ -44,10 +45,12 @@ namespace Diploma.Behaviors
 
         private static void Attach(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!(sender is PasswordBox passwordBox))
+            if (!(sender is PasswordBox))
             {
                 return;
             }
+
+            var passwordBox = (PasswordBox)sender;
 
             if ((bool)e.OldValue)
             {
@@ -62,16 +65,18 @@ namespace Diploma.Behaviors
 
         private static bool GetIsUpdating(DependencyObject dp)
         {
+            // ReSharper disable once PossibleNullReferenceException
             return (bool)dp.GetValue(IsUpdatingProperty);
         }
 
         private static void OnPasswordPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!(sender is PasswordBox passwordBox))
+            if (!(sender is PasswordBox))
             {
                 return;
             }
 
+            var passwordBox = (PasswordBox)sender;
             passwordBox.PasswordChanged -= PasswordChanged;
             if (!GetIsUpdating(passwordBox))
             {
@@ -83,10 +88,12 @@ namespace Diploma.Behaviors
 
         private static void PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (!(sender is PasswordBox passwordBox))
+            if (!(sender is PasswordBox))
             {
                 return;
             }
+
+            var passwordBox = (PasswordBox)sender;
 
             SetIsUpdating(passwordBox, true);
             SetPassword(passwordBox, passwordBox.Password);

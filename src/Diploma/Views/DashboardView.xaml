@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="Diploma.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Diploma.ViewModels"
+             d:DataContext="{d:DesignInstance viewModels:DashboardViewModel}"
+             d:DesignWidth="636"
+             mc:Ignorable="d">
+    <Grid x:Name="Body">
+        <DockPanel>
+            <Grid x:Name="Header" DockPanel.Dock="Top">
+                <materialDesign:ColorZone Padding="10 8"
+                                          DockPanel.Dock="Top"
+                                          Mode="PrimaryDark">
+                    <DockPanel>
+                        <materialDesign:PopupBox DockPanel.Dock="Right"
+                                                 PlacementMode="BottomAndAlignCentres"
+                                                 StaysOpen="False">
+                            <StackPanel>
+                                <Button cal:Message.Attach="Logout" Content="Log out" />
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+                        <materialDesign:Chip VerticalAlignment="Center"
+                                             Content="{Binding CurrentUser.Username}"
+                                             Cursor="Arrow"
+                                             DockPanel.Dock="Right" />
+
+                        <materialDesign:ColorZone x:Name="SearchBar"
+                                                  Width="350"
+                                                  Padding="8 4"
+                                                  HorizontalAlignment="Left"
+                                                  Panel.ZIndex="1"
+                                                  CornerRadius="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0"
+                                         Height="28"
+                                         Margin="4 0 4 0"
+                                         VerticalAlignment="Center"
+                                         VerticalContentAlignment="Center"
+                                         materialDesign:HintAssist.Hint="Search"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         BorderThickness="0" />
+
+                                <Button Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Style="{DynamicResource MaterialDesignToolButton}">
+                                    <materialDesign:PackIcon Kind="Magnify" Opacity=".56" />
+                                </Button>
+
+                            </Grid>
+                        </materialDesign:ColorZone>
+                    </DockPanel>
+                </materialDesign:ColorZone>
+            </Grid>
+            <Grid x:Name="Footer" DockPanel.Dock="Bottom" />
+            <Grid x:Name="Main">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" />
+            </Grid>
+        </DockPanel>
+    </Grid>
+</UserControl>

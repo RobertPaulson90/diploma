@@ -1,75 +1,81 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
+using Diploma.BLL.Services;
 using Diploma.DAL;
-using Diploma.Entities;
+using Diploma.Infrastructure;
+using Diploma.Validators;
 using Diploma.ViewModels;
+using FluentValidation;
+using SimpleInjector;
 
 namespace Diploma
 {
     public sealed class AppBootstrapper : BootstrapperBase
     {
+        private static readonly Container Container = new Container();
+
         public AppBootstrapper()
         {
             Initialize();
         }
 
+        protected override void BuildUp(object instance)
+        {
+            var registration = Container.GetRegistration(instance.GetType(), true);
+            registration.Registration.InitializeInstance(instance);
+        }
+
+        protected override void Configure()
+        {
+            Container.RegisterSingleton<Func<CompanyContext>>(() => Container.GetInstance<CompanyContext>());
+
+            Container.RegisterSingleton<IWindowManager, WindowManager>();
+            Container.RegisterSingleton<IEventAggregator, EventAggregator>();
+            Container.RegisterSingleton<IMessageService, MessageService>();
+            Container.RegisterSingleton<IUserService, UserService>();
+            Container.RegisterSingleton<ICryptoService, CryptoService>();
+
+            Container.RegisterSingleton<ShellViewModel>();
+            Container.Register<RegisterViewModel>();
+            Container.Register<LoginViewModel>();
+            Container.Register<DashboardViewModel>();
+
+            Container.RegisterSingleton<IValidator<RegisterViewModel>, RegisterViewModelValidator>();
+            Container.RegisterSingleton<IValidator<LoginViewModel>, LoginViewModelValidator>();
+
+            Container.Verify();
+        }
+
+        protected override IEnumerable<object> GetAllInstances(Type service)
+        {
+            IServiceProvider provider = Container;
+            var collectionType = typeof(IEnumerable<>).MakeGenericType(service);
+            var services = (IEnumerable<object>)provider.GetService(collectionType);
+            return services ?? Enumerable.Empty<object>();
+        }
+
+        protected override object GetInstance(Type service, string key)
+        {
+            return Container.GetInstance(service);
+        }
+
+        protected override void OnExit(object sender, EventArgs e)
+        {
+            Container.Dispose();
+        }
+
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            using (var context = new CompanyContext())
-            {
-                if (!context.Users.Any())
-                {
-                    User[] users =
-                    {
-                        new Programmer
-                        {
-                            LastName = "Привалов",
-                            FirstName = "Максим",
-                            MiddleName = "Юрьевич",
-                            Username = "privalov_mu",
-                            Salary = 11000,
-                            Gender = GenderType.Male,
-                            Password = "test"
-                        },
-                        new Programmer
-                        {
-                            LastName = "Калинин",
-                            FirstName = "Василий",
-                            MiddleName = "Александрович",
-                            Username = "kalinin_va",
-                            Salary = 9000,
-                            Gender = GenderType.Male,
-                            Password = "test"
-                        },
-                        new Manager
-                        {
-                            LastName = "Кравченко",
-                            FirstName = "Людмила",
-                            MiddleName = "Николаевна",
-                            Username = "kravchenko_ln",
-                            Salary = 7500,
-                            Gender = GenderType.Female,
-                            Password = "test"
-                        },
-                        new Customer
-                        {
-                            LastName = "Шевченко",
-                            FirstName = "Татьяна",
-                            MiddleName = "Леонидовна",
-                            Username = "shevchenko_tl",
-                            Gender = GenderType.Female,
-                            Password = "test"
-                        }
-                    };
-
-                    context.Users.AddRange(users);
-
-                    context.SaveChanges();
-                }
-            }
-
             DisplayRootViewFor<ShellViewModel>();
+        }
+
+        protected override IEnumerable<Assembly> SelectAssemblies()
+        {
+            yield return Assembly.GetExecutingAssembly();
         }
     }
 }

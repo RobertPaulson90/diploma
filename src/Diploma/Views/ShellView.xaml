@@ -13,14 +13,18 @@
                       BorderThickness="0"
                       FontFamily="{StaticResource DefaultFont}"
                       GlowBrush="Black"
+                      NonActiveWindowTitleBrush="{DynamicResource WindowTitleColorBrush}"
+                      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                       TextOptions.TextFormattingMode="Ideal"
                       TextOptions.TextRenderingMode="Auto"
-                      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                       WindowStartupLocation="CenterScreen"
                       mc:Ignorable="d">
     <materialDesign:DialogHost CloseOnClickAway="True" Identifier="RootDialog">
         <materialDesign:DialogHost.Content>
-            <ContentControl cal:View.Model="{Binding ActiveItem}" />
+            <Grid>
+                <ContentControl cal:View.Model="{Binding ActiveItem}" materialDesign:ValidationAssist.OnlyShowOnFocus="True" />
+                <materialDesign:Snackbar MessageQueue="{Binding MessageQueue, Mode=OneTime}" />
+            </Grid>
         </materialDesign:DialogHost.Content>
     </materialDesign:DialogHost>
 </controls:MetroWindow>

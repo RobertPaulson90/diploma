@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Diploma.Entities
+namespace Diploma.DAL.Entities
 {
     public abstract class BaseEntity
     {
