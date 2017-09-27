@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Thickness x:Key="DefaultIconsMargin"
+               Bottom="4"
+               Left="4"
+               Right="4"
+               Top="12" />
+    <Thickness x:Key="DefaultTextFieldsMargin"
+               Bottom="0"
+               Left="0"
+               Right="0"
+               Top="12" />
+    <Thickness x:Key="DefaultButtonsSpacing"
+               Bottom="0"
+               Left="4"
+               Right="4"
+               Top="0" />
+    <Thickness x:Key="GlobalBorderPadding"
+               Bottom="8"
+               Left="16"
+               Right="16"
+               Top="8" />
+    <Style x:Key="TransparentDivider" TargetType="{x:Type Border}">
+        <Setter Property="Margin" Value="0 8 0 0" />
+        <Setter Property="Padding" Value="0 0 0 16" />
+        <Setter Property="BorderThickness" Value="0 1 0 0" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+    </Style>
+    <Style x:Key="Divider" TargetType="{x:Type Border}" BasedOn="{StaticResource TransparentDivider}">
+        <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignDivider}" />
+    </Style>
+</ResourceDictionary>
