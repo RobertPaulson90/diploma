@@ -4,36 +4,50 @@ namespace Diploma.Framework
 {
     public class OperationResult<TResult>
     {
-        private OperationResult()
+        private OperationResult(string nonSuccessMessage)
         {
+            Success = false;
+            NonSuccessMessage = nonSuccessMessage;
         }
 
-        public Exception Exception { get; private set; }
+        private OperationResult(Exception exception, string nonSuccessMessage)
+            : this(nonSuccessMessage)
+        {
+            Exception = exception;
+        }
 
-        public string NonSuccessMessage { get; private set; }
+        private OperationResult(TResult result)
+        {
+            Success = true;
+            Result = result;
+        }
 
-        public TResult Result { get; private set; }
+        public Exception Exception { get; }
 
-        public bool Success { get; private set; }
+        public string NonSuccessMessage { get; }
+
+        public TResult Result { get; }
+
+        public bool Success { get; }
 
         public static OperationResult<TResult> CreateFailure(string nonSuccessMessage)
         {
-            return new OperationResult<TResult> { Success = false, NonSuccessMessage = nonSuccessMessage };
+            return new OperationResult<TResult>(nonSuccessMessage);
         }
 
         public static OperationResult<TResult> CreateFailure(Exception ex)
         {
-            return new OperationResult<TResult> { Success = false, NonSuccessMessage = ex.Message, Exception = ex };
+            return new OperationResult<TResult>(ex, ex.Message);
         }
 
         public static OperationResult<TResult> CreateFailure(Exception ex, string nonSuccessMessage)
         {
-            return new OperationResult<TResult> { Success = false, NonSuccessMessage = nonSuccessMessage, Exception = ex };
+            return new OperationResult<TResult>(ex, nonSuccessMessage);
         }
 
         public static OperationResult<TResult> CreateSuccess(TResult result)
         {
-            return new OperationResult<TResult> { Success = true, Result = result };
+            return new OperationResult<TResult>(result);
         }
     }
 }

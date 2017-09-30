@@ -165,7 +165,7 @@
                                                      Grid.Column="3"
                                                      Margin="{StaticResource DefaultIconsMargin}"
                                                      VerticalAlignment="Bottom"
-                                                     Foreground="{Binding ElementName=UserRoleField, Path=BorderBrush}"
+                                                     Foreground="{Binding ElementName=GenderField, Path=BorderBrush}"
                                                      Kind="GenderMaleFemale" />
 
                             <ComboBox x:Name="GenderField"

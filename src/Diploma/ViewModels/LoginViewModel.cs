@@ -97,7 +97,7 @@ namespace Diploma.ViewModels
             IsLoging = true;
             try
             {
-                var result = await _userService.SignInAsync(Username, Password, _cancellationToken.Token);
+                var result = await _userService.GetUserByCredentialsAsync(Username, Password, _cancellationToken.Token);
 
                 if (!result.Success)
                 {

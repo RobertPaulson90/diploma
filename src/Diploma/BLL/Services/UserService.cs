@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Diploma.DAL;
@@ -23,54 +24,6 @@ namespace Diploma.BLL.Services
             _companyContextFactory = companyContextFactory;
         }
 
-        public async Task<OperationResult<bool>> IsUsernameUniqueAsync(string username, CancellationToken cancellationToken)
-        {
-            try
-            {
-                using (var context = _companyContextFactory())
-                {
-                    var isUnique = !await context.Users.AnyAsync(x => username.ToUpper() == x.Username.ToUpper(), cancellationToken);
-                    return OperationResult<bool>.CreateSuccess(isUnique);
-                }
-            }
-            catch (Exception ex)
-            {
-                return OperationResult<bool>.CreateFailure(ex);
-            }
-        }
-
-        public async Task<OperationResult<UserEntity>> SignInAsync(
-            string username,
-            string password,
-            CancellationToken cancellationToken = default(CancellationToken))
-        {
-            try
-            {
-                using (var context = _companyContextFactory())
-                {
-                    var user = await context.Users.AsNoTracking().SingleOrDefaultAsync(
-                        x => username.ToUpper() == x.Username.ToUpper(),
-                        cancellationToken);
-
-                    if (user == null)
-                    {
-                        return OperationResult<UserEntity>.CreateFailure(Resources.Authorization_Username_Not_Found);
-                    }
-
-                    if (_cryptoService.VerifyPasswordHash(password, user.Password))
-                    {
-                        return OperationResult<UserEntity>.CreateSuccess(user);
-                    }
-                }
-
-                return OperationResult<UserEntity>.CreateFailure(Resources.Authorization_Username_Or_Password_Invalid);
-            }
-            catch (Exception ex)
-            {
-                return OperationResult<UserEntity>.CreateFailure(ex);
-            }
-        }
-
         public async Task<OperationResult<UserEntity>> CreateCustomerAsync(
             string username,
             string password,
@@ -81,9 +34,18 @@ namespace Diploma.BLL.Services
             GenderType? gender,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            return await CreateUserAsync(username, password, lastName, firstName, middleName, UserRoleType.Customer, birthDate, gender, cancellationToken);
+            return await CreateUserAsync(
+                username,
+                password,
+                lastName,
+                firstName,
+                middleName,
+                UserRoleType.Customer,
+                birthDate,
+                gender,
+                cancellationToken);
         }
-        
+
         public async Task<OperationResult<UserEntity>> CreateUserAsync(
             string username,
             string password,
@@ -145,6 +107,57 @@ namespace Diploma.BLL.Services
             {
                 return OperationResult<UserEntity>.CreateFailure(ex);
             }
+        }
+
+        public async Task<OperationResult<UserEntity>> GetUserByCredentialsAsync(
+            string username,
+            string password,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            try
+            {
+                using (var context = _companyContextFactory())
+                {
+                    var user = await context.Users.AsNoTracking().SingleOrDefaultAsync(UserNameEquals(username), cancellationToken);
+
+                    if (user == null)
+                    {
+                        return OperationResult<UserEntity>.CreateFailure(Resources.Authorization_Username_Not_Found);
+                    }
+
+                    if (_cryptoService.VerifyPasswordHash(password, user.Password))
+                    {
+                        return OperationResult<UserEntity>.CreateSuccess(user);
+                    }
+                }
+
+                return OperationResult<UserEntity>.CreateFailure(Resources.Authorization_Username_Or_Password_Invalid);
+            }
+            catch (Exception ex)
+            {
+                return OperationResult<UserEntity>.CreateFailure(ex);
+            }
+        }
+
+        public async Task<OperationResult<bool>> IsUsernameUniqueAsync(string username, CancellationToken cancellationToken)
+        {
+            try
+            {
+                using (var context = _companyContextFactory())
+                {
+                    var isUnique = !await context.Users.AnyAsync(UserNameEquals(username), cancellationToken);
+                    return OperationResult<bool>.CreateSuccess(isUnique);
+                }
+            }
+            catch (Exception ex)
+            {
+                return OperationResult<bool>.CreateFailure(ex);
+            }
+        }
+
+        private static Expression<Func<UserEntity, bool>> UserNameEquals(string username)
+        {
+            return x => username.ToUpper() == x.Username.ToUpper();
         }
     }
 }

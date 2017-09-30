@@ -32,7 +32,7 @@ namespace Diploma.Infrastructure
 
         Task<OperationResult<bool>> IsUsernameUniqueAsync(string username, CancellationToken cancellationToken);
 
-        Task<OperationResult<UserEntity>> SignInAsync(
+        Task<OperationResult<UserEntity>> GetUserByCredentialsAsync(
             string username,
             string password,
             CancellationToken cancellationToken = default(CancellationToken));
