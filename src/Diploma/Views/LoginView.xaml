@@ -91,16 +91,16 @@
                         <ColumnDefinition Width="8" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="SignIn"
+                    <Button x:Name="CreateNewAccount"
                             Grid.Column="0"
+                            Content="CREATE NEW ACCOUNT"
+                            Style="{DynamicResource MaterialDesignFlatButton}" />
+                    <Button x:Name="SignIn"
+                            Grid.Column="2"
                             materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsLoging}"
                             Content="SIGN IN"
                             IsDefault="True"
                             Style="{StaticResource MaterialDesignRaisedButtonWithIndicator}" />
-                    <Button x:Name="CreateNewAccount"
-                            Grid.Column="2"
-                            Content="Create new account"
-                            Style="{DynamicResource MaterialDesignFlatButton}" />
                 </Grid>
             </Grid>
         </materialDesign:Card>
