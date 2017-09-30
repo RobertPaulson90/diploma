@@ -6,11 +6,12 @@
              xmlns:entities="clr-namespace:Diploma.DAL.Entities"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:models="clr-namespace:Diploma.Models"
              xmlns:viewModels="clr-namespace:Diploma.ViewModels"
-             d:DataContext="{d:DesignInstance viewModels:RegisterViewModel}"
              d:DesignHeight="640"
              d:DesignWidth="640"
-             mc:Ignorable="d">
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:RegisterViewModel}">
     <Grid x:Name="Body" Background="{StaticResource MaterialBackground}">
         <materialDesign:Card Width="350"
                              Margin="{StaticResource GlobalCardMargin}"
@@ -45,8 +46,10 @@
 
                 <Border DockPanel.Dock="Bottom" Style="{StaticResource TransparentDivider}" />
 
-                <Grid x:Name="Main">
+                <Grid x:Name="Main"
+                      cal:Bind.Model="{Binding Model}">
                     <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                                  d:DataContext="{d:DesignInstance models:RegisterModel}"
                                   Style="{StaticResource MyScroll}"
                                   VerticalScrollBarVisibility="Auto">
                         <Grid Grid.IsSharedSizeScope="True">
@@ -72,6 +75,7 @@
                             <TextBox x:Name="LastNameField"
                                      Grid.Row="0"
                                      Grid.Column="1"
+                                     Margin="{StaticResource DefaultTextFieldsMargin}"
                                      Grid.ColumnSpan="4"
                                      materialDesign:HintAssist.Hint="Last name"
                                      Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
@@ -158,7 +162,7 @@
                                         Margin="{StaticResource DefaultTextFieldsMargin}"
                                         VerticalContentAlignment="Bottom"
                                         materialDesign:HintAssist.Hint="Birth date"
-                                        SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                        SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}"
                                         Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" />
 
                             <materialDesign:PackIcon Grid.Row="7"

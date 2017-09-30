@@ -8,19 +8,19 @@ using FluentValidation.Results;
 
 namespace Diploma.Framework.Validations
 {
-    public abstract class ValidatableScreen<TScreen, TValidator> : Screen, IDataErrorInfo, INotifyDataErrorInfo
-        where TScreen : Screen
-        where TValidator : IValidator<TScreen>
+    public abstract class ValidatablePropertyChanged<TProperty, TValidator> : PropertyChangedBase, IDataErrorInfo, INotifyDataErrorInfo
+        where TProperty : PropertyChangedBase
+        where TValidator : IValidator<TProperty>
     {
-        private readonly TScreen _target;
+        private readonly TProperty _target;
 
         private readonly TValidator _validator;
 
         private ValidationResult _validationResult;
 
-        protected ValidatableScreen(TValidator validator)
+        protected ValidatablePropertyChanged(TValidator validator)
         {
-            _target = this as TScreen;
+            _target = this as TProperty;
             if (_target == null)
             {
                 throw new ArgumentException("Invalid type of screen passed.");

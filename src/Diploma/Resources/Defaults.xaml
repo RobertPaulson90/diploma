@@ -7,21 +7,23 @@
     </ResourceDictionary.MergedDictionaries>
 
 
-    <Style x:Key="MaterialDesignDatePickerTextBox" BasedOn="{StaticResource MaterialDesignDatePickerTextBox}" TargetType="{x:Type DatePickerTextBox}">
+    <Style x:Key="MaterialDesignDatePickerTextBox"
+           BasedOn="{StaticResource MaterialDesignDatePickerTextBox}"
+           TargetType="{x:Type DatePickerTextBox}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
     </Style>
 
     <Thickness x:Key="DefaultIconsMargin"
-               Bottom="4"
+               Bottom="16"
                Left="4"
                Right="4"
                Top="12" />
 
     <Thickness x:Key="DefaultTextFieldsMargin"
-               Bottom="0"
+               Bottom="12"
                Left="0"
                Right="0"
-               Top="12" />
+               Top="0" />
 
     <Thickness x:Key="DefaultButtonsSpacing"
                Bottom="0"

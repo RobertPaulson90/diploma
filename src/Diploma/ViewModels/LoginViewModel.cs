@@ -2,13 +2,13 @@
 using System.Threading;
 using Caliburn.Micro;
 using Diploma.Framework;
-using Diploma.Framework.Validations;
 using Diploma.Infrastructure;
+using Diploma.Models;
 using FluentValidation;
 
 namespace Diploma.ViewModels
 {
-    public sealed class LoginViewModel : ValidatableScreen<LoginViewModel, IValidator<LoginViewModel>>
+    public sealed class LoginViewModel : Screen
     {
         private readonly IMessageService _messageService;
 
@@ -18,15 +18,13 @@ namespace Diploma.ViewModels
 
         private bool _isLoging;
 
-        private string _password;
+        public LoginModel Model { get; }
 
-        private string _username;
-
-        public LoginViewModel(IMessageService messageService, IUserService userService, IValidator<LoginViewModel> validator)
-            : base(validator)
+        public LoginViewModel(IMessageService messageService, IUserService userService, IValidator<LoginModel> validator)
         {
             _messageService = messageService;
             _userService = userService;
+            Model = new LoginModel(validator);
             DisplayName = "Authorization";
         }
 
@@ -43,38 +41,6 @@ namespace Diploma.ViewModels
             }
         }
 
-        public string Password
-        {
-            get
-            {
-                return _password;
-            }
-
-            set
-            {
-                if (Set(ref _password, value))
-                {
-                    Validate();
-                }
-            }
-        }
-
-        public string Username
-        {
-            get
-            {
-                return _username;
-            }
-
-            set
-            {
-                if (Set(ref _username, value))
-                {
-                    Validate();
-                }
-            }
-        }
-
         public void CreateNewAccount()
         {
             CancelAsync();
@@ -88,7 +54,7 @@ namespace Diploma.ViewModels
                 return;
             }
 
-            if (HasErrors)
+            if (Model.HasErrors)
             {
                 _messageService.Enqueue("Incorrect username or password.");
                 return;
@@ -97,7 +63,7 @@ namespace Diploma.ViewModels
             IsLoging = true;
             try
             {
-                var result = await _userService.GetUserByCredentialsAsync(Username, Password, _cancellationToken.Token);
+                var result = await _userService.GetUserByCredentialsAsync(Model.Username, Model.Password, _cancellationToken.Token);
 
                 if (!result.Success)
                 {

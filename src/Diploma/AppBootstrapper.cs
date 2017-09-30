@@ -9,6 +9,7 @@ using Caliburn.Micro;
 using Diploma.BLL.Services;
 using Diploma.DAL;
 using Diploma.Infrastructure;
+using Diploma.Models;
 using Diploma.Validators;
 using Diploma.ViewModels;
 using FluentValidation;
@@ -47,8 +48,8 @@ namespace Diploma
             Container.Register<LoginViewModel>();
             Container.Register<DashboardViewModel>();
 
-            Container.RegisterSingleton<IValidator<RegisterViewModel>, RegisterViewModelValidator>();
-            Container.RegisterSingleton<IValidator<LoginViewModel>, LoginViewModelValidator>();
+            Container.RegisterSingleton<IValidator<RegisterModel>, RegisterModelValidator>();
+            Container.RegisterSingleton<IValidator<LoginModel>, LoginModelValidator>();
 
             Container.Verify();
         }

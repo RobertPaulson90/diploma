@@ -4,13 +4,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Diploma.Framework;
 using Diploma.Infrastructure;
+using Diploma.Models;
 using Diploma.Properties;
-using Diploma.ViewModels;
 using FluentValidation;
 
 namespace Diploma.Validators
 {
-    public class RegisterViewModelValidator : AbstractValidator<RegisterViewModel>
+    public class RegisterModelValidator : AbstractValidator<RegisterModel>
     {
         private const int MaximumAge = 131;
 
@@ -28,7 +28,7 @@ namespace Diploma.Validators
 
         private readonly IUserService _userService;
 
-        public RegisterViewModelValidator(IUserService userService)
+        public RegisterModelValidator(IUserService userService)
         {
             _userService = userService;
 

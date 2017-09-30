@@ -16,17 +16,23 @@
                                           DockPanel.Dock="Top"
                                           Mode="PrimaryDark">
                     <DockPanel>
-                        <materialDesign:PopupBox DockPanel.Dock="Right"
-                                                 PlacementMode="BottomAndAlignCentres"
-                                                 StaysOpen="False">
-                            <StackPanel>
-                                <Button cal:Message.Attach="Logout" Content="Log out" />
-                            </StackPanel>
-                        </materialDesign:PopupBox>
-                        <materialDesign:Chip VerticalAlignment="Center"
-                                             Content="{Binding CurrentUser.Username}"
-                                             Cursor="Arrow"
-                                             DockPanel.Dock="Right" />
+                        <Grid DockPanel.Dock="Right">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:Chip Grid.Column="0"
+                                                 VerticalAlignment="Center"
+                                                 Content="{Binding CurrentUser.Username}"
+                                                 Cursor="Arrow" />
+                            <materialDesign:PopupBox Grid.Column="1"
+                                                     PlacementMode="BottomAndAlignCentres"
+                                                     StaysOpen="False">
+                                <StackPanel>
+                                    <Button cal:Message.Attach="Logout" Content="Log out" />
+                                </StackPanel>
+                            </materialDesign:PopupBox>
+                        </Grid>
 
                         <materialDesign:ColorZone x:Name="SearchBar"
                                                   Width="350"

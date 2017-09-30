@@ -1,12 +1,12 @@
-﻿using Diploma.Properties;
-using Diploma.ViewModels;
+﻿using Diploma.Models;
+using Diploma.Properties;
 using FluentValidation;
 
 namespace Diploma.Validators
 {
-    public class LoginViewModelValidator : AbstractValidator<LoginViewModel>
+    public class LoginModelValidator : AbstractValidator<LoginModel>
     {
-        public LoginViewModelValidator()
+        public LoginModelValidator()
         {
             CascadeMode = CascadeMode.StopOnFirstFailure;
 
