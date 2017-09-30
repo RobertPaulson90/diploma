@@ -11,7 +11,7 @@
              xmlns:viewModels="clr-namespace:Diploma.ViewModels"
              d:DataContext="{d:DesignInstance viewModels:RegisterViewModel}"
              d:DesignHeight="640"
-             d:DesignWidth="640"
+             d:DesignWidth="1500"
              mc:Ignorable="d">
     <Grid x:Name="Body" Background="{StaticResource MaterialBackground}">
         <materialDesign:Card Padding="{StaticResource GlobalCardPadding}"
@@ -29,7 +29,6 @@
                 </Grid.RowDefinitions>
                 <Grid x:Name="Header" Grid.Row="0">
                     <TextBlock FontWeight="Thin"
-                               Foreground="{DynamicResource PrimaryHueMidBrush}"
                                Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
                                Text="Create a New Account"
                                TextAlignment="Center" />

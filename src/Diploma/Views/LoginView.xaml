@@ -28,7 +28,6 @@
                 </Grid.RowDefinitions>
                 <Grid x:Name="Header" Grid.Row="0">
                     <TextBlock FontWeight="Thin"
-                               Foreground="{DynamicResource PrimaryHueMidBrush}"
                                Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
                                Text="Log In"
                                TextAlignment="Center" />
@@ -91,16 +90,16 @@
                         <ColumnDefinition Width="8" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="CreateNewAccount"
-                            Grid.Column="0"
-                            Content="CREATE NEW ACCOUNT"
-                            Style="{DynamicResource MaterialDesignFlatButton}" />
                     <Button x:Name="SignIn"
-                            Grid.Column="2"
+                            Grid.Column="0"
                             materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsLoging}"
                             Content="SIGN IN"
                             IsDefault="True"
                             Style="{StaticResource MaterialDesignRaisedButtonWithIndicator}" />
+                    <Button x:Name="CreateNewAccount"
+                            Grid.Column="2"
+                            Content="CREATE NEW ACCOUNT"
+                            Style="{DynamicResource MaterialDesignFlatButton}" />
                 </Grid>
             </Grid>
         </materialDesign:Card>
