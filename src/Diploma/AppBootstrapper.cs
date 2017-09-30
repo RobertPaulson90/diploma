@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
 using Caliburn.Micro;
 using Diploma.BLL.Services;
@@ -21,6 +23,7 @@ namespace Diploma
         public AppBootstrapper()
         {
             Initialize();
+            ChangeLocalization();
         }
 
         protected override void BuildUp(object instance)
@@ -76,6 +79,12 @@ namespace Diploma
         protected override IEnumerable<Assembly> SelectAssemblies()
         {
             yield return Assembly.GetExecutingAssembly();
+        }
+
+        private void ChangeLocalization()
+        {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
         }
     }
 }
