@@ -3,9 +3,13 @@
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary
-            Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
+
+    <Style x:Key="MaterialDesignDatePickerTextBox" BasedOn="{StaticResource MaterialDesignDatePickerTextBox}" TargetType="{x:Type DatePickerTextBox}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    </Style>
 
     <Thickness x:Key="DefaultIconsMargin"
                Bottom="4"
@@ -51,8 +55,8 @@
     </Style>
 
     <ImageBrush x:Key="MaterialBackground"
-                AlignmentY="Center"
                 AlignmentX="Center"
+                AlignmentY="Center"
                 ImageSource="../Resources/Images/background.png"
                 Stretch="UniformToFill" />
 
@@ -87,7 +91,6 @@
         </Style.Triggers>
     </Style>
 
-
     <Style x:Key="MyScroll" TargetType="{x:Type ScrollViewer}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Template">
@@ -102,24 +105,26 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <ScrollContentPresenter Grid.ColumnSpan="2" Grid.RowSpan="2" />
+                        <ScrollContentPresenter Grid.RowSpan="2" Grid.ColumnSpan="2" />
                         <ScrollBar Name="PART_VerticalScrollBar"
+                                   Grid.Row="0"
+                                   Grid.Column="1"
                                    HorizontalAlignment="Right"
-                                   Opacity="0.5"
-                                   Grid.Row="0" Grid.Column="1"
-                                   Value="{TemplateBinding VerticalOffset}"
                                    Maximum="{TemplateBinding ScrollableHeight}"
-                                   ViewportSize="{TemplateBinding ViewportHeight}"
-                                   Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" />
-                        <ScrollBar Name="PART_HorizontalScrollBar"
-                                   VerticalAlignment="Bottom"
-                                   Orientation="Horizontal"
                                    Opacity="0.5"
-                                   Grid.Row="1" Grid.Column="0"
-                                   Value="{TemplateBinding HorizontalOffset}"
+                                   ViewportSize="{TemplateBinding ViewportHeight}"
+                                   Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                                   Value="{TemplateBinding VerticalOffset}" />
+                        <ScrollBar Name="PART_HorizontalScrollBar"
+                                   Grid.Row="1"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Bottom"
                                    Maximum="{TemplateBinding ScrollableWidth}"
+                                   Opacity="0.5"
+                                   Orientation="Horizontal"
                                    ViewportSize="{TemplateBinding ViewportWidth}"
-                                   Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" />
+                                   Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                   Value="{TemplateBinding HorizontalOffset}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

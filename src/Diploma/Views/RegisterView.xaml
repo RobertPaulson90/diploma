@@ -159,7 +159,7 @@
                                         VerticalContentAlignment="Bottom"
                                         materialDesign:HintAssist.Hint="Birth date"
                                         SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
-                                        SelectedDateFormat="Long" />
+                                        Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" />
 
                             <materialDesign:PackIcon Grid.Row="7"
                                                      Grid.Column="3"

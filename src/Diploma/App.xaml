@@ -10,8 +10,6 @@
                     <diploma:AppBootstrapper x:Key="Bootstrapper" />
                 </ResourceDictionary>
 
-                <ResourceDictionary Source="Resources/Defaults.xaml" />
-
                 <!--  MahApps  -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
@@ -35,6 +33,8 @@
                 <ResourceDictionary
                     Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Flyout.xaml" />
 
+                <ResourceDictionary Source="Resources/Defaults.xaml" />
+                
             </ResourceDictionary.MergedDictionaries>
 
             <!--  MahApps Brushes  -->
