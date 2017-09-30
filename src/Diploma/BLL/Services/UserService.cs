@@ -7,6 +7,7 @@ using Diploma.DAL.Entities;
 using Diploma.Framework;
 using Diploma.Infrastructure;
 using Diploma.Models;
+using Diploma.Properties;
 
 namespace Diploma.BLL.Services
 {
@@ -53,7 +54,7 @@ namespace Diploma.BLL.Services
 
                     if (user == null)
                     {
-                        return OperationResult<UserEntity>.CreateFailure("User not exists.");
+                        return OperationResult<UserEntity>.CreateFailure(Resources.Authorization_Username_Not_Found);
                     }
 
                     if (_cryptoService.VerifyPasswordHash(password, user.Password))
@@ -62,7 +63,7 @@ namespace Diploma.BLL.Services
                     }
                 }
 
-                return OperationResult<UserEntity>.CreateFailure("Incorrect username or password.");
+                return OperationResult<UserEntity>.CreateFailure(Resources.Authorization_Username_Or_Password_Invalid);
             }
             catch (Exception ex)
             {
@@ -70,7 +71,20 @@ namespace Diploma.BLL.Services
             }
         }
 
-        public async Task<OperationResult<UserEntity>> SignUp(
+        public async Task<OperationResult<UserEntity>> CreateCustomerAsync(
+            string username,
+            string password,
+            string lastName,
+            string firstName,
+            string middleName,
+            DateTime? birthDate,
+            GenderType? gender,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return await CreateUserAsync(username, password, lastName, firstName, middleName, UserRoleType.Customer, birthDate, gender, cancellationToken);
+        }
+        
+        public async Task<OperationResult<UserEntity>> CreateUserAsync(
             string username,
             string password,
             string lastName,
@@ -99,7 +113,7 @@ namespace Diploma.BLL.Services
                         userEntity = new AdminEntity();
                         break;
                     default:
-                        return OperationResult<UserEntity>.CreateFailure($"Unsupported value of {nameof(userRole)}");
+                        return OperationResult<UserEntity>.CreateFailure(Resources.Registration_UserRole_Invalid_Value);
                 }
 
                 userEntity.LastName = lastName;
@@ -117,6 +131,7 @@ namespace Diploma.BLL.Services
                     {
                         var dbUser = context.Users.Add(userEntity);
                         await context.SaveChangesAsync(cancellationToken);
+                        transaction.Commit();
                         return OperationResult<UserEntity>.CreateSuccess(dbUser);
                     }
                     catch (TaskCanceledException)

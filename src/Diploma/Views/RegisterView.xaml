@@ -6,7 +6,6 @@
              xmlns:entities="clr-namespace:Diploma.DAL.Entities"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:models="clr-namespace:Diploma.Models"
              xmlns:viewModels="clr-namespace:Diploma.ViewModels"
              d:DataContext="{d:DesignInstance viewModels:RegisterViewModel}"
              d:DesignHeight="640"
@@ -106,27 +105,11 @@
                             <TextBox x:Name="LoginField"
                                      Grid.Row="3"
                                      Grid.Column="1"
+                                     Grid.ColumnSpan="4"
                                      Margin="{StaticResource DefaultTextFieldsMargin}"
                                      materialDesign:HintAssist.Hint="Username"
                                      Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                      Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
-
-                            <materialDesign:PackIcon Grid.Row="3"
-                                                     Grid.Column="3"
-                                                     Margin="{StaticResource DefaultIconsMargin}"
-                                                     VerticalAlignment="Bottom"
-                                                     Foreground="{Binding ElementName=UserRoleField, Path=BorderBrush}"
-                                                     Kind="Wrench" />
-
-                            <ComboBox x:Name="UserRoleField"
-                                      Grid.Row="3"
-                                      Grid.Column="4"
-                                      Margin="{StaticResource DefaultTextFieldsMargin}"
-                                      materialDesign:ComboBoxAssist.ShowSelectedItem="False"
-                                      materialDesign:HintAssist.Hint="User role"
-                                      ItemsSource="{Binding Source={behaviors:EnumBindingSource {x:Type models:UserRoleType}}}"
-                                      SelectedValue="{Binding UserRole, Mode=TwoWay}"
-                                      Style="{DynamicResource MaterialDesignFloatingHintComboBox}" />
 
                             <materialDesign:PackIcon Grid.Row="4"
                                                      Grid.Column="0"

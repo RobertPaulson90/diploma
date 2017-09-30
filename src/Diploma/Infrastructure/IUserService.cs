@@ -9,14 +9,17 @@ namespace Diploma.Infrastructure
 {
     public interface IUserService
     {
-        Task<OperationResult<bool>> IsUsernameUniqueAsync(string username, CancellationToken cancellationToken);
-
-        Task<OperationResult<UserEntity>> SignInAsync(
+        Task<OperationResult<UserEntity>> CreateCustomerAsync(
             string username,
             string password,
+            string lastName,
+            string firstName,
+            string middleName,
+            DateTime? birthDate,
+            GenderType? gender,
             CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<OperationResult<UserEntity>> SignUp(
+        Task<OperationResult<UserEntity>> CreateUserAsync(
             string username,
             string password,
             string lastName,
@@ -25,6 +28,13 @@ namespace Diploma.Infrastructure
             UserRoleType userRole,
             DateTime? birthDate,
             GenderType? gender,
+            CancellationToken cancellationToken = default(CancellationToken));
+
+        Task<OperationResult<bool>> IsUsernameUniqueAsync(string username, CancellationToken cancellationToken);
+
+        Task<OperationResult<UserEntity>> SignInAsync(
+            string username,
+            string password,
             CancellationToken cancellationToken = default(CancellationToken));
     }
 }

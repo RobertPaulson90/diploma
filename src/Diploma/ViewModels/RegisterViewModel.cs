@@ -6,7 +6,6 @@ using Diploma.DAL.Entities;
 using Diploma.Framework;
 using Diploma.Framework.Validations;
 using Diploma.Infrastructure;
-using Diploma.Models;
 using FluentValidation;
 
 namespace Diploma.ViewModels
@@ -36,9 +35,7 @@ namespace Diploma.ViewModels
         private string _password;
 
         private string _username;
-
-        private UserRoleType _userRole = UserRoleType.Customer;
-
+        
         public RegisterViewModel(IUserService userService, IMessageService messageService, IValidator<RegisterViewModel> validator)
             : base(validator)
         {
@@ -187,23 +184,7 @@ namespace Diploma.ViewModels
                 }
             }
         }
-
-        public UserRoleType UserRole
-        {
-            get
-            {
-                return _userRole;
-            }
-
-            set
-            {
-                if (Set(ref _userRole, value))
-                {
-                    Validate();
-                }
-            }
-        }
-
+        
         public void Cancel()
         {
             CancelAsync();
@@ -226,13 +207,12 @@ namespace Diploma.ViewModels
             IsRegistering = true;
             try
             {
-                var result = await _userService.SignUp(
+                var result = await _userService.CreateCustomerAsync(
                     Username,
                     Password,
                     LastName,
                     FirstName,
                     MiddleName,
-                    UserRole,
                     BirthDate,
                     Gender,
                     _cancellationToken.Token);

@@ -79,6 +79,24 @@ namespace Diploma.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User not exists..
+        /// </summary>
+        internal static string Authorization_Username_Not_Found {
+            get {
+                return ResourceManager.GetString("Authorization_Username_Not_Found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect username or password..
+        /// </summary>
+        internal static string Authorization_Username_Or_Password_Invalid {
+            get {
+                return ResourceManager.GetString("Authorization_Username_Or_Password_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hmm, the date doesn&apos;t look right. Be sure to use your actual date of birth..
         /// </summary>
         internal static string Registration_BirthDate_Must_Be_Be_Valid_Age {
@@ -165,6 +183,15 @@ namespace Diploma.Properties {
         internal static string Registration_Username_Invalid_Length {
             get {
                 return ResourceManager.GetString("Registration_Username_Invalid_Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsupported value of user role..
+        /// </summary>
+        internal static string Registration_UserRole_Invalid_Value {
+            get {
+                return ResourceManager.GetString("Registration_UserRole_Invalid_Value", resourceCulture);
             }
         }
     }

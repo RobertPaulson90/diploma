@@ -123,6 +123,12 @@
   <data name="Authorization_Username_Can_Not_Be_Empty" xml:space="preserve">
     <value>You can't leave this empty.</value>
   </data>
+  <data name="Authorization_Username_Not_Found" xml:space="preserve">
+    <value>User not exists.</value>
+  </data>
+  <data name="Authorization_Username_Or_Password_Invalid" xml:space="preserve">
+    <value>Incorrect username or password.</value>
+  </data>
   <data name="Registration_BirthDate_Must_Be_Be_Valid_Age" xml:space="preserve">
     <value>Hmm, the date doesn't look right. Be sure to use your actual date of birth.</value>
   </data>
@@ -152,5 +158,8 @@
   </data>
   <data name="Registration_Username_Invalid_Length" xml:space="preserve">
     <value>Please use between {0} and {1} characters.</value>
+  </data>
+  <data name="Registration_UserRole_Invalid_Value" xml:space="preserve">
+    <value>Unsupported value of user role.</value>
   </data>
 </root>
