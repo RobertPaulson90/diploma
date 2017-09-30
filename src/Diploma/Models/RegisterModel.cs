@@ -13,7 +13,7 @@ namespace Diploma.Models
 
         private string _firstName;
 
-        private GenderType? _gender;
+        private GenderType _gender;
 
         private string _lastName;
 
@@ -76,7 +76,7 @@ namespace Diploma.Models
             }
         }
 
-        public GenderType? Gender
+        public GenderType Gender
         {
             get
             {

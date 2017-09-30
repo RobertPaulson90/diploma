@@ -14,19 +14,7 @@
     </Style>
 
     <Thickness x:Key="DefaultIconsMargin"
-               Bottom="16"
-               Left="4"
-               Right="4"
-               Top="12" />
-
-    <Thickness x:Key="DefaultTextFieldsMargin"
-               Bottom="12"
-               Left="0"
-               Right="0"
-               Top="0" />
-
-    <Thickness x:Key="DefaultButtonsSpacing"
-               Bottom="0"
+               Bottom="4"
                Left="4"
                Right="4"
                Top="0" />
@@ -43,16 +31,9 @@
                Right="8"
                Top="8" />
 
-    <Style x:Key="TransparentDivider" TargetType="{x:Type Border}">
-        <Setter Property="Margin" Value="0 8 0 0" />
-        <Setter Property="Padding" Value="0 0 0 16" />
-        <Setter Property="BorderThickness" Value="0 1 0 0" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-    </Style>
-
     <Style x:Key="Divider"
-           BasedOn="{StaticResource TransparentDivider}"
            TargetType="{x:Type Border}">
+        <Setter Property="BorderThickness" Value="0 1 0 0" />
         <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignDivider}" />
     </Style>
 

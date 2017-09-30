@@ -31,7 +31,7 @@ namespace Diploma.BLL.Services
             string firstName,
             string middleName,
             DateTime? birthDate,
-            GenderType? gender,
+            GenderType gender,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             return await CreateUserAsync(
@@ -54,7 +54,7 @@ namespace Diploma.BLL.Services
             string middleName,
             UserRoleType userRole,
             DateTime? birthDate,
-            GenderType? gender,
+            GenderType gender,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             try

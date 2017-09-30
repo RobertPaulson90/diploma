@@ -16,7 +16,7 @@ namespace Diploma.Infrastructure
             string firstName,
             string middleName,
             DateTime? birthDate,
-            GenderType? gender,
+            GenderType gender,
             CancellationToken cancellationToken = default(CancellationToken));
 
         Task<OperationResult<UserEntity>> CreateUserAsync(
@@ -27,7 +27,7 @@ namespace Diploma.Infrastructure
             string middleName,
             UserRoleType userRole,
             DateTime? birthDate,
-            GenderType? gender,
+            GenderType gender,
             CancellationToken cancellationToken = default(CancellationToken));
 
         Task<OperationResult<bool>> IsUsernameUniqueAsync(string username, CancellationToken cancellationToken);

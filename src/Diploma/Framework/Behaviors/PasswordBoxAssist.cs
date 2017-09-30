@@ -3,28 +3,27 @@ using System.Windows.Controls;
 
 namespace Diploma.Framework.Behaviors
 {
-    public static class PasswordHelper
+    public static class PasswordBoxAssist
     {
         public static readonly DependencyProperty PasswordProperty = DependencyProperty.RegisterAttached(
             "Password",
             typeof(string),
-            typeof(PasswordHelper),
+            typeof(PasswordBoxAssist),
             new FrameworkPropertyMetadata(string.Empty, OnPasswordPropertyChanged));
 
         public static readonly DependencyProperty AttachProperty = DependencyProperty.RegisterAttached(
             "Attach",
             typeof(bool),
-            typeof(PasswordHelper),
+            typeof(PasswordBoxAssist),
             new PropertyMetadata(false, Attach));
 
         public static readonly DependencyProperty IsUpdatingProperty = DependencyProperty.RegisterAttached(
             "IsUpdating",
             typeof(bool),
-            typeof(PasswordHelper));
+            typeof(PasswordBoxAssist));
 
         public static bool GetAttach(DependencyObject dp)
         {
-            // ReSharper disable once PossibleNullReferenceException
             return (bool)dp.GetValue(AttachProperty);
         }
 

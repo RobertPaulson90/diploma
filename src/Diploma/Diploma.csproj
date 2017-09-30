@@ -112,7 +112,7 @@
     </Compile>
     <Compile Include="Framework\Behaviors\EnumBindingSourceExtension.cs" />
     <Compile Include="Framework\Behaviors\EnumDescriptionTypeConverter.cs" />
-    <Compile Include="Framework\Behaviors\PasswordHelper.cs" />
+    <Compile Include="Framework\Behaviors\PasswordBoxAssist.cs" />
     <Compile Include="DAL\Entities\AdminEntity.cs" />
     <Compile Include="DAL\Entities\CustomerEntity.cs" />
     <Compile Include="DAL\Entities\EmployeeEntity.cs" />

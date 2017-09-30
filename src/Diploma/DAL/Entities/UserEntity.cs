@@ -11,7 +11,7 @@ namespace Diploma.DAL.Entities
         [Required]
         public string FirstName { get; set; }
 
-        public GenderType? Gender { get; set; }
+        public GenderType Gender { get; set; }
 
         [Required]
         public string LastName { get; set; }
