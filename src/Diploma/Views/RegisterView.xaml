@@ -15,6 +15,7 @@
              mc:Ignorable="d">
     <Grid x:Name="Body" Background="{StaticResource MaterialBackground}">
         <materialDesign:Card Padding="{StaticResource GlobalCardPadding}"
+                             materialDesign:ShadowAssist.ShadowDepth="Depth5"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center">
             <Grid>
@@ -24,7 +25,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="12" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="16" />
+                    <RowDefinition Height="20" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid x:Name="Header" Grid.Row="0">
