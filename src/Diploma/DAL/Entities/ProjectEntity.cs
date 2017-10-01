@@ -14,7 +14,7 @@ namespace Diploma.DAL.Entities
 
         public virtual ICollection<TeamEntity> InvolvedTeams { get; set; }
 
-        public virtual ManagerEntity ManagerEntity { get; set; }
+        public virtual ManagerEntity Manager { get; set; }
 
         public int ManagerId { get; set; }
 

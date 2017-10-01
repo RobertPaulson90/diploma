@@ -1,44 +1,176 @@
-﻿using System.Security.Principal;
+﻿using System;
+using System.Security.Principal;
 using System.Threading;
 using Caliburn.Micro;
+using Diploma.DAL.Entities;
 using Diploma.Framework;
+using Diploma.Framework.Validations;
 using Diploma.Infrastructure;
 using Diploma.Models;
 using FluentValidation;
 
 namespace Diploma.ViewModels
 {
-    public sealed class RegisterViewModel : Screen
+    public sealed class RegisterViewModel : ValidatableScreen<RegisterViewModel, IValidator<RegisterViewModel>>
     {
         private readonly IMessageService _messageService;
 
         private readonly IUserService _userService;
 
-        private bool _isRegistering;
+        private DateTime? _birthDate;
 
         private CancellationTokenSource _cancellationToken = new CancellationTokenSource();
 
-        public RegisterModel Model { get; }
+        private string _confirmPassword;
 
-        public RegisterViewModel(IUserService userService, IMessageService messageService, IValidator<RegisterModel> validator)
+        private string _firstName;
+
+        private GenderType _gender;
+
+        private string _lastName;
+
+        private string _middleName;
+
+        private string _password;
+
+        private string _username;
+
+        public RegisterViewModel(IUserService userService, IMessageService messageService, IValidator<RegisterViewModel> validator)
+            : base(validator)
         {
             _userService = userService;
             _messageService = messageService;
-            Model = new RegisterModel(validator);
+            BusyScope = new BusyScope();
             DisplayName = "Registration";
         }
 
-
-        public bool IsRegistering
+        public DateTime? BirthDate
         {
             get
             {
-                return _isRegistering;
+                return _birthDate;
             }
 
             set
             {
-                Set(ref _isRegistering, value);
+                if (Set(ref _birthDate, value))
+                {
+                    Validate();
+                }
+            }
+        }
+
+        public BusyScope BusyScope { get; }
+
+        public string ConfirmPassword
+        {
+            get
+            {
+                return _confirmPassword;
+            }
+
+            set
+            {
+                if (Set(ref _confirmPassword, value))
+                {
+                    Validate();
+                }
+            }
+        }
+
+        public string FirstName
+        {
+            get
+            {
+                return _firstName;
+            }
+
+            set
+            {
+                if (Set(ref _firstName, value))
+                {
+                    Validate();
+                }
+            }
+        }
+
+        public GenderType Gender
+        {
+            get
+            {
+                return _gender;
+            }
+
+            set
+            {
+                if (Set(ref _gender, value))
+                {
+                    Validate();
+                }
+            }
+        }
+
+        public string LastName
+        {
+            get
+            {
+                return _lastName;
+            }
+
+            set
+            {
+                if (Set(ref _lastName, value))
+                {
+                    Validate();
+                }
+            }
+        }
+
+        public string MiddleName
+        {
+            get
+            {
+                return _middleName;
+            }
+
+            set
+            {
+                if (Set(ref _middleName, value))
+                {
+                    Validate();
+                }
+            }
+        }
+
+        public string Password
+        {
+            get
+            {
+                return _password;
+            }
+
+            set
+            {
+                if (Set(ref _password, value))
+                {
+                    Validate();
+                }
+            }
+        }
+
+        public string Username
+        {
+            get
+            {
+                return _username;
+            }
+
+            set
+            {
+                if (Set(ref _username, value))
+                {
+                    Validate();
+                }
             }
         }
 
@@ -50,28 +182,28 @@ namespace Diploma.ViewModels
 
         public async void Register()
         {
-            if (IsRegistering)
+            if (BusyScope.IsBusy)
             {
                 return;
             }
 
-            if (Model.HasErrors)
+            if (HasErrors)
             {
                 _messageService.Enqueue("There were problems creating your account.");
                 return;
             }
 
-            IsRegistering = true;
-            try
+            using (BusyScope.StartWork())
             {
-                var result = await _userService.CreateCustomerAsync(
-                    Model.Username,
-                    Model.Password,
-                    Model.LastName,
-                    Model.FirstName,
-                    Model.MiddleName,
-                    Model.BirthDate,
-                    Model.Gender,
+                var result = await _userService.CreateUserAsync(
+                    Username,
+                    Password,
+                    LastName,
+                    FirstName,
+                    MiddleName,
+                    UserRoleType.Customer,
+                    BirthDate,
+                    Gender,
                     _cancellationToken.Token);
 
                 if (!result.Success)
@@ -82,17 +214,13 @@ namespace Diploma.ViewModels
 
                 var user = result.Result;
 
-                var identity = new GenericIdentity(user.Username);
+                var identity = new GenericIdentity(user.Credentials.Username);
                 var principal = new GenericPrincipal(identity, new[] { user.GetUserRole() });
                 Thread.CurrentPrincipal = principal;
 
                 var dashboard = IoC.Get<DashboardViewModel>();
                 dashboard.Init(user);
                 ((ShellViewModel)Parent).ActiveItem = dashboard;
-            }
-            finally
-            {
-                IsRegistering = false;
             }
         }
 

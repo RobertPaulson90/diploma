@@ -24,6 +24,7 @@ namespace Diploma.Framework.Behaviors
 
         public static bool GetAttach(DependencyObject dp)
         {
+            // ReSharper disable once PossibleNullReferenceException
             return (bool)dp.GetValue(AttachProperty);
         }
 

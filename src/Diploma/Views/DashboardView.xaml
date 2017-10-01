@@ -23,8 +23,12 @@
                             </Grid.ColumnDefinitions>
                             <materialDesign:Chip Grid.Column="0"
                                                  VerticalAlignment="Center"
-                                                 Content="{Binding CurrentUser.Username}"
-                                                 Cursor="Arrow" />
+                                                 Content="{Binding CurrentUser.Credentials.Username}"
+                                                 Cursor="Arrow">
+                                <materialDesign:Chip.Icon>
+                                    <materialDesign:PackIcon Kind="Account" />
+                                </materialDesign:Chip.Icon>
+                            </materialDesign:Chip>
                             <materialDesign:PopupBox Grid.Column="1"
                                                      PlacementMode="BottomAndAlignCentres"
                                                      StaysOpen="False">

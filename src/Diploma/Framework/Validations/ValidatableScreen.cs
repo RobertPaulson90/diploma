@@ -8,8 +8,8 @@ using FluentValidation.Results;
 
 namespace Diploma.Framework.Validations
 {
-    public abstract class ValidatablePropertyChanged<TProperty, TValidator> : PropertyChangedBase, IDataErrorInfo, INotifyDataErrorInfo
-        where TProperty : PropertyChangedBase
+    public abstract class ValidatableScreen<TProperty, TValidator> : Screen, IDataErrorInfo, INotifyDataErrorInfo
+        where TProperty : Screen
         where TValidator : IValidator<TProperty>
     {
         private readonly TProperty _target;
@@ -18,7 +18,7 @@ namespace Diploma.Framework.Validations
 
         private ValidationResult _validationResult;
 
-        protected ValidatablePropertyChanged(TValidator validator)
+        protected ValidatableScreen(TValidator validator)
         {
             _target = this as TProperty;
             if (_target == null)

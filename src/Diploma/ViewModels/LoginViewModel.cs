@@ -2,13 +2,13 @@
 using System.Threading;
 using Caliburn.Micro;
 using Diploma.Framework;
+using Diploma.Framework.Validations;
 using Diploma.Infrastructure;
-using Diploma.Models;
 using FluentValidation;
 
 namespace Diploma.ViewModels
 {
-    public sealed class LoginViewModel : Screen
+    public sealed class LoginViewModel : ValidatableScreen<LoginViewModel, IValidator<LoginViewModel>>
     {
         private readonly IMessageService _messageService;
 
@@ -16,28 +16,50 @@ namespace Diploma.ViewModels
 
         private CancellationTokenSource _cancellationToken = new CancellationTokenSource();
 
-        private bool _isLoging;
+        private string _password;
 
-        public LoginModel Model { get; }
+        private string _username;
 
-        public LoginViewModel(IMessageService messageService, IUserService userService, IValidator<LoginModel> validator)
+        public LoginViewModel(IMessageService messageService, IUserService userService, IValidator<LoginViewModel> validator)
+            : base(validator)
         {
             _messageService = messageService;
             _userService = userService;
-            Model = new LoginModel(validator);
+            BusyScope = new BusyScope();
             DisplayName = "Authorization";
         }
 
-        public bool IsLoging
+        public BusyScope BusyScope { get; }
+
+        public string Password
         {
             get
             {
-                return _isLoging;
+                return _password;
             }
 
             set
             {
-                Set(ref _isLoging, value);
+                if (Set(ref _password, value))
+                {
+                    Validate();
+                }
+            }
+        }
+
+        public string Username
+        {
+            get
+            {
+                return _username;
+            }
+
+            set
+            {
+                if (Set(ref _username, value))
+                {
+                    Validate();
+                }
             }
         }
 
@@ -49,21 +71,20 @@ namespace Diploma.ViewModels
 
         public async void SignIn()
         {
-            if (IsLoging)
+            if (BusyScope.IsBusy)
             {
                 return;
             }
 
-            if (Model.HasErrors)
+            if (HasErrors)
             {
                 _messageService.Enqueue("Incorrect username or password.");
                 return;
             }
 
-            IsLoging = true;
-            try
+            using (BusyScope.StartWork())
             {
-                var result = await _userService.GetUserByCredentialsAsync(Model.Username, Model.Password, _cancellationToken.Token);
+                var result = await _userService.GetUserByCredentialsAsync(Username, Password, _cancellationToken.Token);
 
                 if (!result.Success)
                 {
@@ -73,7 +94,7 @@ namespace Diploma.ViewModels
 
                 var user = result.Result;
 
-                var identity = new GenericIdentity(user.Username);
+                var identity = new GenericIdentity(user.Credentials.Username);
                 var principal = new GenericPrincipal(identity, new[] { user.GetUserRole() });
                 Thread.CurrentPrincipal = principal;
 
@@ -81,10 +102,6 @@ namespace Diploma.ViewModels
                 dashboard.Init(user);
 
                 ((ShellViewModel)Parent).ActiveItem = dashboard;
-            }
-            finally
-            {
-                IsLoging = false;
             }
         }
 

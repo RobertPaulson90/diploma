@@ -24,28 +24,6 @@ namespace Diploma.BLL.Services
             _companyContextFactory = companyContextFactory;
         }
 
-        public async Task<OperationResult<UserEntity>> CreateCustomerAsync(
-            string username,
-            string password,
-            string lastName,
-            string firstName,
-            string middleName,
-            DateTime? birthDate,
-            GenderType gender,
-            CancellationToken cancellationToken = default(CancellationToken))
-        {
-            return await CreateUserAsync(
-                username,
-                password,
-                lastName,
-                firstName,
-                middleName,
-                UserRoleType.Customer,
-                birthDate,
-                gender,
-                cancellationToken);
-        }
-
         public async Task<OperationResult<UserEntity>> CreateUserAsync(
             string username,
             string password,
@@ -83,8 +61,9 @@ namespace Diploma.BLL.Services
                 userEntity.MiddleName = middleName;
                 userEntity.BirthDate = birthDate;
                 userEntity.Gender = gender;
-                userEntity.Username = username;
-                userEntity.Password = _cryptoService.HashPassword(password);
+                userEntity.Credentials = new CredentialsEntity();
+                userEntity.Credentials.Username = username;
+                userEntity.Credentials.Password = _cryptoService.HashPassword(password);
 
                 using (var context = _companyContextFactory())
                 using (var transaction = context.Database.BeginTransaction())
@@ -118,16 +97,17 @@ namespace Diploma.BLL.Services
             {
                 using (var context = _companyContextFactory())
                 {
-                    var user = await context.Users.AsNoTracking().SingleOrDefaultAsync(UserNameEquals(username), cancellationToken);
+                    var credentialsEntity =
+                        await context.Credentials.AsNoTracking().SingleOrDefaultAsync(UserNameEquals(username), cancellationToken);
 
-                    if (user == null)
+                    if (credentialsEntity == null)
                     {
                         return OperationResult<UserEntity>.CreateFailure(Resources.Authorization_Username_Not_Found);
                     }
 
-                    if (_cryptoService.VerifyPasswordHash(password, user.Password))
+                    if (_cryptoService.VerifyPasswordHash(password, credentialsEntity.Password))
                     {
-                        return OperationResult<UserEntity>.CreateSuccess(user);
+                        return OperationResult<UserEntity>.CreateSuccess(credentialsEntity.User);
                     }
                 }
 
@@ -145,7 +125,7 @@ namespace Diploma.BLL.Services
             {
                 using (var context = _companyContextFactory())
                 {
-                    var isUnique = !await context.Users.AnyAsync(UserNameEquals(username), cancellationToken);
+                    var isUnique = !await context.Credentials.AnyAsync(UserNameEquals(username), cancellationToken);
                     return OperationResult<bool>.CreateSuccess(isUnique);
                 }
             }
@@ -155,7 +135,7 @@ namespace Diploma.BLL.Services
             }
         }
 
-        private static Expression<Func<UserEntity, bool>> UserNameEquals(string username)
+        private static Expression<Func<CredentialsEntity, bool>> UserNameEquals(string username)
         {
             return x => username.ToUpper() == x.Username.ToUpper();
         }

@@ -15,17 +15,17 @@ namespace Diploma.ViewModels
         }
 
         public UserEntity CurrentUser { get; private set; }
-        
+
         public void Init(UserEntity currentUser)
         {
             CurrentUser = currentUser;
-            _messageService.Enqueue($"Hello, {CurrentUser.Username}");
+            _messageService.Enqueue($"Hello, {CurrentUser.Credentials.Username}");
             DisplayName = "Dashboard";
         }
-        
+
         public void Logout()
         {
-            _messageService.Enqueue($"Goodbye, {CurrentUser.Username}");
+            _messageService.Enqueue($"Goodbye, {CurrentUser.Credentials.Username}");
             Thread.CurrentPrincipal = null;
             CurrentUser = null;
             ((ShellViewModel)Parent).ActiveItem = IoC.Get<LoginViewModel>();

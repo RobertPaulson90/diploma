@@ -13,6 +13,8 @@ namespace Diploma.DAL
 
         public DbSet<AdminEntity> Admins { get; set; }
 
+        public DbSet<CredentialsEntity> Credentials { get; set; }
+
         public DbSet<CustomerEntity> Customers { get; set; }
 
         public DbSet<EmployeeEntity> Employees { get; set; }
@@ -37,7 +39,7 @@ namespace Diploma.DAL
             modelBuilder.Entity<ProgrammerEntity>().HasMany(x => x.TeamsMemberships).WithRequired(x => x.Programmer)
                 .HasForeignKey(x => x.ProgrammerId);
 
-            modelBuilder.Entity<ManagerEntity>().HasMany(x => x.ManagedProjects).WithRequired(x => x.ManagerEntity).HasForeignKey(x => x.ManagerId);
+            modelBuilder.Entity<ManagerEntity>().HasMany(x => x.ManagedProjects).WithRequired(x => x.Manager).HasForeignKey(x => x.ManagerId);
 
             modelBuilder.Entity<CustomerEntity>().ToTable("Customers").HasMany(x => x.Projects).WithRequired(x => x.Customer)
                 .HasForeignKey(x => x.CustomerId);
@@ -54,9 +56,11 @@ namespace Diploma.DAL
 
             modelBuilder.Entity<TeamMemberEntity>().ToTable("TeamMembers");
 
-            modelBuilder.Entity<UserEntity>().ToTable("Users");
+            modelBuilder.Entity<UserEntity>().ToTable("Users").HasRequired(x => x.Credentials).WithRequiredPrincipal(x => x.User);
 
             modelBuilder.Entity<AdminEntity>().ToTable("Admins");
+
+            modelBuilder.Entity<CredentialsEntity>().ToTable("Credentials");
 
             var sqliteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<CompanyContext>(modelBuilder, true);
             Database.SetInitializer(sqliteConnectionInitializer);
