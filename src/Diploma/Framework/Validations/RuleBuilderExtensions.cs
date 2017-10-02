@@ -1,9 +1,10 @@
 ﻿using System;
+using Diploma.Framework.Validations.PropertyValidators;
 using FluentValidation;
 
-namespace Diploma.Validators.Properties
+namespace Diploma.Framework.Validations
 {
-    public static class Validators
+    public static class RuleBuilderExtensions
     {
         public static IRuleBuilderOptions<T, DateTime?> BirthDate<T>(this IRuleBuilder<T, DateTime?> ruleBuilder)
         {

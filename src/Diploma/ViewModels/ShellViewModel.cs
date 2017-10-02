@@ -1,24 +1,26 @@
 ﻿using System;
 using Caliburn.Micro;
+using Diploma.Framework.Messages;
 using MaterialDesignThemes.Wpf;
 
 namespace Diploma.ViewModels
 {
-    public sealed class ShellViewModel : Conductor<Screen>, IHandle<string>
+    public sealed class ShellViewModel : Conductor<Screen>, IHandle<ShowErrorMessage>
     {
         private readonly IEventAggregator _eventAggregator;
 
-        public ShellViewModel(IEventAggregator eventAggregator)
+        public ShellViewModel(IEventAggregator eventAggregator, AuthenticationManagerViewModel authenticationManagerViewModel)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
+            ActiveItem = authenticationManagerViewModel;
         }
 
         public SnackbarMessageQueue MessageQueue { get; } = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
-
-        public void Handle(string message)
+        
+        public void Handle(ShowErrorMessage message)
         {
-            MessageQueue.Enqueue(message, true);
+            MessageQueue.Enqueue(message.Message, true);
         }
 
         protected override void OnActivate()
@@ -29,11 +31,6 @@ namespace Diploma.ViewModels
         protected override void OnDeactivate(bool close)
         {
             _eventAggregator.Unsubscribe(this);
-        }
-
-        protected override void OnInitialize()
-        {
-            ActiveItem = IoC.Get<LoginViewModel>();
         }
     }
 }

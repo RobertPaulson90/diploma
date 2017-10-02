@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Diploma.BLL.Interfaces.Services;
 using Diploma.Common.Properties;
-using Diploma.Validators.Properties;
+using Diploma.Framework.Validations;
 using Diploma.ViewModels;
 using FluentValidation;
 

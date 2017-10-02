@@ -3,8 +3,8 @@ using Caliburn.Micro;
 using Diploma.BLL.DTO;
 using Diploma.BLL.Interfaces.Services;
 using Diploma.Common;
+using Diploma.Framework.Interfaces;
 using Diploma.Framework.Validations;
-using Diploma.Services.Interfaces;
 using FluentValidation;
 
 namespace Diploma.ViewModels
@@ -27,7 +27,6 @@ namespace Diploma.ViewModels
             _messageService = messageService;
             _userService = userService;
             BusyScope = new BusyScope();
-            DisplayName = "Authorization";
         }
 
         public BusyScope BusyScope { get; }
@@ -67,7 +66,7 @@ namespace Diploma.ViewModels
         public void CreateNewAccount()
         {
             CancelAsync();
-            ((ShellViewModel)Parent).ActiveItem = IoC.Get<RegisterViewModel>();
+            ((IConductActiveItem)Parent).ActiveItem = IoC.Get<RegisterViewModel>();
         }
 
         public async void SignIn()
@@ -77,9 +76,10 @@ namespace Diploma.ViewModels
                 return;
             }
 
-            if (HasErrors)
+            var isValid = Validate();
+            if (!isValid)
             {
-                _messageService.ShowMessage("Incorrect username or password.");
+                _messageService.ShowErrorMessage("Incorrect username or password.");
                 return;
             }
 
@@ -95,14 +95,14 @@ namespace Diploma.ViewModels
 
                 if (!operation.Success)
                 {
-                    _messageService.ShowMessage(operation.NonSuccessMessage);
+                    _messageService.ShowErrorMessage(operation.NonSuccessMessage);
                     return;
                 }
 
                 var user = operation.Result;
                 var dashboard = IoC.Get<DashboardViewModel>();
                 dashboard.Init(user);
-                ((ShellViewModel)Parent).ActiveItem = dashboard;
+                ((IConductActiveItem)Parent).ActiveItem = dashboard;
             }
         }
 

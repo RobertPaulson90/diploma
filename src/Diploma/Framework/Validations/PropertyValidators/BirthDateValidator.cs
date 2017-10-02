@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentValidation.Validators;
 
-namespace Diploma.Validators.Properties
+namespace Diploma.Framework.Validations.PropertyValidators
 {
     public class BirthDateValidator : PropertyValidator
     {
@@ -39,17 +39,17 @@ namespace Diploma.Validators.Properties
                 return true;
             }
 
-
-            if (!(birthDate >= _minimumBirthDate) || !(birthDate < _maximumBirthDate))
+            if (birthDate >= _minimumBirthDate && birthDate < _maximumBirthDate)
             {
-                context.MessageFormatter
-                    .AppendArgument("From", _minimumBirthDate)
-                    .AppendArgument("To", _maximumBirthDate)
-                    .AppendArgument("Value", context.PropertyValue);
-                return false;
+                return true;
             }
 
-            return true;
+            context.MessageFormatter
+                .AppendArgument("From", _minimumBirthDate)
+                .AppendArgument("To", _maximumBirthDate)
+                .AppendArgument("Value", context.PropertyValue);
+
+            return false;
         }
     }
 }

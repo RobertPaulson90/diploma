@@ -40,16 +40,16 @@ namespace Diploma.Common
                     return;
                 }
 
-                if (_worksCount == 0 && value == 1)
+                _worksCount = value;
+
+                if (_worksCount == 1)
                 {
                     IsBusy = true;
                 }
-                else if (_worksCount == 1 && value == 0)
+                else if (_worksCount == 0)
                 {
                     IsBusy = false;
                 }
-
-                _worksCount = value;
             }
         }
 

@@ -130,7 +130,7 @@
     <value>Incorrect username or password.</value>
   </data>
   <data name="Registration_BirthDate_Must_Be_Be_Valid_Age" xml:space="preserve">
-    <value>Hmm, the date doesn't look right. Be sure to use your actual date of birth.</value>
+    <value>Hmm, the date doesn't look right.</value>
   </data>
   <data name="Registration_ConfirmPassword_Can_Not_Be_Empty" xml:space="preserve">
     <value>You can't leave this empty.</value>
@@ -163,7 +163,7 @@
     <value>Unsupported value of user role.</value>
   </data>
   <data name="Editing_BirthDate_Must_Be_Be_Valid_Age" xml:space="preserve">
-    <value>Hmm, the date doesn't look right. Be sure to use your actual date of birth.</value>
+    <value>Hmm, the date doesn't look right.</value>
   </data>
   <data name="Editing_FirstName_Can_Not_Be_Empty" xml:space="preserve">
     <value>You can't leave this empty.</value>

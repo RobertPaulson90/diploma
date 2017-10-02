@@ -7,7 +7,7 @@
                       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:viewModels="clr-namespace:Diploma.ViewModels"
-                      Title="{Binding ActiveItem.DisplayName}"
+                      Title="Diploma"
                       d:DataContext="{d:DesignInstance viewModels:ShellViewModel}"
                       Background="{DynamicResource MaterialDesignPaper}"
                       BorderThickness="0"
@@ -22,7 +22,9 @@
     <materialDesign:DialogHost CloseOnClickAway="True" Identifier="RootDialog">
         <materialDesign:DialogHost.Content>
             <Grid>
-                <ContentControl cal:View.Model="{Binding ActiveItem}" materialDesign:ValidationAssist.OnlyShowOnFocus="True" />
+                <ContentControl cal:View.Model="{Binding ActiveItem}"
+                                materialDesign:ValidationAssist.OnlyShowOnFocus="True"
+                                materialDesign:ValidationAssist.UsePopup="True" />
                 <materialDesign:Snackbar MessageQueue="{Binding MessageQueue, Mode=OneTime}" />
             </Grid>
         </materialDesign:DialogHost.Content>

@@ -122,7 +122,7 @@ namespace Diploma.BLL.Services
                     try
                     {
                         var userDb = await context.Users.SingleAsync(x => x.Id == userUpdateRequestData.Id, cancellationToken);
-                        UpdateUserEntityByData(userDb, userUpdateRequestData);
+                        UpdateUserEntityWithData(userDb, userUpdateRequestData);
 
                         await context.SaveChangesAsync(cancellationToken);
                         transaction.Commit();
@@ -220,13 +220,13 @@ namespace Diploma.BLL.Services
             throw new ArgumentException();
         }
 
-        [SuppressMessage("ReSharper", "SpecifyStringComparison", Justification = "This must be used explicit cuz of LINQ to entities.")]
+        [SuppressMessage("ReSharper", "SpecifyStringComparison", Justification = "This must be used explicit cuz LINQ to entities doesn't support string.Equals(...).")]
         private static Expression<Func<CredentialsEntity, bool>> UserNameEquals(string username)
         {
             return x => username.ToUpper() == x.Username.ToUpper();
         }
 
-        private void UpdateUserEntityByData(UserEntity userDb, UserUpdateRequestDataDto userUpdateRequestData)
+        private void UpdateUserEntityWithData(UserEntity userDb, UserUpdateRequestDataDto userUpdateRequestData)
         {
             userDb.Gender = DtoGenderTypeToEntityGenderType(userUpdateRequestData.Gender);
             userDb.BirthDate = userUpdateRequestData.BirthDate;

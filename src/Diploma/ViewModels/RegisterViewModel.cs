@@ -5,8 +5,8 @@ using Diploma.BLL.DTO;
 using Diploma.BLL.DTO.Enums;
 using Diploma.BLL.Interfaces.Services;
 using Diploma.Common;
+using Diploma.Framework.Interfaces;
 using Diploma.Framework.Validations;
-using Diploma.Services.Interfaces;
 using FluentValidation;
 
 namespace Diploma.ViewModels
@@ -41,7 +41,6 @@ namespace Diploma.ViewModels
             _userService = userService;
             _messageService = messageService;
             BusyScope = new BusyScope();
-            DisplayName = "Registration";
         }
 
         public DateTime? BirthDate
@@ -177,7 +176,7 @@ namespace Diploma.ViewModels
         public void Cancel()
         {
             CancelAsync();
-            ((ShellViewModel)Parent).ActiveItem = IoC.Get<LoginViewModel>();
+            ((IConductActiveItem)Parent).ActiveItem = IoC.Get<LoginViewModel>();
         }
 
         public async void Register()
@@ -189,7 +188,7 @@ namespace Diploma.ViewModels
 
             if (HasErrors)
             {
-                _messageService.ShowMessage("There were problems creating your account. Check input and try again.");
+                _messageService.ShowErrorMessage("There were problems creating your account. Check input and try again.");
                 return;
             }
 
@@ -210,7 +209,7 @@ namespace Diploma.ViewModels
 
                 if (!operation.Success)
                 {
-                    _messageService.ShowMessage(operation.NonSuccessMessage);
+                    _messageService.ShowErrorMessage(operation.NonSuccessMessage);
                     return;
                 }
 

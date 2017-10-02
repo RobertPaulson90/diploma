@@ -9,8 +9,8 @@ using Caliburn.Micro;
 using Diploma.BLL.Interfaces.Services;
 using Diploma.BLL.Services;
 using Diploma.DAL.Contexts;
-using Diploma.Services;
-using Diploma.Services.Interfaces;
+using Diploma.Framework.Interfaces;
+using Diploma.Framework.Services;
 using Diploma.Validators;
 using Diploma.ViewModels;
 using FluentValidation;
@@ -44,10 +44,18 @@ namespace Diploma
             Container.RegisterSingleton<IUserService, UserService>();
             Container.RegisterSingleton<ICryptoService, CryptoService>();
 
-            Container.RegisterSingleton<ShellViewModel>();
+            Container.Register<ShellViewModel>();
+            
+            Container.Register<AuthenticationManagerViewModel>();
+
             Container.Register<RegisterViewModel>();
+            Container.RegisterSingleton<Func<RegisterViewModel>>(() => Container.GetInstance<RegisterViewModel>());
+
             Container.Register<LoginViewModel>();
+            Container.RegisterSingleton<Func<LoginViewModel>>(() => Container.GetInstance<LoginViewModel>());
+            
             Container.Register<DashboardViewModel>();
+
             Container.Register<EditUserDataViewModel>();
 
             Container.RegisterSingleton<IValidator<RegisterViewModel>, RegisterViewModelValidator>();

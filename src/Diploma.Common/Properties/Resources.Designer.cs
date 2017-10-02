@@ -97,7 +97,7 @@ namespace Diploma.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hmm, the date doesn&apos;t look right. Be sure to use your actual date of birth..
+        ///   Looks up a localized string similar to Hmm, the date doesn&apos;t look right..
         /// </summary>
         public static string Editing_BirthDate_Must_Be_Be_Valid_Age {
             get {
@@ -124,7 +124,7 @@ namespace Diploma.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hmm, the date doesn&apos;t look right. Be sure to use your actual date of birth..
+        ///   Looks up a localized string similar to Hmm, the date doesn&apos;t look right..
         /// </summary>
         public static string Registration_BirthDate_Must_Be_Be_Valid_Age {
             get {

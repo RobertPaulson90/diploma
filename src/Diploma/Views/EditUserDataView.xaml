@@ -1,7 +1,6 @@
 ﻿<UserControl x:Class="Diploma.Views.EditUserDataView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:behaviors="clr-namespace:Diploma.Behaviors"
              xmlns:converters="clr-namespace:Diploma.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:enums="clr-namespace:Diploma.BLL.DTO.Enums;assembly=Diploma.BLL"
@@ -9,6 +8,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:viewModels="clr-namespace:Diploma.ViewModels"
+             xmlns:markupExtensions="clr-namespace:Diploma.MarkupExtensions"
              d:DataContext="{d:DesignInstance viewModels:EditUserDataViewModel}"
              mc:Ignorable="d">
     <UserControl.Resources>
@@ -66,7 +66,7 @@
                                  Grid.ColumnSpan="4"
                                  materialDesign:HintAssist.Hint="Last name"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
+                                 Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}" />
 
                         <TextBox x:Name="FirstNameField"
                                  Grid.Row="2"
@@ -74,7 +74,7 @@
                                  Grid.ColumnSpan="4"
                                  materialDesign:HintAssist.Hint="First name"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
+                                 Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}" />
 
                         <TextBox x:Name="MiddleNameField"
                                  Grid.Row="4"
@@ -82,7 +82,7 @@
                                  Grid.ColumnSpan="4"
                                  materialDesign:HintAssist.Hint="Middle name"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding MiddleName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
+                                 Text="{Binding MiddleName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}" />
 
                         <materialDesign:PackIcon Grid.Row="6"
                                                  Grid.Column="0"
@@ -96,7 +96,7 @@
                                     Grid.Column="1"
                                     VerticalContentAlignment="Bottom"
                                     materialDesign:HintAssist.Hint="Birth date"
-                                    SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                                    SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
                                     Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" />
 
                         <materialDesign:PackIcon Grid.Row="6"
@@ -111,7 +111,7 @@
                                   Grid.Column="4"
                                   materialDesign:ComboBoxAssist.ShowSelectedItem="False"
                                   materialDesign:HintAssist.Hint="Gender"
-                                  ItemsSource="{Binding Source={behaviors:EnumBindingSource {x:Type enums:GenderType}}}"
+                                  ItemsSource="{Binding Source={markupExtensions:EnumBindingSource {x:Type enums:GenderType}}}"
                                   SelectedValue="{Binding Gender, Mode=TwoWay}"
                                   Style="{DynamicResource MaterialDesignFloatingHintComboBox}" />
                     </Grid>
@@ -129,7 +129,7 @@
                             Content="OK"
                             IsDefault="True"
                             IsEnabled="{Binding HasErrors, Converter={StaticResource InvertBoolConverter}}"
-                            Style="{StaticResource MaterialDesignRaisedButtonWithIndicator}">
+                            Style="{StaticResource MaterialDesignRaisedButton}">
                         <Button.CommandParameter>
                             <system:Boolean>True</system:Boolean>
                         </Button.CommandParameter>

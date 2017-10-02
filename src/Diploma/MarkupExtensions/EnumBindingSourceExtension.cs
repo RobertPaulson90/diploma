@@ -1,8 +1,9 @@
 using System;
 using System.Windows.Markup;
 
-namespace Diploma.Behaviors
+namespace Diploma.MarkupExtensions
 {
+    [MarkupExtensionReturnType(typeof(Array))]
     public class EnumBindingSourceExtension : MarkupExtension
     {
         private Type _enumType;
@@ -15,7 +16,7 @@ namespace Diploma.Behaviors
         {
             EnumType = enumType;
         }
-
+        
         public Type EnumType
         {
             get
@@ -42,7 +43,7 @@ namespace Diploma.Behaviors
                 _enumType = value;
             }
         }
-
+        
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             if (_enumType == null)

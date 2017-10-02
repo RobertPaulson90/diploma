@@ -9,7 +9,7 @@ using FluentValidation.Results;
 namespace Diploma.Framework.Validations
 {
     public abstract class ValidatableScreen<TProperty, TValidator> : Screen, INotifyDataErrorInfo
-        where TProperty : Screen
+        where TProperty : ValidatableScreen<TProperty, TValidator>
         where TValidator : IValidator<TProperty>
     {
         private readonly TProperty _target;
@@ -18,41 +18,23 @@ namespace Diploma.Framework.Validations
 
         private ValidationResult _validationResult;
 
-        private bool _hasErrors;
-
         protected ValidatableScreen(TValidator validator)
         {
-            _target = this as TProperty;
-            if (_target == null)
-            {
-                throw new ArgumentException("Invalid type of screen passed.");
-            }
-
+            _target = (TProperty)this;
             _validator = validator;
-            _validationResult = _validator.Validate(_target);
+            Validate();
         }
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
-        public bool HasErrors
-        {
-            get
-            {
-                return _hasErrors;
-            }
-
-            private set
-            {
-                Set(ref _hasErrors, value);
-            }
-        }
+        public bool HasErrors => _validationResult.Errors.Count > 0;
 
         public IEnumerable GetErrors(string propertyName)
         {
             return _validationResult.Errors.Where(x => x.PropertyName == propertyName).Select(x => x.ErrorMessage);
         }
 
-        public virtual bool Validate()
+        public bool Validate()
         {
             _validationResult = _validator.Validate(_target);
 
@@ -61,8 +43,8 @@ namespace Diploma.Framework.Validations
                 OnUIThread(() => RaiseErrorsChanged(error.PropertyName));
             }
 
-            HasErrors = _validationResult.Errors.Count > 0;
-            return HasErrors;
+            NotifyOfPropertyChange(nameof(HasErrors));
+            return !HasErrors;
         }
 
         private void RaiseErrorsChanged(string propertyName)

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using Caliburn.Micro;
 using Diploma.BLL.DTO;
 using Diploma.BLL.Interfaces.Services;
-using Diploma.Services.Interfaces;
+using Diploma.Framework.Interfaces;
 using Diploma.Views;
 using MaterialDesignThemes.Wpf;
 
 namespace Diploma.ViewModels
 {
-    public sealed class DashboardViewModel : Screen
+    public sealed class DashboardViewModel : Conductor<Screen>
     {
         private readonly IMessageService _messageService;
 
@@ -41,10 +40,10 @@ namespace Diploma.ViewModels
                 return;
             }
 
-            var validationResult = viewModel.Validate();
-            if (validationResult)
+            var isValid = viewModel.Validate();
+            if (!isValid)
             {
-                _messageService.ShowMessage("There were problems saving your personal info. Check input and try again.");
+                _messageService.ShowErrorMessage("There were problems saving your personal info. Check input and try again.");
                 return;
             }
 
@@ -62,7 +61,7 @@ namespace Diploma.ViewModels
 
             if (!operation.Success)
             {
-                _messageService.ShowMessage(operation.NonSuccessMessage);
+                _messageService.ShowErrorMessage(operation.NonSuccessMessage);
                 return;
             }
 
@@ -72,13 +71,12 @@ namespace Diploma.ViewModels
         public void Init(UserDto currentUser)
         {
             CurrentUser = currentUser;
-            _messageService.ShowMessage($"Hello, {CurrentUser.Username}");
-            DisplayName = "Dashboard";
+            _messageService.ShowErrorMessage($"Hello, {CurrentUser.Username}");
         }
 
         public void Logout()
         {
-            _messageService.ShowMessage($"Goodbye, {CurrentUser.Username}");
+            _messageService.ShowErrorMessage($"Goodbye, {CurrentUser.Username}");
             Thread.CurrentPrincipal = null;
             CurrentUser = null;
             ((ShellViewModel)Parent).ActiveItem = IoC.Get<LoginViewModel>();
