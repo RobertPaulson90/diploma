@@ -19,7 +19,7 @@ namespace Diploma.DAL.Entities
 
         public string MiddleName { get; set; }
 
-        public GenderType? Gender { get; set; }
+        public GenderType Gender { get; set; }
 
         public DateTime? BirthDate { get; set; }
 

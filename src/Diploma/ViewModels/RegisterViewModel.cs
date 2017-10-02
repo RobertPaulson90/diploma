@@ -2,11 +2,10 @@
 using System.Security.Principal;
 using System.Threading;
 using Caliburn.Micro;
+using Diploma.BLL.DTO;
 using Diploma.BLL.DTO.Enums;
 using Diploma.BLL.Interfaces.Services;
 using Diploma.Common;
-using Diploma.DAL.Entities.Enums;
-using Diploma.Framework;
 using Diploma.Framework.Validations;
 using FluentValidation;
 
@@ -190,33 +189,36 @@ namespace Diploma.ViewModels
 
             if (HasErrors)
             {
-                _messageService.Enqueue("There were problems creating your account.");
+                _messageService.ShowMessage("There were problems creating your account.");
                 return;
             }
 
             using (BusyScope.StartWork())
             {
-                var result = await _userService.CreateUserAsync(
-                    Username,
-                    Password,
-                    LastName,
-                    FirstName,
-                    MiddleName,
-                    UserRoleType.Customer,
-                    BirthDate,
-                    Gender,
-                    _cancellationToken.Token);
+                var userRegistrationDataDto = new UserRegistrationDataDto
+                {
+                    BirthDate = BirthDate,
+                    FirstName = FirstName,
+                    Gender = Gender,
+                    LastName = LastName,
+                    MiddleName = MiddleName,
+                    Password = Password,
+                    Role = UserRoleType.Customer,
+                    Username = Username
+                };
+
+                var result = await _userService.CreateUserAsync(userRegistrationDataDto, _cancellationToken.Token);
 
                 if (!result.Success)
                 {
-                    _messageService.Enqueue(result.NonSuccessMessage);
+                    _messageService.ShowMessage(result.NonSuccessMessage);
                     return;
                 }
 
                 var user = result.Result;
 
-                var identity = new GenericIdentity(user.Credentials.Username);
-                var principal = new GenericPrincipal(identity, new[] { user.GetUserRole() });
+                var identity = new GenericIdentity(user.Username);
+                var principal = new GenericPrincipal(identity, new[] { user.Role.ToString() });
                 Thread.CurrentPrincipal = principal;
 
                 var dashboard = IoC.Get<DashboardViewModel>();

@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Diploma.BLL.DTO;
 using Diploma.BLL.DTO.Enums;
 using Diploma.BLL.Interfaces.Services;
 using Diploma.Common;
 using Diploma.Common.Properties;
 using Diploma.DAL.Contexts;
 using Diploma.DAL.Entities;
-using Diploma.DAL.Entities.Enums;
 
 namespace Diploma.BLL.Services
 {
@@ -19,52 +20,19 @@ namespace Diploma.BLL.Services
 
         private readonly ICryptoService _cryptoService;
 
-        public UserService(ICryptoService cryptoService, Func<CompanyContext> companyContextFactory)
+        public UserService(Func<CompanyContext> companyContextFactory, ICryptoService cryptoService)
         {
-            _cryptoService = cryptoService;
             _companyContextFactory = companyContextFactory;
+            _cryptoService = cryptoService;
         }
 
-        public async Task<OperationResult<UserEntity>> CreateUserAsync(
-            string username,
-            string password,
-            string lastName,
-            string firstName,
-            string middleName,
-            UserRoleType userRole,
-            DateTime? birthDate,
-            GenderType gender,
+        public async Task<OperationResult<UserDto>> CreateUserAsync(
+            UserRegistrationDataDto userRegistrationData,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             try
             {
-                UserEntity userEntity;
-                switch (userRole)
-                {
-                    case UserRoleType.Customer:
-                        userEntity = new CustomerEntity();
-                        break;
-                    case UserRoleType.Programmer:
-                        userEntity = new ProgrammerEntity();
-                        break;
-                    case UserRoleType.Manager:
-                        userEntity = new ManagerEntity();
-                        break;
-                    case UserRoleType.Admin:
-                        userEntity = new AdminEntity();
-                        break;
-                    default:
-                        return OperationResult<UserEntity>.CreateFailure(Resources.Registration_UserRole_Invalid_Value);
-                }
-
-                userEntity.LastName = lastName;
-                userEntity.FirstName = firstName;
-                userEntity.MiddleName = middleName;
-                userEntity.BirthDate = birthDate;
-                userEntity.Gender = gender;
-                userEntity.Credentials = new CredentialsEntity();
-                userEntity.Credentials.Username = username;
-                userEntity.Credentials.Password = _cryptoService.HashPassword(password);
+                var userEntity = UserRegistrationDataDtoToUserEntity(userRegistrationData);
 
                 using (var context = _companyContextFactory())
                 using (var transaction = context.Database.BeginTransaction())
@@ -74,7 +42,10 @@ namespace Diploma.BLL.Services
                         var dbUser = context.Users.Add(userEntity);
                         await context.SaveChangesAsync(cancellationToken);
                         transaction.Commit();
-                        return OperationResult<UserEntity>.CreateSuccess(dbUser);
+
+                        var userDto = UserEntityToUserDto(dbUser);
+
+                        return OperationResult<UserDto>.CreateSuccess(userDto);
                     }
                     catch (TaskCanceledException)
                     {
@@ -85,38 +56,40 @@ namespace Diploma.BLL.Services
             }
             catch (Exception ex)
             {
-                return OperationResult<UserEntity>.CreateFailure(ex);
+                return OperationResult<UserDto>.CreateFailure(ex);
             }
         }
 
-        public async Task<OperationResult<UserEntity>> GetUserByCredentialsAsync(
-            string username,
-            string password,
+        public async Task<OperationResult<UserDto>> GetUserByCredentialsAsync(
+            UserAuthorizationDataDto userAuthorizationData,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             try
             {
                 using (var context = _companyContextFactory())
                 {
-                    var credentialsEntity =
-                        await context.Credentials.AsNoTracking().SingleOrDefaultAsync(UserNameEquals(username), cancellationToken);
+                    var credentialsEntity = await context.Credentials.AsNoTracking().SingleOrDefaultAsync(
+                        UserNameEquals(userAuthorizationData.Username),
+                        cancellationToken);
 
                     if (credentialsEntity == null)
                     {
-                        return OperationResult<UserEntity>.CreateFailure(Resources.Authorization_Username_Not_Found);
+                        return OperationResult<UserDto>.CreateFailure(Resources.Authorization_Username_Not_Found);
                     }
 
-                    if (_cryptoService.VerifyPasswordHash(password, credentialsEntity.Password))
+                    if (_cryptoService.VerifyPasswordHash(userAuthorizationData.Password, credentialsEntity.PasswordHash))
                     {
-                        return OperationResult<UserEntity>.CreateSuccess(credentialsEntity.User);
+                        var dbUser = credentialsEntity.User;
+                        var userDto = UserEntityToUserDto(dbUser);
+                        return OperationResult<UserDto>.CreateSuccess(userDto);
                     }
-                }
 
-                return OperationResult<UserEntity>.CreateFailure(Resources.Authorization_Username_Or_Password_Invalid);
+                    return OperationResult<UserDto>.CreateFailure(Resources.Authorization_Username_Or_Password_Invalid);
+                }
             }
             catch (Exception ex)
             {
-                return OperationResult<UserEntity>.CreateFailure(ex);
+                return OperationResult<UserDto>.CreateFailure(ex);
             }
         }
 
@@ -136,9 +109,91 @@ namespace Diploma.BLL.Services
             }
         }
 
+        private static UserEntity GetUserEntityByRole(UserRegistrationDataDto userRegistrationData)
+        {
+            UserEntity userEntity;
+            switch (userRegistrationData.Role)
+            {
+                case UserRoleType.Customer:
+                    userEntity = new CustomerEntity();
+                    break;
+                case UserRoleType.Programmer:
+                    userEntity = new ProgrammerEntity();
+                    break;
+                case UserRoleType.Manager:
+                    userEntity = new ManagerEntity();
+                    break;
+                case UserRoleType.Admin:
+                    userEntity = new AdminEntity();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return userEntity;
+        }
+
+        private static UserDto UserEntityToUserDto(UserEntity dbUser)
+        {
+            return new UserDto
+            {
+                Username = dbUser.Credentials.Username,
+                PasswordHash = dbUser.Credentials.PasswordHash,
+                BirthDate = dbUser.BirthDate,
+                FirstName = dbUser.FirstName,
+                LastName = dbUser.LastName,
+                MiddleName = dbUser.MiddleName,
+                Gender = (GenderType)dbUser.Gender,
+                Role = UserEntityToUserRoleType(dbUser),
+                Id = dbUser.Id
+            };
+        }
+
+        private static UserRoleType UserEntityToUserRoleType(UserEntity dbUser)
+        {
+            if (dbUser is CustomerEntity)
+            {
+                return UserRoleType.Customer;
+            }
+
+            if (dbUser is ProgrammerEntity)
+            {
+                return UserRoleType.Programmer;
+            }
+
+            if (dbUser is ManagerEntity)
+            {
+                return UserRoleType.Manager;
+            }
+
+            if (dbUser is AdminEntity)
+            {
+                return UserRoleType.Admin;
+            }
+
+            throw new ArgumentException();
+        }
+
+        [SuppressMessage("ReSharper", "SpecifyStringComparison", Justification = "This must be used explicit cuz of LINQ to entities.")]
         private static Expression<Func<CredentialsEntity, bool>> UserNameEquals(string username)
         {
             return x => username.ToUpper() == x.Username.ToUpper();
+        }
+
+        private UserEntity UserRegistrationDataDtoToUserEntity(UserRegistrationDataDto userRegistrationData)
+        {
+            var userEntity = GetUserEntityByRole(userRegistrationData);
+            userEntity.LastName = userRegistrationData.LastName;
+            userEntity.FirstName = userRegistrationData.FirstName;
+            userEntity.MiddleName = userRegistrationData.MiddleName;
+            userEntity.BirthDate = userRegistrationData.BirthDate;
+            userEntity.Gender = (DAL.Entities.Enums.GenderType)(int)userRegistrationData.Gender;
+            userEntity.Credentials = new CredentialsEntity
+            {
+                Username = userRegistrationData.Username,
+                PasswordHash = _cryptoService.HashPassword(userRegistrationData.Password)
+            };
+            return userEntity;
         }
     }
 }

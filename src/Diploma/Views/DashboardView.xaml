@@ -23,7 +23,7 @@
                             </Grid.ColumnDefinitions>
                             <materialDesign:Chip Grid.Column="0"
                                                  VerticalAlignment="Center"
-                                                 Content="{Binding CurrentUser.Credentials.Username}"
+                                                 Content="{Binding CurrentUser.Username}"
                                                  Cursor="Arrow">
                                 <materialDesign:Chip.Icon>
                                     <materialDesign:PackIcon Kind="Account" />

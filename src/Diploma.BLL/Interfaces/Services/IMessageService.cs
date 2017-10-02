@@ -2,6 +2,6 @@
 {
     public interface IMessageService
     {
-        void Enqueue(string message);
+        void ShowMessage(string message);
     }
 }

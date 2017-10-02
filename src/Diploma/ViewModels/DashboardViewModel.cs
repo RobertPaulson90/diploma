@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using Caliburn.Micro;
+using Diploma.BLL.DTO;
 using Diploma.BLL.Interfaces.Services;
-using Diploma.DAL.Entities;
 
 namespace Diploma.ViewModels
 {
@@ -14,18 +14,18 @@ namespace Diploma.ViewModels
             _messageService = messageService;
         }
 
-        public UserEntity CurrentUser { get; private set; }
+        public UserDto CurrentUser { get; private set; }
 
-        public void Init(UserEntity currentUser)
+        public void Init(UserDto currentUser)
         {
             CurrentUser = currentUser;
-            _messageService.Enqueue($"Hello, {CurrentUser.Credentials.Username}");
+            _messageService.ShowMessage($"Hello, {CurrentUser.Username}");
             DisplayName = "Dashboard";
         }
 
         public void Logout()
         {
-            _messageService.Enqueue($"Goodbye, {CurrentUser.Credentials.Username}");
+            _messageService.ShowMessage($"Goodbye, {CurrentUser.Username}");
             Thread.CurrentPrincipal = null;
             CurrentUser = null;
             ((ShellViewModel)Parent).ActiveItem = IoC.Get<LoginViewModel>();

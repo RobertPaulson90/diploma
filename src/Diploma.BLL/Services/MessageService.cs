@@ -12,7 +12,7 @@ namespace Diploma.BLL.Services
             _eventAggregator = eventAggregator;
         }
 
-        public void Enqueue(string message)
+        public void ShowMessage(string message)
         {
             _eventAggregator.PublishOnUIThread(message);
         }

@@ -1,9 +1,9 @@
 ﻿using System.Security.Principal;
 using System.Threading;
 using Caliburn.Micro;
+using Diploma.BLL.DTO;
 using Diploma.BLL.Interfaces.Services;
 using Diploma.Common;
-using Diploma.Framework;
 using Diploma.Framework.Validations;
 using FluentValidation;
 
@@ -79,24 +79,25 @@ namespace Diploma.ViewModels
 
             if (HasErrors)
             {
-                _messageService.Enqueue("Incorrect username or password.");
+                _messageService.ShowMessage("Incorrect username or password.");
                 return;
             }
 
             using (BusyScope.StartWork())
             {
-                var result = await _userService.GetUserByCredentialsAsync(Username, Password, _cancellationToken.Token);
+                var userAuthorizationDataDto = new UserAuthorizationDataDto { Password = Password, Username = Username };
+                var result = await _userService.GetUserByCredentialsAsync(userAuthorizationDataDto, _cancellationToken.Token);
 
                 if (!result.Success)
                 {
-                    _messageService.Enqueue(result.NonSuccessMessage);
+                    _messageService.ShowMessage(result.NonSuccessMessage);
                     return;
                 }
 
                 var user = result.Result;
 
-                var identity = new GenericIdentity(user.Credentials.Username);
-                var principal = new GenericPrincipal(identity, new[] { user.GetUserRole() });
+                var identity = new GenericIdentity(user.Username);
+                var principal = new GenericPrincipal(identity, new[] { user.Role.ToString() });
                 Thread.CurrentPrincipal = principal;
 
                 var dashboard = IoC.Get<DashboardViewModel>();

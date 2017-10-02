@@ -6,7 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Diploma.ViewModels"
              xmlns:behaviors="clr-namespace:Diploma.Behaviors"
-             xmlns:enums="clr-namespace:Diploma.DAL.Entities.Enums;assembly=Diploma.DAL"
+             xmlns:enums="clr-namespace:Diploma.BLL.DTO.Enums;assembly=Diploma.BLL"
              d:DataContext="{d:DesignInstance viewModels:RegisterViewModel}"
              d:DesignHeight="640"
              d:DesignWidth="1500"

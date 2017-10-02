@@ -6,7 +6,7 @@ namespace Diploma.DAL.Entities
     public class CredentialsEntity
     {
         [Required]
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }
 
         public virtual UserEntity User { get; set; }
 

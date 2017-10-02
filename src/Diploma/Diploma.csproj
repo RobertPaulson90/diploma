@@ -113,13 +113,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Behaviors\EnumBindingSourceExtension.cs" />
-    <Compile Include="Behaviors\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="Converters\EnumDescriptionTypeConverter.cs" />
     <Compile Include="Behaviors\PasswordBoxAssist.cs" />
     <Compile Include="Validators\LoginViewModelValidator.cs" />
     <Compile Include="Validators\RegisterViewModelValidator.cs" />
     <Compile Include="Framework\Validations\ValidatableScreen.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
-    <Compile Include="Framework\Extensions.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />

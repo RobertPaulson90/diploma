@@ -51,6 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\UserAuthorizationDataDto.cs" />
+    <Compile Include="DTO\Enums\GenderType.cs" />
+    <Compile Include="DTO\UserDto.cs" />
+    <Compile Include="DTO\UserRegistrationDataDto.cs" />
     <Compile Include="Interfaces\Services\ICryptoService.cs" />
     <Compile Include="Interfaces\Services\IMessageService.cs" />
     <Compile Include="Interfaces\Services\IUserService.cs" />
