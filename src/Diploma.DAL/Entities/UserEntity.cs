@@ -1,23 +1,28 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Diploma.DAL.Entities.Enums;
 
 namespace Diploma.DAL.Entities
 {
-    public class UserEntity : BaseEntity
+    public abstract class UserEntity
     {
-        public DateTime? BirthDate { get; set; }
-
-        public CredentialsEntity Credentials { get; set; }
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        
         [Required]
         public string FirstName { get; set; }
-
-        public GenderType Gender { get; set; }
 
         [Required]
         public string LastName { get; set; }
 
         public string MiddleName { get; set; }
+
+        public GenderType? Gender { get; set; }
+
+        public DateTime? BirthDate { get; set; }
+
+        public virtual CredentialsEntity Credentials { get; set; }
     }
 }

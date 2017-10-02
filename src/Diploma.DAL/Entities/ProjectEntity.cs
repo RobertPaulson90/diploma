@@ -1,10 +1,15 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Diploma.DAL.Entities
 {
-    public class ProjectEntity : BaseEntity
+    public class ProjectEntity
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
         public virtual CustomerEntity Customer { get; set; }
 
         public int CustomerId { get; set; }
