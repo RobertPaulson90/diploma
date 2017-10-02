@@ -8,7 +8,7 @@ using FluentValidation.Results;
 
 namespace Diploma.Framework.Validations
 {
-    public abstract class ValidatableScreen<TProperty, TValidator> : Screen, IDataErrorInfo, INotifyDataErrorInfo
+    public abstract class ValidatableScreen<TProperty, TValidator> : Screen, INotifyDataErrorInfo
         where TProperty : Screen
         where TValidator : IValidator<TProperty>
     {
@@ -17,6 +17,8 @@ namespace Diploma.Framework.Validations
         private readonly TValidator _validator;
 
         private ValidationResult _validationResult;
+
+        private bool _hasErrors;
 
         protected ValidatableScreen(TValidator validator)
         {
@@ -32,23 +34,16 @@ namespace Diploma.Framework.Validations
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
-        public string Error
+        public bool HasErrors
         {
             get
             {
-                var strings = _validationResult.Errors.Select(x => x.ErrorMessage).ToArray();
-                return string.Join(Environment.NewLine, strings);
+                return _hasErrors;
             }
-        }
 
-        public bool HasErrors => _validationResult.Errors.Count > 0;
-
-        public string this[string propertyName]
-        {
-            get
+            private set
             {
-                var errors = _validationResult.Errors.Where(x => x.PropertyName == propertyName).Select(x => x.ErrorMessage);
-                return string.Join(Environment.NewLine, errors);
+                Set(ref _hasErrors, value);
             }
         }
 
@@ -57,7 +52,7 @@ namespace Diploma.Framework.Validations
             return _validationResult.Errors.Where(x => x.PropertyName == propertyName).Select(x => x.ErrorMessage);
         }
 
-        protected virtual bool Validate()
+        public virtual bool Validate()
         {
             _validationResult = _validator.Validate(_target);
 
@@ -66,6 +61,7 @@ namespace Diploma.Framework.Validations
                 OnUIThread(() => RaiseErrorsChanged(error.PropertyName));
             }
 
+            HasErrors = _validationResult.Errors.Count > 0;
             return HasErrors;
         }
 

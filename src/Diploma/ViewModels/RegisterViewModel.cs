@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Principal;
 using System.Threading;
 using Caliburn.Micro;
 using Diploma.BLL.DTO;
@@ -7,6 +6,7 @@ using Diploma.BLL.DTO.Enums;
 using Diploma.BLL.Interfaces.Services;
 using Diploma.Common;
 using Diploma.Framework.Validations;
+using Diploma.Services.Interfaces;
 using FluentValidation;
 
 namespace Diploma.ViewModels
@@ -189,7 +189,7 @@ namespace Diploma.ViewModels
 
             if (HasErrors)
             {
-                _messageService.ShowMessage("There were problems creating your account.");
+                _messageService.ShowMessage("There were problems creating your account. Check input and try again.");
                 return;
             }
 
@@ -203,24 +203,18 @@ namespace Diploma.ViewModels
                     LastName = LastName,
                     MiddleName = MiddleName,
                     Password = Password,
-                    Role = UserRoleType.Customer,
                     Username = Username
                 };
 
-                var result = await _userService.CreateUserAsync(userRegistrationDataDto, _cancellationToken.Token);
+                var operation = await _userService.CreateUserAsync(userRegistrationDataDto, _cancellationToken.Token);
 
-                if (!result.Success)
+                if (!operation.Success)
                 {
-                    _messageService.ShowMessage(result.NonSuccessMessage);
+                    _messageService.ShowMessage(operation.NonSuccessMessage);
                     return;
                 }
 
-                var user = result.Result;
-
-                var identity = new GenericIdentity(user.Username);
-                var principal = new GenericPrincipal(identity, new[] { user.Role.ToString() });
-                Thread.CurrentPrincipal = principal;
-
+                var user = operation.Result;
                 var dashboard = IoC.Get<DashboardViewModel>();
                 dashboard.Init(user);
                 ((ShellViewModel)Parent).ActiveItem = dashboard;

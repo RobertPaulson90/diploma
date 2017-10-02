@@ -162,4 +162,13 @@
   <data name="Registration_UserRole_Invalid_Value" xml:space="preserve">
     <value>Unsupported value of user role.</value>
   </data>
+  <data name="Editing_BirthDate_Must_Be_Be_Valid_Age" xml:space="preserve">
+    <value>Hmm, the date doesn't look right. Be sure to use your actual date of birth.</value>
+  </data>
+  <data name="Editing_FirstName_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Editing_LastName_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
 </root>

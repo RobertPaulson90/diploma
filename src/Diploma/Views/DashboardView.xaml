@@ -7,11 +7,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Diploma.ViewModels"
              d:DataContext="{d:DesignInstance viewModels:DashboardViewModel}"
+             d:DesignHeight="480"
              d:DesignWidth="636"
              mc:Ignorable="d">
     <Grid x:Name="Body">
-        <DockPanel>
-            <Grid x:Name="Header" DockPanel.Dock="Top">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid x:Name="Header" Grid.Row="0">
                 <materialDesign:ColorZone Padding="10 8"
                                           DockPanel.Dock="Top"
                                           Mode="PrimaryDark">
@@ -33,6 +39,7 @@
                                                      PlacementMode="BottomAndAlignCentres"
                                                      StaysOpen="False">
                                 <StackPanel>
+                                    <Button cal:Message.Attach="Edit" Content="Edit" />
                                     <Button cal:Message.Attach="Logout" Content="Log out" />
                                 </StackPanel>
                             </materialDesign:PopupBox>
@@ -69,10 +76,10 @@
                     </DockPanel>
                 </materialDesign:ColorZone>
             </Grid>
-            <Grid x:Name="Footer" DockPanel.Dock="Bottom" />
-            <Grid x:Name="Main">
-                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" />
-            </Grid>
-        </DockPanel>
+
+            <Grid x:Name="Main" Grid.Row="1" />
+
+            <Grid x:Name="Footer" Grid.Row="2" />
+        </Grid>
     </Grid>
 </UserControl>

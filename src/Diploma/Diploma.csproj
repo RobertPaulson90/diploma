@@ -87,6 +87,8 @@
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.105.2, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Data.SQLite.Linq.1.0.105.2\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -115,15 +117,25 @@
     <Compile Include="Behaviors\EnumBindingSourceExtension.cs" />
     <Compile Include="Converters\EnumDescriptionTypeConverter.cs" />
     <Compile Include="Behaviors\PasswordBoxAssist.cs" />
+    <Compile Include="Converters\InvertBoolConverter.cs" />
+    <Compile Include="Services\Interfaces\IMessageService.cs" />
+    <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Validators\Properties\BirthDateValidator.cs" />
     <Compile Include="Validators\LoginViewModelValidator.cs" />
+    <Compile Include="Validators\EditUserDataViewModelValidator.cs" />
     <Compile Include="Validators\RegisterViewModelValidator.cs" />
     <Compile Include="Framework\Validations\ValidatableScreen.cs" />
+    <Compile Include="Validators\Properties\Validators.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\EditUserDataViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditUserDataView.xaml.cs">
+      <DependentUpon>EditUserDataView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -160,6 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DashboardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditUserDataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

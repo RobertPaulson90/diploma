@@ -1,7 +1,7 @@
 ﻿using Caliburn.Micro;
-using Diploma.BLL.Interfaces.Services;
+using Diploma.Services.Interfaces;
 
-namespace Diploma.BLL.Services
+namespace Diploma.Services
 {
     public class MessageService : IMessageService
     {

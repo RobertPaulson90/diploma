@@ -12,6 +12,7 @@
              mc:Ignorable="d">
     <Grid x:Name="Body" Background="{StaticResource MaterialBackground}">
         <materialDesign:Card Padding="{StaticResource GlobalCardPadding}"
+                             UniformCornerRadius="4"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
                              materialDesign:ShadowAssist.ShadowDepth="Depth5">

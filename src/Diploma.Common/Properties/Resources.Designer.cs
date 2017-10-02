@@ -99,6 +99,33 @@ namespace Diploma.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Hmm, the date doesn&apos;t look right. Be sure to use your actual date of birth..
         /// </summary>
+        public static string Editing_BirthDate_Must_Be_Be_Valid_Age {
+            get {
+                return ResourceManager.GetString("Editing_BirthDate_Must_Be_Be_Valid_Age", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t leave this empty..
+        /// </summary>
+        public static string Editing_FirstName_Can_Not_Be_Empty {
+            get {
+                return ResourceManager.GetString("Editing_FirstName_Can_Not_Be_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t leave this empty..
+        /// </summary>
+        public static string Editing_LastName_Can_Not_Be_Empty {
+            get {
+                return ResourceManager.GetString("Editing_LastName_Can_Not_Be_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hmm, the date doesn&apos;t look right. Be sure to use your actual date of birth..
+        /// </summary>
         public static string Registration_BirthDate_Must_Be_Be_Valid_Age {
             get {
                 return ResourceManager.GetString("Registration_BirthDate_Must_Be_Be_Valid_Age", resourceCulture);
