@@ -2,11 +2,12 @@
 using System.Security.Principal;
 using System.Threading;
 using Caliburn.Micro;
-using Diploma.DAL.Entities;
+using Diploma.BLL.DTO.Enums;
+using Diploma.BLL.Interfaces.Services;
+using Diploma.Common;
+using Diploma.DAL.Entities.Enums;
 using Diploma.Framework;
 using Diploma.Framework.Validations;
-using Diploma.Infrastructure;
-using Diploma.Models;
 using FluentValidation;
 
 namespace Diploma.ViewModels

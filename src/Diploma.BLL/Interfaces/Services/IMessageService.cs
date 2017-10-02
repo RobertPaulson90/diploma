@@ -1,4 +1,4 @@
-﻿namespace Diploma.Infrastructure
+﻿namespace Diploma.BLL.Interfaces.Services
 {
     public interface IMessageService
     {

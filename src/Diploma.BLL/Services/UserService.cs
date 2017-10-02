@@ -3,12 +3,13 @@ using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Diploma.DAL;
+using Diploma.BLL.DTO.Enums;
+using Diploma.BLL.Interfaces.Services;
+using Diploma.Common;
+using Diploma.Common.Properties;
+using Diploma.DAL.Contexts;
 using Diploma.DAL.Entities;
-using Diploma.Framework;
-using Diploma.Infrastructure;
-using Diploma.Models;
-using Diploma.Properties;
+using Diploma.DAL.Entities.Enums;
 
 namespace Diploma.BLL.Services
 {

@@ -2,9 +2,9 @@
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Diploma.Framework;
-using Diploma.Infrastructure;
-using Diploma.Properties;
+using Diploma.BLL.Interfaces.Services;
+using Diploma.Common;
+using Diploma.Common.Properties;
 using Diploma.ViewModels;
 using FluentValidation;
 

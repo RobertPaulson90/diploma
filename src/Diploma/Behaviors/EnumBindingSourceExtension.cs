@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Markup;
 
-namespace Diploma.Framework.Behaviors
+namespace Diploma.Behaviors
 {
     public class EnumBindingSourceExtension : MarkupExtension
     {

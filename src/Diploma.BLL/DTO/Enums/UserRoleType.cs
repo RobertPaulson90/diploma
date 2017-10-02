@@ -1,4 +1,4 @@
-namespace Diploma.Models
+namespace Diploma.BLL.DTO.Enums
 {
     public enum UserRoleType
     {

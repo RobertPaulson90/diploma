@@ -1,6 +1,6 @@
 ﻿using System;
+using Diploma.BLL.DTO.Enums;
 using Diploma.DAL.Entities;
-using Diploma.Models;
 
 namespace Diploma.Framework
 {
@@ -29,11 +29,6 @@ namespace Diploma.Framework
             }
 
             throw new NotSupportedException();
-        }
-
-        public static bool Implies(this bool antecedent, bool consequent)
-        {
-            return !antecedent || consequent;
         }
     }
 }

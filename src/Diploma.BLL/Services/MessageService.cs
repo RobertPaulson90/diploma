@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using Diploma.Infrastructure;
+using Diploma.BLL.Interfaces.Services;
 
 namespace Diploma.BLL.Services
 {

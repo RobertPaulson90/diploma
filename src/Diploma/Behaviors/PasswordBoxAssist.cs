@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Diploma.Framework.Behaviors
+namespace Diploma.Behaviors
 {
     public static class PasswordBoxAssist
     {

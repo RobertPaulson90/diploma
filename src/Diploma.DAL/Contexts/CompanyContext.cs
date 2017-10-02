@@ -2,7 +2,7 @@ using System.Data.Entity;
 using Diploma.DAL.Entities;
 using SQLite.CodeFirst;
 
-namespace Diploma.DAL
+namespace Diploma.DAL.Contexts
 {
     public class CompanyContext : DbContext
     {

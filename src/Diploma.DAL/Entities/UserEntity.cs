@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Diploma.DAL.Entities.Enums;
 
 namespace Diploma.DAL.Entities
 {

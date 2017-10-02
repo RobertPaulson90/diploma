@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using Caliburn.Micro;
+using Diploma.BLL.Interfaces.Services;
 using Diploma.DAL.Entities;
-using Diploma.Infrastructure;
 
 namespace Diploma.ViewModels
 {

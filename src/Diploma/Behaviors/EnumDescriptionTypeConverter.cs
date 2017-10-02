@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
 
-namespace Diploma.Framework.Behaviors
+namespace Diploma.Behaviors
 {
     public class EnumDescriptionTypeConverter : EnumConverter
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
-using Diploma.Infrastructure;
+using Diploma.BLL.Interfaces.Services;
 
 namespace Diploma.BLL.Services
 {

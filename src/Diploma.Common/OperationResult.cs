@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Diploma.Framework
+namespace Diploma.Common
 {
     public class OperationResult<TResult>
     {

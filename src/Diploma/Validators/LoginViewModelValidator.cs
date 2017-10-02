@@ -1,4 +1,4 @@
-﻿using Diploma.Properties;
+﻿using Diploma.Common.Properties;
 using Diploma.ViewModels;
 using FluentValidation;
 

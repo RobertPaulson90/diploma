@@ -1,4 +1,4 @@
-namespace Diploma.DAL.Entities
+namespace Diploma.DAL.Entities.Enums
 {
     public enum GenderType
     {

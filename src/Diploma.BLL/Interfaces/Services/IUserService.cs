@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Diploma.BLL.DTO.Enums;
+using Diploma.Common;
 using Diploma.DAL.Entities;
-using Diploma.Framework;
-using Diploma.Models;
+using Diploma.DAL.Entities.Enums;
 
-namespace Diploma.Infrastructure
+namespace Diploma.BLL.Interfaces.Services
 {
     public interface IUserService
     {

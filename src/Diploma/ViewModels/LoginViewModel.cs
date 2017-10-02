@@ -1,9 +1,10 @@
 ﻿using System.Security.Principal;
 using System.Threading;
 using Caliburn.Micro;
+using Diploma.BLL.Interfaces.Services;
+using Diploma.Common;
 using Diploma.Framework;
 using Diploma.Framework.Validations;
-using Diploma.Infrastructure;
 using FluentValidation;
 
 namespace Diploma.ViewModels
