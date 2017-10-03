@@ -34,7 +34,9 @@ namespace Diploma.DAL.Contexts
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
+            var assembly = Assembly.GetExecutingAssembly();
+
+            modelBuilder.Configurations.AddFromAssembly(assembly);
 
             var sqliteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<CompanyContext>(modelBuilder, true);
             Database.SetInitializer(sqliteConnectionInitializer);

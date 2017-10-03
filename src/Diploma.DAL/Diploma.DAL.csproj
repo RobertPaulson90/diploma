@@ -54,10 +54,8 @@
       <HintPath>..\..\packages\System.Data.SQLite.Linq.1.0.105.2\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -71,7 +69,6 @@
     <Compile Include="Contexts\Configurations\CustomerEntityConfiguration.cs" />
     <Compile Include="Contexts\Configurations\ProjectEntityConfiguration.cs" />
     <Compile Include="Contexts\Configurations\EmployeeEntityConfiguration.cs" />
-    <Compile Include="Extensions\MappingExtensions.cs" />
     <Compile Include="Contexts\Configurations\UserEntityConfiguration.cs" />
     <Compile Include="Entities\AdminEntity.cs" />
     <Compile Include="Entities\CredentialsEntity.cs" />

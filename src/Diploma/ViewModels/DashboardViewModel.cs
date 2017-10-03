@@ -79,7 +79,7 @@ namespace Diploma.ViewModels
             _messageService.ShowErrorMessage($"Goodbye, {CurrentUser.Username}");
             Thread.CurrentPrincipal = null;
             CurrentUser = null;
-            ((ShellViewModel)Parent).ActiveItem = IoC.Get<LoginViewModel>();
+            ((IConductActiveItem)Parent).ActiveItem = IoC.Get<LoginViewModel>();
         }
     }
 }

@@ -6,21 +6,14 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using Caliburn.Micro;
-using Diploma.BLL.Interfaces.Services;
-using Diploma.BLL.Services;
-using Diploma.DAL.Contexts;
-using Diploma.Framework.Interfaces;
-using Diploma.Framework.Services;
-using Diploma.Validators;
 using Diploma.ViewModels;
-using FluentValidation;
 using SimpleInjector;
 
 namespace Diploma
 {
     public sealed class AppBootstrapper : BootstrapperBase
     {
-        private static readonly Container Container = new Container();
+        private readonly Container _container = new Container();
 
         public AppBootstrapper()
         {
@@ -30,44 +23,20 @@ namespace Diploma
 
         protected override void BuildUp(object instance)
         {
-            var registration = Container.GetRegistration(instance.GetType(), true);
+            var registration = _container.GetRegistration(instance.GetType(), true);
             registration.Registration.InitializeInstance(instance);
         }
 
         protected override void Configure()
         {
-            Container.RegisterSingleton<Func<CompanyContext>>(() => Container.GetInstance<CompanyContext>());
-
-            Container.RegisterSingleton<IWindowManager, WindowManager>();
-            Container.RegisterSingleton<IEventAggregator, EventAggregator>();
-            Container.RegisterSingleton<IMessageService, MessageService>();
-            Container.RegisterSingleton<IUserService, UserService>();
-            Container.RegisterSingleton<ICryptoService, CryptoService>();
-
-            Container.Register<ShellViewModel>();
-            
-            Container.Register<AuthenticationManagerViewModel>();
-
-            Container.Register<RegisterViewModel>();
-            Container.RegisterSingleton<Func<RegisterViewModel>>(() => Container.GetInstance<RegisterViewModel>());
-
-            Container.Register<LoginViewModel>();
-            Container.RegisterSingleton<Func<LoginViewModel>>(() => Container.GetInstance<LoginViewModel>());
-            
-            Container.Register<DashboardViewModel>();
-
-            Container.Register<EditUserDataViewModel>();
-
-            Container.RegisterSingleton<IValidator<RegisterViewModel>, RegisterViewModelValidator>();
-            Container.RegisterSingleton<IValidator<LoginViewModel>, LoginViewModelValidator>();
-            Container.RegisterSingleton<IValidator<EditUserDataViewModel>, EditUserDataViewModelValidator>();
-
-            Container.Verify();
+            RegisterDefaultServices(_container);
+            _container.RegisterPackages(SelectAssemblies());
+            _container.Verify();
         }
 
         protected override IEnumerable<object> GetAllInstances(Type service)
         {
-            IServiceProvider provider = Container;
+            IServiceProvider provider = _container;
             var collectionType = typeof(IEnumerable<>).MakeGenericType(service);
             var services = (IEnumerable<object>)provider.GetService(collectionType);
             return services ?? Enumerable.Empty<object>();
@@ -75,12 +44,12 @@ namespace Diploma
 
         protected override object GetInstance(Type service, string key)
         {
-            return Container.GetInstance(service);
+            return _container.GetInstance(service);
         }
 
         protected override void OnExit(object sender, EventArgs e)
         {
-            Container.Dispose();
+            _container.Dispose();
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)
@@ -90,13 +59,19 @@ namespace Diploma
 
         protected override IEnumerable<Assembly> SelectAssemblies()
         {
-            yield return Assembly.GetExecutingAssembly();
+            return AppDomain.CurrentDomain.GetAssemblies().Where(x => !x.IsDynamic);
         }
 
-        private void ChangeLocalization()
+        private static void ChangeLocalization()
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+        }
+
+        private static void RegisterDefaultServices(Container container)
+        {
+            container.RegisterSingleton<IWindowManager, WindowManager>();
+            container.RegisterSingleton<IEventAggregator, EventAggregator>();
         }
     }
 }
