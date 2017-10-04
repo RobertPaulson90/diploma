@@ -44,6 +44,12 @@ namespace Diploma.Behaviors
             dp.SetValue(PasswordProperty, value);
         }
 
+        private static bool GetIsUpdating(DependencyObject dp)
+        {
+            // ReSharper disable once PossibleNullReferenceException
+            return (bool)dp.GetValue(IsUpdatingProperty);
+        }
+
         private static void OnAttachChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             var passwordBox = sender as PasswordBox;
@@ -62,12 +68,6 @@ namespace Diploma.Behaviors
             {
                 passwordBox.PasswordChanged += PasswordChanged;
             }
-        }
-
-        private static bool GetIsUpdating(DependencyObject dp)
-        {
-            // ReSharper disable once PossibleNullReferenceException
-            return (bool)dp.GetValue(IsUpdatingProperty);
         }
 
         private static void OnPasswordPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)

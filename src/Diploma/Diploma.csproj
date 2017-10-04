@@ -46,21 +46,21 @@
       <HintPath>$(SolutionDir)\packages\Caliburn.Micro.3.2.0\lib\net45\Caliburn.Micro.Platform.Core.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\FluentValidation.7.1.1\lib\net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Gu.Localization, Version=6.2.2.0, Culture=neutral, PublicKeyToken=63b557f19697202e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Gu.Localization.6.2.2.0\lib\net45\Gu.Localization.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\Gu.Localization.6.2.2.0\lib\net45\Gu.Localization.dll</HintPath>
     </Reference>
     <Reference Include="Gu.Wpf.Localization, Version=6.2.2.0, Culture=neutral, PublicKeyToken=63b557f19697202e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Gu.Wpf.Localization.6.2.2.0\lib\net45\Gu.Wpf.Localization.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\Gu.Wpf.Localization.6.2.2.0\lib\net45\Gu.Wpf.Localization.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
@@ -78,25 +78,25 @@
       <HintPath>$(SolutionDir)\packages\SimpleInjector.4.0.11\lib\net45\SimpleInjector.dll</HintPath>
     </Reference>
     <Reference Include="SimpleInjector.Packaging, Version=4.0.11.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SimpleInjector.Packaging.4.0.11\lib\net40\SimpleInjector.Packaging.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\SimpleInjector.Packaging.4.0.11\lib\net40\SimpleInjector.Packaging.dll</HintPath>
     </Reference>
     <Reference Include="SourceLink, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SourceLink.0.3.0\lib\net45\SourceLink.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\SourceLink.0.3.0\lib\net45\SourceLink.dll</HintPath>
     </Reference>
     <Reference Include="SQLite.CodeFirst, Version=1.3.2.19, Culture=neutral, PublicKeyToken=eb96ba0a78d831a7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SQLite.CodeFirst.1.3.2.19\lib\net45\SQLite.CodeFirst.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\SQLite.CodeFirst.1.3.2.19\lib\net45\SQLite.CodeFirst.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.SQLite, Version=1.0.105.2, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.105.2\lib\net451\System.Data.SQLite.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\System.Data.SQLite.Core.1.0.105.2\lib\net451\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SQLite.EF6, Version=1.0.105.2, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Data.SQLite.EF6.1.0.105.2\lib\net451\System.Data.SQLite.EF6.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\System.Data.SQLite.EF6.1.0.105.2\lib\net451\System.Data.SQLite.EF6.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.105.2, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Data.SQLite.Linq.1.0.105.2\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\System.Data.SQLite.Linq.1.0.105.2\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -213,19 +213,19 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Diploma.BLL.Contracts\Diploma.BLL.Contracts.csproj">
+    <ProjectReference Include="$(SolutionDir)\src\Diploma.BLL.Contracts\Diploma.BLL.Contracts.csproj">
       <Project>{AC206C0D-CE61-4D09-B852-81F7EB437EBB}</Project>
       <Name>Diploma.BLL.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Diploma.BLL\Diploma.BLL.csproj">
+    <ProjectReference Include="$(SolutionDir)\src\Diploma.BLL\Diploma.BLL.csproj">
       <Project>{36F6865A-B0E7-4E94-AF3E-AC5FAFE463D8}</Project>
       <Name>Diploma.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Diploma.Common\Diploma.Common.csproj">
+    <ProjectReference Include="$(SolutionDir)\src\Diploma.Common\Diploma.Common.csproj">
       <Project>{C1FFEDA5-EED6-4ED0-B237-FCD70A2BE3BD}</Project>
       <Name>Diploma.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Diploma.Core\Diploma.Core.csproj">
+    <ProjectReference Include="$(SolutionDir)\src\Diploma.Core\Diploma.Core.csproj">
       <Project>{48325246-FCE3-4BB3-BD38-60052A7812C7}</Project>
       <Name>Diploma.Core</Name>
     </ProjectReference>
@@ -243,7 +243,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets'))" />
-    <Error Condition="!Exists('..\..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets'))" />
   </Target>
-  <Import Project="..\..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets')" />
+  <Import Project="$(SolutionDir)\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('$(SolutionDir)\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets')" />
 </Project>

@@ -11,12 +11,13 @@
     <AssemblyName>Diploma.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <OutputPath>$(SolutionDir)\bin\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <BaseIntermediateOutputPath>$(SolutionDir)\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -24,20 +25,19 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="SimpleInjector, Version=4.0.11.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SimpleInjector.4.0.11\lib\net45\SimpleInjector.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\SimpleInjector.4.0.11\lib\net45\SimpleInjector.dll</HintPath>
     </Reference>
     <Reference Include="SimpleInjector.Packaging, Version=4.0.11.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SimpleInjector.Packaging.4.0.11\lib\net40\SimpleInjector.Packaging.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\SimpleInjector.Packaging.4.0.11\lib\net40\SimpleInjector.Packaging.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,11 +64,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Diploma.BLL.Contracts\Diploma.BLL.Contracts.csproj">
+    <ProjectReference Include="$(SolutionDir)\src\Diploma.BLL.Contracts\Diploma.BLL.Contracts.csproj">
       <Project>{AC206C0D-CE61-4D09-B852-81F7EB437EBB}</Project>
       <Name>Diploma.BLL.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Diploma.DAL\Diploma.DAL.csproj">
+    <ProjectReference Include="$(SolutionDir)\src\Diploma.DAL\Diploma.DAL.csproj">
       <Project>{4E6D38A2-1D75-4C7A-9325-449FD796C5C6}</Project>
       <Name>Diploma.DAL</Name>
     </ProjectReference>

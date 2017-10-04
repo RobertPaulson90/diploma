@@ -10,9 +10,9 @@ namespace Diploma.Framework.Validations.PropertyValidators
 
         private const int DefaultMinimumAge = 2;
 
-        private readonly int _minimumAge;
-
         private readonly int _maximumAge;
+
+        private readonly int _minimumAge;
 
         public BirthDateValidator()
             : this(DefaultMinimumAge, DefaultMaximumAge)
@@ -30,7 +30,7 @@ namespace Diploma.Framework.Validations.PropertyValidators
             _minimumAge = minimumAge;
             _maximumAge = maximumAge;
         }
-        
+
         protected override bool IsValid(PropertyValidatorContext context)
         {
             var birthDate = (DateTime?)context.PropertyValue;
@@ -48,9 +48,7 @@ namespace Diploma.Framework.Validations.PropertyValidators
                 return true;
             }
 
-            context.MessageFormatter
-                .AppendArgument("From", minimumBirthDate)
-                .AppendArgument("To", maximumBirthDate)
+            context.MessageFormatter.AppendArgument("From", minimumBirthDate).AppendArgument("To", maximumBirthDate)
                 .AppendArgument("Value", context.PropertyValue);
 
             return false;

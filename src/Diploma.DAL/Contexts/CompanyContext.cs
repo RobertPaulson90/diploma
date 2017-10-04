@@ -12,7 +12,7 @@ namespace Diploma.DAL.Contexts
         }
 
         public DbSet<AdminEntity> Admins { get; set; }
-        
+
         public DbSet<CustomerEntity> Customers { get; set; }
 
         public DbSet<EmployeeEntity> Employees { get; set; }

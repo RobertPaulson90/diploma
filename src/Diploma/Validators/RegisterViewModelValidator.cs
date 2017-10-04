@@ -30,9 +30,10 @@ namespace Diploma.Validators
             RuleFor(x => x.LastName).NotEmpty().WithMessage(x => Resources.Validation_Registration_LastName_Can_Not_Be_Empty);
 
             RuleFor(x => x.Username).NotEmpty().WithMessage(x => Resources.Validation_Registration_Username_Can_Not_Be_Empty)
-                .Length(MinimumUsernameCharCount, MaximumUsernameCharCount).WithMessage(x => Resources.Validation_Registration_Username_Invalid_Length)
-                .Matches(UsernameCharCheck).WithMessage(x => Resources.Validation_Registration_Username_Contains_Invalid_Characters)
-                .MustAsync(BeUniqueUserNameAsync).WithMessage(x => Resources.Validation_Registration_Username_Already_Taken);
+                .Length(MinimumUsernameCharCount, MaximumUsernameCharCount)
+                .WithMessage(x => Resources.Validation_Registration_Username_Invalid_Length).Matches(UsernameCharCheck)
+                .WithMessage(x => Resources.Validation_Registration_Username_Contains_Invalid_Characters).MustAsync(BeUniqueUserNameAsync)
+                .WithMessage(x => Resources.Validation_Registration_Username_Already_Taken);
 
             RuleFor(x => x.BirthDate).BirthDate().WithMessage(x => Resources.Validation_Registration_BirthDate_Must_Be_Be_Valid_Age);
 

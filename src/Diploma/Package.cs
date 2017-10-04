@@ -22,7 +22,7 @@ namespace Diploma
             container.Register<RegisterViewModel>();
             container.RegisterSingleton<Func<RegisterViewModel>>(() => container.GetInstance<RegisterViewModel>());
             container.RegisterSingleton<IValidator<RegisterViewModel>, RegisterViewModelValidator>();
-            
+
             container.Register<LoginViewModel>();
             container.RegisterSingleton<Func<LoginViewModel>>(() => container.GetInstance<LoginViewModel>());
             container.RegisterSingleton<IValidator<LoginViewModel>, LoginViewModelValidator>();

@@ -9,13 +9,13 @@ namespace Diploma.Common.Mappings.Profiles
     {
         public CompanyMappingProfile()
         {
-            CreateMap<UserEntity, UserDto>()
-                .ForMember(x => x.Role, opt => opt.ResolveUsing<UserRoleTypeResolver>());
+            CreateMap<UserEntity, UserDto>().ForMember(x => x.Role, opt => opt.ResolveUsing<UserRoleTypeResolver>());
 
             CreateMap<UserUpdateRequestDataDto, UserEntity>(MemberList.Source);
 
-            CreateMap<CustomerRegistrationDataDto, CustomerEntity>(MemberList.None)
-                .ForMember(x => x.PasswordHash, opt => opt.ResolveUsing<PasswordHashResolver>());
+            CreateMap<CustomerRegistrationDataDto, CustomerEntity>(MemberList.None).ForMember(
+                x => x.PasswordHash,
+                opt => opt.ResolveUsing<PasswordHashResolver>());
         }
     }
 }

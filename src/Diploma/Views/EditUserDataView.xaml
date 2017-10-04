@@ -136,7 +136,7 @@
                             <system:Boolean>True</system:Boolean>
                         </Button.CommandParameter>
                     </Button>
-                    <Button x:Name="Cancel"  Grid.Column="2"
+                    <Button x:Name="Cancel" Grid.Column="2"
                             Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                             Content="{l:Static p:Resources.EditUserDataView_Button_Cancel_Text}"
                             IsCancel="True"

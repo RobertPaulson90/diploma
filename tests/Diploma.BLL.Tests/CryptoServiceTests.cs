@@ -1,8 +1,8 @@
-﻿namespace Diploma.BLL.Tests
-{
-    using Diploma.BLL.Services;
-    using NUnit.Framework;
+﻿using Diploma.BLL.Services;
+using NUnit.Framework;
 
+namespace Diploma.BLL.Tests
+{
     public class CryptoServiceTests
     {
         [TestCase("abc")]

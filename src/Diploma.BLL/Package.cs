@@ -12,7 +12,7 @@ namespace Diploma.BLL
         public void RegisterServices(Container container)
         {
             container.RegisterSingleton<Func<CompanyContext>>(() => container.GetInstance<CompanyContext>());
-            
+
             container.RegisterSingleton<IUserService, UserService>();
             container.RegisterSingleton<ICryptoService, CryptoService>();
         }

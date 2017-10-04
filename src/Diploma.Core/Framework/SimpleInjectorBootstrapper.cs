@@ -10,7 +10,7 @@ namespace Diploma.Core.Framework
     public abstract class SimpleInjectorBootstrapper : BootstrapperBase
     {
         private Container _container;
-        
+
         protected override void BuildUp(object instance)
         {
             var registration = _container.GetRegistration(instance.GetType(), true);

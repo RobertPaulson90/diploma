@@ -6,16 +6,16 @@ namespace Diploma.DAL.Entities
 {
     public class ProjectEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
         public virtual CustomerEntity Customer { get; set; }
 
         public int CustomerId { get; set; }
 
         [Required]
         public decimal Foreit { get; set; }
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         public virtual ICollection<TeamEntity> InvolvedTeams { get; set; }
 

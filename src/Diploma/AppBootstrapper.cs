@@ -15,6 +15,11 @@ namespace Diploma
             Initialize();
         }
 
+        protected override void OnStartup(object sender, StartupEventArgs e)
+        {
+            DisplayRootViewFor<ShellViewModel>();
+        }
+
         protected override void PreInitialize()
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
@@ -26,11 +31,6 @@ namespace Diploma
             yield return typeof(Package).Assembly;
             yield return typeof(BLL.Package).Assembly;
             yield return typeof(Common.Package).Assembly;
-        }
-
-        protected override void OnStartup(object sender, StartupEventArgs e)
-        {
-            DisplayRootViewFor<ShellViewModel>();
         }
     }
 }

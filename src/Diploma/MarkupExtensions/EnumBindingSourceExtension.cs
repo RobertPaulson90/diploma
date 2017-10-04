@@ -16,7 +16,7 @@ namespace Diploma.MarkupExtensions
         {
             EnumType = enumType;
         }
-        
+
         public Type EnumType
         {
             get
@@ -43,7 +43,7 @@ namespace Diploma.MarkupExtensions
                 _enumType = value;
             }
         }
-        
+
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             if (_enumType == null)

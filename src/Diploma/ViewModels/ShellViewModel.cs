@@ -17,7 +17,7 @@ namespace Diploma.ViewModels
         }
 
         public SnackbarMessageQueue MessageQueue { get; } = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
-        
+
         public void Handle(ShowErrorMessage message)
         {
             MessageQueue.Enqueue(message.Message, true);
