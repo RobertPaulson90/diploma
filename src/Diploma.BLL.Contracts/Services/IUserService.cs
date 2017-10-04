@@ -11,13 +11,13 @@ namespace Diploma.BLL.Contracts.Services
             CancellationToken cancellationToken = default(CancellationToken));
 
         Task<OperationResult<UserDto>> GetUserByCredentialsAsync(
-            UserAuthorizationDataDto userAuthorizationData,
+            UserCredentialsDto userCredentials,
             CancellationToken cancellationToken = default(CancellationToken));
 
         Task<OperationResult<bool>> IsUsernameUniqueAsync(string username, CancellationToken cancellationToken);
 
         Task<OperationResult<UserDto>> UpdateUserAsync(
-            UserUpdateRequestDataDto userUpdateRequestData,
+            UserPersonalInfoDto userPersonalInfo,
             CancellationToken cancellationToken = default(CancellationToken));
     }
 }

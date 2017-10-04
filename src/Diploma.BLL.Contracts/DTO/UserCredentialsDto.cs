@@ -1,6 +1,6 @@
 namespace Diploma.BLL.Contracts.DTO
 {
-    public class UserAuthorizationDataDto
+    public class UserCredentialsDto
     {
         public string Password { get; set; }
 

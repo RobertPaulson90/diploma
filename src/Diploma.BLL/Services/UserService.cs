@@ -64,7 +64,7 @@ namespace Diploma.BLL.Services
         }
 
         public async Task<OperationResult<UserDto>> GetUserByCredentialsAsync(
-            UserAuthorizationDataDto userAuthorizationData,
+            UserCredentialsDto userCredentials,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             try
@@ -72,14 +72,14 @@ namespace Diploma.BLL.Services
                 using (var context = _companyContextFactory())
                 {
                     var userDb = await context.Users.AsNoTracking()
-                        .SingleOrDefaultAsync(UserNameEquals(userAuthorizationData.Username), cancellationToken).ConfigureAwait(false);
+                        .SingleOrDefaultAsync(UserNameEquals(userCredentials.Username), cancellationToken).ConfigureAwait(false);
 
                     if (userDb == null)
                     {
                         return OperationResult<UserDto>.CreateFailure(Resources.Exception_Authorization_Username_Not_Found);
                     }
 
-                    if (_cryptoService.VerifyPasswordHash(userAuthorizationData.Password, userDb.PasswordHash))
+                    if (_cryptoService.VerifyPasswordHash(userCredentials.Password, userDb.PasswordHash))
                     {
                         var userDto = _mapper.Map<UserDto>(userDb);
                         return OperationResult<UserDto>.CreateSuccess(userDto);
@@ -111,7 +111,7 @@ namespace Diploma.BLL.Services
         }
 
         public async Task<OperationResult<UserDto>> UpdateUserAsync(
-            UserUpdateRequestDataDto userUpdateRequestData,
+            UserPersonalInfoDto userPersonalInfo,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             try
@@ -121,9 +121,9 @@ namespace Diploma.BLL.Services
                 {
                     try
                     {
-                        var userDb = await context.Users.SingleAsync(x => x.Id == userUpdateRequestData.Id, cancellationToken).ConfigureAwait(false);
+                        var userDb = await context.Users.SingleAsync(x => x.Id == userPersonalInfo.Id, cancellationToken).ConfigureAwait(false);
 
-                        _mapper.Map(userUpdateRequestData, userDb);
+                        _mapper.Map(userPersonalInfo, userDb);
 
                         await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
                         transaction.Commit();

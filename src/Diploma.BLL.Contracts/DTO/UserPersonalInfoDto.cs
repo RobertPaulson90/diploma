@@ -3,7 +3,7 @@ using Diploma.BLL.Contracts.DTO.Enums;
 
 namespace Diploma.BLL.Contracts.DTO
 {
-    public class UserUpdateRequestDataDto
+    public class UserPersonalInfoDto
     {
         public DateTime? BirthDate { get; set; }
 

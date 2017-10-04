@@ -47,7 +47,7 @@ namespace Diploma.ViewModels
                 return;
             }
 
-            var userUpdateRequestDataDto = new UserUpdateRequestDataDto
+            var userUpdateRequestDataDto = new UserPersonalInfoDto
             {
                 Id = CurrentUser.Id,
                 LastName = viewModel.LastName,

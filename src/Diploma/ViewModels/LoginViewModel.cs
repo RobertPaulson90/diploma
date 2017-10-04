@@ -85,7 +85,7 @@ namespace Diploma.ViewModels
 
             using (BusyScope.StartWork())
             {
-                var userAuthorizationDataDto = new UserAuthorizationDataDto
+                var userAuthorizationDataDto = new UserCredentialsDto
                 {
                     Password = Password,
                     Username = Username

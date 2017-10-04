@@ -37,9 +37,9 @@
     <Compile Include="DTO\CustomerRegistrationDataDto.cs" />
     <Compile Include="DTO\Enums\GenderType.cs" />
     <Compile Include="DTO\Enums\UserRoleType.cs" />
-    <Compile Include="DTO\UserAuthorizationDataDto.cs" />
+    <Compile Include="DTO\UserCredentialsDto.cs" />
     <Compile Include="DTO\UserDto.cs" />
-    <Compile Include="DTO\UserUpdateRequestDataDto.cs" />
+    <Compile Include="DTO\UserPersonalInfoDto.cs" />
     <Compile Include="OperationResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ICryptoService.cs" />

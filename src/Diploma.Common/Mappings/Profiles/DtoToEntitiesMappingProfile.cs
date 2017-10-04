@@ -5,13 +5,11 @@ using Diploma.DAL.Entities;
 
 namespace Diploma.Common.Mappings.Profiles
 {
-    internal class CompanyMappingProfile : Profile
+    internal class DtoToEntitiesMappingProfile : Profile
     {
-        public CompanyMappingProfile()
+        public DtoToEntitiesMappingProfile()
         {
-            CreateMap<UserEntity, UserDto>().ForMember(x => x.Role, opt => opt.ResolveUsing<UserRoleTypeResolver>());
-
-            CreateMap<UserUpdateRequestDataDto, UserEntity>(MemberList.Source);
+            CreateMap<UserPersonalInfoDto, UserEntity>(MemberList.Source);
 
             CreateMap<CustomerRegistrationDataDto, CustomerEntity>(MemberList.None).ForMember(
                 x => x.PasswordHash,

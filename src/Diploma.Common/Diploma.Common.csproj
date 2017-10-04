@@ -43,7 +43,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mappings\Profiles\CompanyMappingProfile.cs" />
+    <Compile Include="Mappings\Profiles\DtoToEntitiesMappingProfile.cs" />
+    <Compile Include="Mappings\Profiles\EntitiesToDtoMappingProfile.cs" />
     <Compile Include="Mappings\Resolvers\PasswordHashResolver.cs" />
     <Compile Include="Mappings\Resolvers\UserRoleTypeResolver.cs" />
     <Compile Include="Package.cs" />
