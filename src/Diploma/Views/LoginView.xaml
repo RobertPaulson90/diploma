@@ -6,6 +6,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Diploma.ViewModels"
+             xmlns:l="http://gu.se/Localization"
+             xmlns:p="clr-namespace:Diploma.Properties"
              d:DataContext="{d:DesignInstance viewModels:LoginViewModel}"
              mc:Ignorable="d">
     <materialDesign:ColorZone Padding="{StaticResource GlobalCardPadding}"
@@ -32,7 +34,7 @@
                   HorizontalAlignment="Center">
                 <TextBlock FontWeight="Thin"
                            Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
-                           Text="Log In"
+                           Text="{l:Static p:Resources.LoginView_Header_Text}"
                            TextAlignment="Center" />
             </Grid>
 
@@ -58,13 +60,13 @@
                                                  Margin="{StaticResource DefaultIconsMargin}"
                                                  HorizontalAlignment="Stretch"
                                                  VerticalAlignment="Bottom"
-                                                 Foreground="{Binding ElementName=LoginField, Path=BorderBrush}"
+                                                 Foreground="{Binding ElementName=UsernameField, Path=BorderBrush}"
                                                  Kind="Account" />
 
-                        <TextBox x:Name="LoginField"
+                        <TextBox x:Name="UsernameField"
                                  Grid.Row="0"
                                  Grid.Column="1"
-                                 materialDesign:HintAssist.Hint="Username"
+                                 materialDesign:HintAssist.Hint="{l:Static p:Resources.LoginView_Field_Username_Text}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}" />
 
@@ -79,7 +81,7 @@
                                      Grid.Row="2"
                                      Grid.Column="1"
                                      behaviors:PasswordBoxAssist.Password="{Binding Path=Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
-                                     materialDesign:HintAssist.Hint="Password"
+                                     materialDesign:HintAssist.Hint="{l:Static p:Resources.LoginView_Field_Password_Text}"
                                      Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" />
                     </Grid>
                 </ScrollViewer>
@@ -95,12 +97,12 @@
                 </Grid.ColumnDefinitions>
                 <Button x:Name="SignIn"
                         Grid.Column="0"
-                        Content="SIGN IN"
+                        Content="{l:Static p:Resources.LoginView_Button_SignIn_Text}"
                         IsDefault="True"
                         Style="{StaticResource MaterialDesignRaisedButton}" />
                 <Button x:Name="CreateNewAccount"
                         Grid.Column="2"
-                        Content="CREATE NEW ACCOUNT"
+                        Content="{l:Static p:Resources.LoginView_Button_CreateNewAccount_Text}"
                         Style="{DynamicResource MaterialDesignFlatButton}" />
             </Grid>
         </Grid>

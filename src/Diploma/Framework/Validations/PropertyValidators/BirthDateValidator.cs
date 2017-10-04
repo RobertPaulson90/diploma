@@ -1,5 +1,5 @@
 ﻿using System;
-using Diploma.Common.Properties;
+using Diploma.Properties;
 using FluentValidation.Validators;
 
 namespace Diploma.Framework.Validations.PropertyValidators
@@ -24,7 +24,7 @@ namespace Diploma.Framework.Validations.PropertyValidators
         {
             if (maximumAge < minimumAge)
             {
-                throw new ArgumentOutOfRangeException(nameof(maximumAge), Resources.Validation_BirthDate_Wrong_Maximum_Age);
+                throw new ArgumentOutOfRangeException(nameof(maximumAge), Resources.Exception_BirthDate_Wrong_Maximum_Age);
             }
 
             _minimumAge = minimumAge;

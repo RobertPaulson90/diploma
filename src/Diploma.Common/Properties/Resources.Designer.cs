@@ -59,14 +59,5 @@ namespace Diploma.Common.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Maximum age should be larger than minimum..
-        /// </summary>
-        public static string Validation_BirthDate_Wrong_Maximum_Age {
-            get {
-                return ResourceManager.GetString("Validation_BirthDate_Wrong_Maximum_Age", resourceCulture);
-            }
-        }
     }
 }

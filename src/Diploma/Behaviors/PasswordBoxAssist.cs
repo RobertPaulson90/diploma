@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,10 +13,10 @@ namespace Diploma.Behaviors
             new FrameworkPropertyMetadata(string.Empty, OnPasswordPropertyChanged));
 
         public static readonly DependencyProperty AttachProperty = DependencyProperty.RegisterAttached(
-            "Attach",
+            "OnAttachChanged",
             typeof(bool),
             typeof(PasswordBoxAssist),
-            new PropertyMetadata(false, Attach));
+            new PropertyMetadata(false, OnAttachChanged));
 
         public static readonly DependencyProperty IsUpdatingProperty = DependencyProperty.RegisterAttached(
             "IsUpdating",
@@ -43,14 +44,14 @@ namespace Diploma.Behaviors
             dp.SetValue(PasswordProperty, value);
         }
 
-        private static void Attach(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnAttachChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!(sender is PasswordBox))
-            {
-                return;
-            }
+            var passwordBox = sender as PasswordBox;
 
-            var passwordBox = (PasswordBox)sender;
+            if (passwordBox == null)
+            {
+                throw new ArgumentException(nameof(sender));
+            }
 
             if ((bool)e.OldValue)
             {
@@ -71,12 +72,13 @@ namespace Diploma.Behaviors
 
         private static void OnPasswordPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!(sender is PasswordBox))
+            var passwordBox = sender as PasswordBox;
+
+            if (passwordBox == null)
             {
-                return;
+                throw new ArgumentException(nameof(sender));
             }
 
-            var passwordBox = (PasswordBox)sender;
             passwordBox.PasswordChanged -= PasswordChanged;
             if (!GetIsUpdating(passwordBox))
             {
@@ -88,12 +90,12 @@ namespace Diploma.Behaviors
 
         private static void PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (!(sender is PasswordBox))
-            {
-                return;
-            }
+            var passwordBox = sender as PasswordBox;
 
-            var passwordBox = (PasswordBox)sender;
+            if (passwordBox == null)
+            {
+                throw new ArgumentException(nameof(sender));
+            }
 
             SetIsUpdating(passwordBox, true);
             SetPassword(passwordBox, passwordBox.Password);

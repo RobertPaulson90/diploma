@@ -76,7 +76,7 @@ namespace Diploma.BLL.Services
 
                     if (userDb == null)
                     {
-                        return OperationResult<UserDto>.CreateFailure(Resources.Authorization_Username_Not_Found);
+                        return OperationResult<UserDto>.CreateFailure(Resources.Exception_Authorization_Username_Not_Found);
                     }
 
                     if (_cryptoService.VerifyPasswordHash(userAuthorizationData.Password, userDb.PasswordHash))
@@ -85,7 +85,7 @@ namespace Diploma.BLL.Services
                         return OperationResult<UserDto>.CreateSuccess(userDto);
                     }
 
-                    return OperationResult<UserDto>.CreateFailure(Resources.Authorization_Username_Or_Password_Invalid);
+                    return OperationResult<UserDto>.CreateFailure(Resources.Exception_Authorization_Username_Or_Password_Invalid);
                 }
             }
             catch (Exception ex)

@@ -43,7 +43,6 @@ namespace Diploma.Framework.Validations
                 OnUIThread(() => RaiseErrorsChanged(error.PropertyName));
             }
 
-            NotifyOfPropertyChange(nameof(HasErrors));
             return !HasErrors;
         }
 
@@ -51,6 +50,7 @@ namespace Diploma.Framework.Validations
         {
             var handler = ErrorsChanged;
             handler?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            NotifyOfPropertyChange(nameof(HasErrors));
         }
     }
 }

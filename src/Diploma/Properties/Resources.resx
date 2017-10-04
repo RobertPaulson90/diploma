@@ -165,4 +165,55 @@
   <data name="Validation_Editing_LastName_Can_Not_Be_Empty" xml:space="preserve">
     <value>You can't leave this empty.</value>
   </data>
+  <data name="Exception_BirthDate_Wrong_Maximum_Age" xml:space="preserve">
+    <value>Maximum age should be larger than minimum.</value>
+  </data>
+  <data name="LoginView_Header_Text" xml:space="preserve">
+    <value>Log In</value>
+  </data>
+  <data name="RegisterView_Button_Cancel_Text" xml:space="preserve">
+    <value>CANCEL</value>
+  </data>
+  <data name="RegisterView_Button_Register_Text" xml:space="preserve">
+    <value>SIGN UP</value>
+  </data>
+  <data name="RegisterView_Field_BirthDate_Hint" xml:space="preserve">
+    <value>Birth date</value>
+  </data>
+  <data name="RegisterView_Field_ConfirmPassword_Hint" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="RegisterView_Field_FirstName_Hint" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="RegisterView_Field_Gender_Hint" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="RegisterView_Field_LastName_Hint" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="RegisterView_Field_MiddleName_Hint" xml:space="preserve">
+    <value>Middle name</value>
+  </data>
+  <data name="RegisterView_Field_Password_Hint" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="RegisterView_Field_Username_Hint" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="RegisterView_Header_Text" xml:space="preserve">
+    <value>Create a New Account</value>
+  </data>
+  <data name="LoginView_Button_CreateNewAccount_Text" xml:space="preserve">
+    <value>CREATE NEW ACCOUNT</value>
+  </data>
+  <data name="LoginView_Button_SignIn_Text" xml:space="preserve">
+    <value>SIGN IN</value>
+  </data>
+  <data name="LoginView_Field_Password_Text" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="LoginView_Field_Username_Text" xml:space="preserve">
+    <value>Username</value>
+  </data>
 </root>

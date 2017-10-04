@@ -23,9 +23,9 @@ namespace Diploma
 
         protected override IEnumerable<Assembly> SelectPackageAssemblies()
         {
+            yield return typeof(Package).Assembly;
             yield return typeof(BLL.Package).Assembly;
             yield return typeof(Common.Package).Assembly;
-            yield return typeof(Package).Assembly;
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)

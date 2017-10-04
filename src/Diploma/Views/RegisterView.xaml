@@ -8,6 +8,8 @@
              xmlns:viewModels="clr-namespace:Diploma.ViewModels"
              xmlns:markupExtensions="clr-namespace:Diploma.MarkupExtensions"
              xmlns:enums="clr-namespace:Diploma.BLL.Contracts.DTO.Enums;assembly=Diploma.BLL.Contracts"
+             xmlns:p="clr-namespace:Diploma.Properties"
+             xmlns:l="http://gu.se/Localization"
              d:DataContext="{d:DesignInstance viewModels:RegisterViewModel}"
              mc:Ignorable="d">
     <materialDesign:ColorZone Padding="{StaticResource GlobalCardPadding}"
@@ -34,7 +36,7 @@
                   HorizontalAlignment="Center">
                 <TextBlock FontWeight="Thin"
                            Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
-                           Text="Create a New Account"
+                           Text="{l:Static p:Resources.RegisterView_Header_Text}"
                            TextAlignment="Center" />
             </Grid>
 
@@ -72,7 +74,7 @@
                                  Grid.Row="0"
                                  Grid.Column="1"
                                  Grid.ColumnSpan="4"
-                                 materialDesign:HintAssist.Hint="Last name"
+                                 materialDesign:HintAssist.Hint="{l:Static p:Resources.RegisterView_Field_LastName_Hint}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}" />
 
@@ -80,7 +82,7 @@
                                  Grid.Row="2"
                                  Grid.Column="1"
                                  Grid.ColumnSpan="4"
-                                 materialDesign:HintAssist.Hint="First name"
+                                 materialDesign:HintAssist.Hint="{l:Static p:Resources.RegisterView_Field_FirstName_Hint}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}" />
 
@@ -88,7 +90,7 @@
                                  Grid.Row="4"
                                  Grid.Column="1"
                                  Grid.ColumnSpan="4"
-                                 materialDesign:HintAssist.Hint="Middle name"
+                                 materialDesign:HintAssist.Hint="{l:Static p:Resources.RegisterView_Field_MiddleName_Hint}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MiddleName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}" />
 
@@ -96,14 +98,14 @@
                                                  Grid.Column="0"
                                                  Margin="{StaticResource DefaultIconsMargin}"
                                                  VerticalAlignment="Bottom"
-                                                 Foreground="{Binding ElementName=LoginField, Path=BorderBrush}"
+                                                 Foreground="{Binding ElementName=UsernameField, Path=BorderBrush}"
                                                  Kind="Account" />
 
-                        <TextBox x:Name="LoginField"
+                        <TextBox x:Name="UsernameField"
                                  Grid.Row="6"
                                  Grid.Column="1"
                                  Grid.ColumnSpan="4"
-                                 materialDesign:HintAssist.Hint="Username"
+                                 materialDesign:HintAssist.Hint="{l:Static p:Resources.RegisterView_Field_Username_Hint}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}" />
 
@@ -119,7 +121,7 @@
                                      Grid.Column="1"
                                      Grid.ColumnSpan="4"
                                      behaviors:PasswordBoxAssist.Password="{Binding Path=Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
-                                     materialDesign:HintAssist.Hint="Password"
+                                     materialDesign:HintAssist.Hint="{l:Static p:Resources.RegisterView_Field_Password_Hint}"
                                      materialDesign:HintAssist.IsFloating="True"
                                      Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" />
 
@@ -135,7 +137,7 @@
                                      Grid.Column="1"
                                      Grid.ColumnSpan="4"
                                      behaviors:PasswordBoxAssist.Password="{Binding Path=ConfirmPassword, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
-                                     materialDesign:HintAssist.Hint="Confirm password"
+                                     materialDesign:HintAssist.Hint="{l:Static p:Resources.RegisterView_Field_ConfirmPassword_Hint}"
                                      materialDesign:HintAssist.IsFloating="True"
                                      Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" />
 
@@ -150,7 +152,7 @@
                                     Grid.Row="12"
                                     Grid.Column="1"
                                     VerticalContentAlignment="Bottom"
-                                    materialDesign:HintAssist.Hint="Birth date"
+                                    materialDesign:HintAssist.Hint="{l:Static p:Resources.RegisterView_Field_BirthDate_Hint}"
                                     SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
                                     Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" />
 
@@ -165,7 +167,7 @@
                                   Grid.Row="12"
                                   Grid.Column="4"
                                   materialDesign:ComboBoxAssist.ShowSelectedItem="False"
-                                  materialDesign:HintAssist.Hint="Gender"
+                                  materialDesign:HintAssist.Hint="{l:Static p:Resources.RegisterView_Field_Gender_Hint}"
                                   ItemsSource="{Binding Source={markupExtensions:EnumBindingSource {x:Type enums:GenderType}}}"
                                   SelectedValue="{Binding Gender, Mode=TwoWay}"
                                   Style="{DynamicResource MaterialDesignFloatingHintComboBox}" />
@@ -183,12 +185,12 @@
                 </Grid.ColumnDefinitions>
                 <Button x:Name="Register"
                         Grid.Column="0"
-                        Content="SIGN UP"
+                        Content="{l:Static p:Resources.RegisterView_Button_Register_Text}"
                         IsDefault="True"
                         Style="{StaticResource MaterialDesignRaisedButton}" />
                 <Button x:Name="Cancel"
                         Grid.Column="2"
-                        Content="CANCEL"
+                        Content="{l:Static p:Resources.RegisterView_Button_Cancel_Text}"
                         IsCancel="True"
                         Style="{DynamicResource MaterialDesignFlatButton}" />
             </Grid>
