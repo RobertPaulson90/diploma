@@ -9,6 +9,8 @@
              xmlns:viewModels="clr-namespace:Diploma.ViewModels"
              xmlns:markupExtensions="clr-namespace:Diploma.MarkupExtensions"
              xmlns:enums="clr-namespace:Diploma.BLL.Contracts.DTO.Enums;assembly=Diploma.BLL.Contracts"
+             xmlns:l="http://gu.se/Localization"
+             xmlns:p="clr-namespace:Diploma.Properties"
              d:DataContext="{d:DesignInstance viewModels:EditUserDataViewModel}"
              mc:Ignorable="d">
     <UserControl.Resources>
@@ -32,7 +34,7 @@
                 <Grid x:Name="Header" Grid.Row="0">
                     <TextBlock FontWeight="Thin"
                                Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
-                               Text="Edit Personal Info"
+                               Text="{l:Static p:Resources.EditUserDataView_Header_Text}"
                                TextAlignment="Center" />
                 </Grid>
 
@@ -64,7 +66,7 @@
                                  Grid.Row="0"
                                  Grid.Column="1"
                                  Grid.ColumnSpan="4"
-                                 materialDesign:HintAssist.Hint="Last name"
+                                 materialDesign:HintAssist.Hint="{l:Static p:Resources.EditUserDataView_Field_LastName_Hint}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}" />
 
@@ -72,7 +74,7 @@
                                  Grid.Row="2"
                                  Grid.Column="1"
                                  Grid.ColumnSpan="4"
-                                 materialDesign:HintAssist.Hint="First name"
+                                 materialDesign:HintAssist.Hint="{l:Static p:Resources.EditUserDataView_Field_FirstName_Hint}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}" />
 
@@ -80,7 +82,7 @@
                                  Grid.Row="4"
                                  Grid.Column="1"
                                  Grid.ColumnSpan="4"
-                                 materialDesign:HintAssist.Hint="Middle name"
+                                 materialDesign:HintAssist.Hint="{l:Static p:Resources.EditUserDataView_Field_MiddleName_Hint}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding MiddleName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}" />
 
@@ -95,7 +97,7 @@
                                     Grid.Row="6"
                                     Grid.Column="1"
                                     VerticalContentAlignment="Bottom"
-                                    materialDesign:HintAssist.Hint="Birth date"
+                                    materialDesign:HintAssist.Hint="{l:Static p:Resources.EditUserDataView_Field_BirthDate_Hint}"
                                     SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
                                     Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" />
 
@@ -110,7 +112,7 @@
                                   Grid.Row="6"
                                   Grid.Column="4"
                                   materialDesign:ComboBoxAssist.ShowSelectedItem="False"
-                                  materialDesign:HintAssist.Hint="Gender"
+                                  materialDesign:HintAssist.Hint="{l:Static p:Resources.EditUserDataView_Field_Gender_Hint}"
                                   ItemsSource="{Binding Source={markupExtensions:EnumBindingSource {x:Type enums:GenderType}}}"
                                   SelectedValue="{Binding Gender, Mode=TwoWay}"
                                   Style="{DynamicResource MaterialDesignFloatingHintComboBox}" />
@@ -124,9 +126,9 @@
                         <ColumnDefinition Width="8" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"
+                    <Button x:Name="Apply" Grid.Column="0"
                             Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                            Content="OK"
+                            Content="{l:Static p:Resources.EditUserDataView_Button_Apply_Text}"
                             IsDefault="True"
                             IsEnabled="{Binding HasErrors, Converter={StaticResource InvertBoolConverter}}"
                             Style="{StaticResource MaterialDesignRaisedButton}">
@@ -134,9 +136,9 @@
                             <system:Boolean>True</system:Boolean>
                         </Button.CommandParameter>
                     </Button>
-                    <Button Grid.Column="2"
+                    <Button x:Name="Cancel"  Grid.Column="2"
                             Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                            Content="CANCEL"
+                            Content="{l:Static p:Resources.EditUserDataView_Button_Cancel_Text}"
                             IsCancel="True"
                             Style="{DynamicResource MaterialDesignFlatButton}">
                         <Button.CommandParameter>

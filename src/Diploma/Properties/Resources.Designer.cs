@@ -61,6 +61,78 @@ namespace Diploma.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to APPLY.
+        /// </summary>
+        public static string EditUserDataView_Button_Apply_Text {
+            get {
+                return ResourceManager.GetString("EditUserDataView_Button_Apply_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CANCEL.
+        /// </summary>
+        public static string EditUserDataView_Button_Cancel_Text {
+            get {
+                return ResourceManager.GetString("EditUserDataView_Button_Cancel_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Birth date.
+        /// </summary>
+        public static string EditUserDataView_Field_BirthDate_Hint {
+            get {
+                return ResourceManager.GetString("EditUserDataView_Field_BirthDate_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name.
+        /// </summary>
+        public static string EditUserDataView_Field_FirstName_Hint {
+            get {
+                return ResourceManager.GetString("EditUserDataView_Field_FirstName_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gender.
+        /// </summary>
+        public static string EditUserDataView_Field_Gender_Hint {
+            get {
+                return ResourceManager.GetString("EditUserDataView_Field_Gender_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name.
+        /// </summary>
+        public static string EditUserDataView_Field_LastName_Hint {
+            get {
+                return ResourceManager.GetString("EditUserDataView_Field_LastName_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Middle name.
+        /// </summary>
+        public static string EditUserDataView_Field_MiddleName_Hint {
+            get {
+                return ResourceManager.GetString("EditUserDataView_Field_MiddleName_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Personal Info.
+        /// </summary>
+        public static string EditUserDataView_Header_Text {
+            get {
+                return ResourceManager.GetString("EditUserDataView_Header_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maximum age should be larger than minimum..
         /// </summary>
         public static string Exception_BirthDate_Wrong_Maximum_Age {

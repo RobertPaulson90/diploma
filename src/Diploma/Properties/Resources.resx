@@ -216,4 +216,28 @@
   <data name="LoginView_Field_Username_Text" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="EditUserDataView_Button_Apply_Text" xml:space="preserve">
+    <value>APPLY</value>
+  </data>
+  <data name="EditUserDataView_Button_Cancel_Text" xml:space="preserve">
+    <value>CANCEL</value>
+  </data>
+  <data name="EditUserDataView_Field_BirthDate_Hint" xml:space="preserve">
+    <value>Birth date</value>
+  </data>
+  <data name="EditUserDataView_Field_FirstName_Hint" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="EditUserDataView_Field_Gender_Hint" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="EditUserDataView_Field_LastName_Hint" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="EditUserDataView_Field_MiddleName_Hint" xml:space="preserve">
+    <value>Middle name</value>
+  </data>
+  <data name="EditUserDataView_Header_Text" xml:space="preserve">
+    <value>Edit Personal Info</value>
+  </data>
 </root>
