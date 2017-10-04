@@ -1,0 +1,20 @@
+version: 1.0.{build}
+
+image: Visual Studio 2017
+
+cache:
+  - packages -> **\packages.config
+
+platform: Any CPU
+
+configuration: Release
+
+build:
+  verbosity: minimal
+
+before_build:
+  - cmd: NuGet restore -verbosity quiet
+
+artifacts:
+  - path: 'bin\$(configuration)\Diploma'
+    name: 'Diploma-Binaries'
