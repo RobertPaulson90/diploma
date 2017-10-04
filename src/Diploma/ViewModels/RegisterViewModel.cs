@@ -205,7 +205,7 @@ namespace Diploma.ViewModels
                     Username = Username
                 };
 
-                var operation = await _userService.CreateUserAsync(userRegistrationDataDto, _cancellationToken.Token);
+                var operation = await _userService.CreateUserAsync(userRegistrationDataDto, _cancellationToken.Token).ConfigureAwait(false);
 
                 if (!operation.Success)
                 {
@@ -216,7 +216,7 @@ namespace Diploma.ViewModels
                 var user = operation.Result;
                 var dashboard = IoC.Get<DashboardViewModel>();
                 dashboard.Init(user);
-                ((ShellViewModel)Parent).ActiveItem = dashboard;
+                ((IConductActiveItem)Parent).ActiveItem = dashboard;
             }
         }
 

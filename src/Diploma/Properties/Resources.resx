@@ -117,7 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Validation_BirthDate_Wrong_Maximum_Age" xml:space="preserve">
-    <value>Maximum age should be larger than minimum.</value>
+  <data name="Validation_Authorization_Password_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Validation_Authorization_Username_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Validation_Registration_BirthDate_Must_Be_Be_Valid_Age" xml:space="preserve">
+    <value>Hmm, the date doesn't look right.</value>
+  </data>
+  <data name="Validation_Registration_ConfirmPassword_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Validation_Registration_ConfirmPassword_Not_Match_Password" xml:space="preserve">
+    <value>These passwords don't match. Try again?</value>
+  </data>
+  <data name="Validation_Registration_FirstName_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Validation_Registration_LastName_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Validation_Registration_Password_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Validation_Registration_Username_Already_Taken" xml:space="preserve">
+    <value>That username is taken. Try another.</value>
+  </data>
+  <data name="Validation_Registration_Username_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Validation_Registration_Username_Contains_Invalid_Characters" xml:space="preserve">
+    <value>Please use only letters (a-z), numbers, and periods.</value>
+  </data>
+  <data name="Validation_Registration_Username_Invalid_Length" xml:space="preserve">
+    <value>Please use between {MinLength} and {MaxLength} characters.</value>
+  </data>
+  <data name="Validation_Registration_UserRole_Invalid_Value" xml:space="preserve">
+    <value>Unsupported value of user role.</value>
+  </data>
+  <data name="Validation_Editing_BirthDate_Must_Be_Be_Valid_Age" xml:space="preserve">
+    <value>Hmm, the date doesn't look right.</value>
+  </data>
+  <data name="Validation_Editing_FirstName_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
+  </data>
+  <data name="Validation_Editing_LastName_Can_Not_Be_Empty" xml:space="preserve">
+    <value>You can't leave this empty.</value>
   </data>
 </root>

@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Diploma.DAL.Entities.Enums;
+using SQLite.CodeFirst;
 
 namespace Diploma.DAL.Entities
 {
@@ -23,6 +24,13 @@ namespace Diploma.DAL.Entities
 
         public DateTime? BirthDate { get; set; }
 
-        public virtual CredentialsEntity Credentials { get; set; }
+        [Required]
+        public string PasswordHash { get; set; }
+
+        [Required]
+        [Unique]
+        [MinLength(5)]
+        [MaxLength(30)]
+        public string Username { get; set; }
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Diploma.Common.Properties {
+namespace Diploma.BLL.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Diploma.Common.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Diploma.Common.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Diploma.BLL.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,20 @@ namespace Diploma.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum age should be larger than minimum..
+        ///   Looks up a localized string similar to User not exists..
         /// </summary>
-        public static string Validation_BirthDate_Wrong_Maximum_Age {
+        public static string Authorization_Username_Not_Found {
             get {
-                return ResourceManager.GetString("Validation_BirthDate_Wrong_Maximum_Age", resourceCulture);
+                return ResourceManager.GetString("Authorization_Username_Not_Found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect username or password..
+        /// </summary>
+        public static string Authorization_Username_Or_Password_Invalid {
+            get {
+                return ResourceManager.GetString("Authorization_Username_Or_Password_Invalid", resourceCulture);
             }
         }
     }

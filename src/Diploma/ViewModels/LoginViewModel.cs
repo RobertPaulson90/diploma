@@ -91,7 +91,7 @@ namespace Diploma.ViewModels
                     Username = Username
                 };
 
-                var operation = await _userService.GetUserByCredentialsAsync(userAuthorizationDataDto, _cancellationToken.Token);
+                var operation = await _userService.GetUserByCredentialsAsync(userAuthorizationDataDto, _cancellationToken.Token).ConfigureAwait(false);
 
                 if (!operation.Success)
                 {

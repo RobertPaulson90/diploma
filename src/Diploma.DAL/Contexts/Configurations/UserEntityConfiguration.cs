@@ -8,8 +8,6 @@ namespace Diploma.DAL.Contexts.Configurations
         public UserEntityConfiguration()
         {
             ToTable("Users");
-
-            HasRequired(x => x.Credentials).WithRequiredPrincipal(x => x.User);
         }
     }
 }

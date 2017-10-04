@@ -61,7 +61,6 @@
   <ItemGroup>
     <Compile Include="Contexts\CompanyContext.cs" />
     <Compile Include="Contexts\Configurations\AdminEntityConfiguration.cs" />
-    <Compile Include="Contexts\Configurations\CredentialsEntityConfiguration.cs" />
     <Compile Include="Contexts\Configurations\ProgrammerEntityConfiguration.cs" />
     <Compile Include="Contexts\Configurations\TeamMemberEntityConfiguration.cs" />
     <Compile Include="Contexts\Configurations\TeamEntityConfiguration.cs" />
@@ -71,7 +70,6 @@
     <Compile Include="Contexts\Configurations\EmployeeEntityConfiguration.cs" />
     <Compile Include="Contexts\Configurations\UserEntityConfiguration.cs" />
     <Compile Include="Entities\AdminEntity.cs" />
-    <Compile Include="Entities\CredentialsEntity.cs" />
     <Compile Include="Entities\CustomerEntity.cs" />
     <Compile Include="Entities\EmployeeEntity.cs" />
     <Compile Include="Entities\Enums\GenderType.cs" />

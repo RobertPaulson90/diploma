@@ -4,8 +4,6 @@ namespace Diploma.Common
 {
     public class OperationResult<TResult>
     {
-        private readonly TResult _result;
-
         private OperationResult(string nonSuccessMessage)
         {
             Success = false;
@@ -21,25 +19,14 @@ namespace Diploma.Common
         private OperationResult(TResult result)
         {
             Success = true;
-            _result = result;
+            Result = result;
         }
 
         public Exception Exception { get; }
 
         public string NonSuccessMessage { get; }
 
-        public TResult Result
-        {
-            get
-            {
-                if (!Success && Exception != null)
-                {
-                    throw Exception;
-                }
-
-                return _result;
-            }
-        }
+        public TResult Result { get; }
 
         public bool Success { get; }
 

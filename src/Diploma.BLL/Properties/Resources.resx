@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Validation_BirthDate_Wrong_Maximum_Age" xml:space="preserve">
-    <value>Maximum age should be larger than minimum.</value>
+  <data name="Authorization_Username_Not_Found" xml:space="preserve">
+    <value>User not exists.</value>
+  </data>
+  <data name="Authorization_Username_Or_Password_Invalid" xml:space="preserve">
+    <value>Incorrect username or password.</value>
   </data>
 </root>

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Diploma.BLL.DTO;
 using Diploma.BLL.DTO.Enums;
 using Diploma.BLL.Interfaces.Services;
+using Diploma.BLL.Properties;
 using Diploma.Common;
-using Diploma.Common.Properties;
 using Diploma.DAL.Contexts;
 using Diploma.DAL.Entities;
 using GenderType = Diploma.DAL.Entities.Enums.GenderType;
@@ -41,7 +41,7 @@ namespace Diploma.BLL.Services
                     try
                     {
                         var userDb = context.Users.Add(userEntity);
-                        await context.SaveChangesAsync(cancellationToken);
+                        await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
                         transaction.Commit();
 
                         var userDto = UserEntityToUserDto(userDb);
@@ -69,18 +69,17 @@ namespace Diploma.BLL.Services
             {
                 using (var context = _companyContextFactory())
                 {
-                    var credentialsEntity = await context.Credentials.AsNoTracking().SingleOrDefaultAsync(
+                    var userDb = await context.Users.AsNoTracking().SingleOrDefaultAsync(
                         UserNameEquals(userAuthorizationData.Username),
-                        cancellationToken);
+                        cancellationToken).ConfigureAwait(false);
 
-                    if (credentialsEntity == null)
+                    if (userDb == null)
                     {
                         return OperationResult<UserDto>.CreateFailure(Resources.Authorization_Username_Not_Found);
                     }
 
-                    if (_cryptoService.VerifyPasswordHash(userAuthorizationData.Password, credentialsEntity.PasswordHash))
+                    if (_cryptoService.VerifyPasswordHash(userAuthorizationData.Password, userDb.PasswordHash))
                     {
-                        var userDb = credentialsEntity.User;
                         var userDto = UserEntityToUserDto(userDb);
                         return OperationResult<UserDto>.CreateSuccess(userDto);
                     }
@@ -100,7 +99,7 @@ namespace Diploma.BLL.Services
             {
                 using (var context = _companyContextFactory())
                 {
-                    var isUnique = !await context.Credentials.AnyAsync(UserNameEquals(username), cancellationToken);
+                    var isUnique = !await context.Users.AnyAsync(UserNameEquals(username), cancellationToken).ConfigureAwait(false);
                     return OperationResult<bool>.CreateSuccess(isUnique);
                 }
             }
@@ -121,10 +120,10 @@ namespace Diploma.BLL.Services
                 {
                     try
                     {
-                        var userDb = await context.Users.SingleAsync(x => x.Id == userUpdateRequestData.Id, cancellationToken);
+                        var userDb = await context.Users.SingleAsync(x => x.Id == userUpdateRequestData.Id, cancellationToken).ConfigureAwait(false);
                         UpdateUserEntityWithData(userDb, userUpdateRequestData);
 
-                        await context.SaveChangesAsync(cancellationToken);
+                        await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
                         transaction.Commit();
 
                         var userDto = UserEntityToUserDto(userDb);
@@ -182,8 +181,8 @@ namespace Diploma.BLL.Services
         {
             var dto = new UserDto
             {
-                Username = dbUser.Credentials.Username,
-                PasswordHash = dbUser.Credentials.PasswordHash,
+                Username = dbUser.Username,
+                PasswordHash = dbUser.PasswordHash,
                 BirthDate = dbUser.BirthDate,
                 FirstName = dbUser.FirstName,
                 LastName = dbUser.LastName,
@@ -221,7 +220,7 @@ namespace Diploma.BLL.Services
         }
 
         [SuppressMessage("ReSharper", "SpecifyStringComparison", Justification = "This must be used explicit cuz LINQ to entities doesn't support string.Equals(...).")]
-        private static Expression<Func<CredentialsEntity, bool>> UserNameEquals(string username)
+        private static Expression<Func<UserEntity, bool>> UserNameEquals(string username)
         {
             return x => username.ToUpper() == x.Username.ToUpper();
         }
@@ -244,11 +243,8 @@ namespace Diploma.BLL.Services
                 MiddleName = userRegistrationData.MiddleName,
                 BirthDate = userRegistrationData.BirthDate,
                 Gender = (GenderType)(int)userRegistrationData.Gender,
-                Credentials = new CredentialsEntity
-                {
-                    Username = userRegistrationData.Username,
-                    PasswordHash = _cryptoService.HashPassword(userRegistrationData.Password)
-                }
+                Username = userRegistrationData.Username,
+                PasswordHash = _cryptoService.HashPassword(userRegistrationData.Password)
             };
             return userEntity;
         }

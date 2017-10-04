@@ -1,5 +1,4 @@
 using System.Data.Entity;
-using System.Reflection;
 using Diploma.DAL.Entities;
 using SQLite.CodeFirst;
 
@@ -13,9 +12,7 @@ namespace Diploma.DAL.Contexts
         }
 
         public DbSet<AdminEntity> Admins { get; set; }
-
-        public DbSet<CredentialsEntity> Credentials { get; set; }
-
+        
         public DbSet<CustomerEntity> Customers { get; set; }
 
         public DbSet<EmployeeEntity> Employees { get; set; }
@@ -34,9 +31,7 @@ namespace Diploma.DAL.Contexts
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-
-            modelBuilder.Configurations.AddFromAssembly(assembly);
+            modelBuilder.Configurations.AddFromAssembly(typeof(CompanyContext).Assembly);
 
             var sqliteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<CompanyContext>(modelBuilder, true);
             Database.SetInitializer(sqliteConnectionInitializer);
