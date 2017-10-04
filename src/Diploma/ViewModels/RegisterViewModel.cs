@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
 using Caliburn.Micro;
-using Diploma.BLL.DTO;
-using Diploma.BLL.DTO.Enums;
-using Diploma.BLL.Interfaces.Services;
-using Diploma.Common;
+using Diploma.BLL.Contracts.DTO;
+using Diploma.BLL.Contracts.DTO.Enums;
+using Diploma.BLL.Contracts.Services;
+using Diploma.Core.Framework;
 using Diploma.Framework.Interfaces;
 using Diploma.Framework.Validations;
 using FluentValidation;
@@ -194,7 +194,7 @@ namespace Diploma.ViewModels
 
             using (BusyScope.StartWork())
             {
-                var userRegistrationDataDto = new UserRegistrationDataDto
+                var userRegistrationDataDto = new CustomerRegistrationDataDto
                 {
                     BirthDate = BirthDate,
                     FirstName = FirstName,

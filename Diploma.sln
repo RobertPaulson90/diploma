@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diploma.DAL", "src\Diploma.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diploma.BLL", "src\Diploma.BLL\Diploma.BLL.csproj", "{36F6865A-B0E7-4E94-AF3E-AC5FAFE463D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diploma.BLL.Contracts", "src\Diploma.BLL.Contracts\Diploma.BLL.Contracts.csproj", "{AC206C0D-CE61-4D09-B852-81F7EB437EBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diploma.Core", "src\Diploma.Core\Diploma.Core.csproj", "{48325246-FCE3-4BB3-BD38-60052A7812C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{36F6865A-B0E7-4E94-AF3E-AC5FAFE463D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36F6865A-B0E7-4E94-AF3E-AC5FAFE463D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36F6865A-B0E7-4E94-AF3E-AC5FAFE463D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC206C0D-CE61-4D09-B852-81F7EB437EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC206C0D-CE61-4D09-B852-81F7EB437EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC206C0D-CE61-4D09-B852-81F7EB437EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC206C0D-CE61-4D09-B852-81F7EB437EBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48325246-FCE3-4BB3-BD38-60052A7812C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48325246-FCE3-4BB3-BD38-60052A7812C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48325246-FCE3-4BB3-BD38-60052A7812C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48325246-FCE3-4BB3-BD38-60052A7812C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

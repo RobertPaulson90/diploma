@@ -36,9 +36,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
-    </Reference>
     <Reference Include="Caliburn.Micro, Version=3.2.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\Caliburn.Micro.Core.3.2.0\lib\net45\Caliburn.Micro.dll</HintPath>
     </Reference>
@@ -113,6 +110,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AppBootstrapper.cs" />
     <Compile Include="MarkupExtensions\EnumBindingSourceExtension.cs" />
     <Compile Include="Converters\EnumDescriptionTypeConverter.cs" />
     <Compile Include="Behaviors\PasswordBoxAssist.cs" />
@@ -158,7 +156,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -207,6 +204,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Diploma.BLL.Contracts\Diploma.BLL.Contracts.csproj">
+      <Project>{AC206C0D-CE61-4D09-B852-81F7EB437EBB}</Project>
+      <Name>Diploma.BLL.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Diploma.BLL\Diploma.BLL.csproj">
       <Project>{36F6865A-B0E7-4E94-AF3E-AC5FAFE463D8}</Project>
       <Name>Diploma.BLL</Name>
@@ -214,6 +215,10 @@
     <ProjectReference Include="..\Diploma.Common\Diploma.Common.csproj">
       <Project>{C1FFEDA5-EED6-4ED0-B237-FCD70A2BE3BD}</Project>
       <Name>Diploma.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Diploma.Core\Diploma.Core.csproj">
+      <Project>{48325246-FCE3-4BB3-BD38-60052A7812C7}</Project>
+      <Name>Diploma.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

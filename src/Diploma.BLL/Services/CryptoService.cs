@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Security.Cryptography;
-using Diploma.BLL.Interfaces.Services;
+using Diploma.BLL.Contracts.Services;
 
 namespace Diploma.BLL.Services
 {
-    public class CryptoService : ICryptoService
+    internal sealed class CryptoService : ICryptoService
     {
         public string HashPassword(string password)
         {

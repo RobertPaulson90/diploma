@@ -55,15 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\UserAuthorizationDataDto.cs" />
-    <Compile Include="DTO\Enums\GenderType.cs" />
-    <Compile Include="DTO\UserDto.cs" />
-    <Compile Include="DTO\UserRegistrationDataDto.cs" />
-    <Compile Include="DTO\UserUpdateRequestDataDto.cs" />
-    <Compile Include="Interfaces\Services\ICryptoService.cs" />
-    <Compile Include="Interfaces\Services\IUserService.cs" />
-    <Compile Include="DTO\Enums\UserRoleType.cs" />
-    <Compile Include="Mappings\Profiles\CompanyMappingProfile.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -75,9 +66,9 @@
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Diploma.Common\Diploma.Common.csproj">
-      <Project>{C1FFEDA5-EED6-4ED0-B237-FCD70A2BE3BD}</Project>
-      <Name>Diploma.Common</Name>
+    <ProjectReference Include="..\Diploma.BLL.Contracts\Diploma.BLL.Contracts.csproj">
+      <Project>{AC206C0D-CE61-4D09-B852-81F7EB437EBB}</Project>
+      <Name>Diploma.BLL.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Diploma.DAL\Diploma.DAL.csproj">
       <Project>{4E6D38A2-1D75-4C7A-9325-449FD796C5C6}</Project>
@@ -93,5 +84,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

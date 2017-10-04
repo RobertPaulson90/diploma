@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Diploma.BLL.Interfaces.Services;
+using Diploma.BLL.Contracts.Services;
 using Diploma.Framework.Validations;
 using Diploma.Properties;
 using Diploma.ViewModels;
@@ -9,7 +9,7 @@ using FluentValidation;
 
 namespace Diploma.Validators
 {
-    public class RegisterViewModelValidator : AbstractValidator<RegisterViewModel>
+    internal sealed class RegisterViewModelValidator : AbstractValidator<RegisterViewModel>
     {
         private const int MaximumUsernameCharCount = 30;
 

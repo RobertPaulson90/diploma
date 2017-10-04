@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Diploma.Common
+namespace Diploma.Core.Framework
 {
     public sealed class BusyScope : INotifyPropertyChanged
     {

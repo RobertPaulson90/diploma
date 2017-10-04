@@ -4,7 +4,7 @@ using SQLite.CodeFirst;
 
 namespace Diploma.DAL.Contexts
 {
-    public class CompanyContext : DbContext
+    public sealed class CompanyContext : DbContext
     {
         public CompanyContext()
             : base("CompanyDb")

@@ -1,7 +1,7 @@
 ﻿using System;
-using Diploma.BLL.DTO.Enums;
+using Diploma.BLL.Contracts.DTO.Enums;
 
-namespace Diploma.BLL.DTO
+namespace Diploma.BLL.Contracts.DTO
 {
     public class UserDto
     {

@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Diploma.Validators
 {
-    public class LoginViewModelValidator : AbstractValidator<LoginViewModel>
+    internal sealed class LoginViewModelValidator : AbstractValidator<LoginViewModel>
     {
         public LoginViewModelValidator()
         {

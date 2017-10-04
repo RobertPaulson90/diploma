@@ -4,47 +4,49 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Diploma.BLL.DTO;
-using Diploma.BLL.DTO.Enums;
-using Diploma.BLL.Interfaces.Services;
+using AutoMapper;
+using Diploma.BLL.Contracts;
+using Diploma.BLL.Contracts.DTO;
+using Diploma.BLL.Contracts.Services;
 using Diploma.BLL.Properties;
-using Diploma.Common;
 using Diploma.DAL.Contexts;
 using Diploma.DAL.Entities;
-using GenderType = Diploma.DAL.Entities.Enums.GenderType;
 
 namespace Diploma.BLL.Services
 {
-    public class UserService : IUserService
+    internal sealed class UserService : IUserService
     {
         private readonly Func<CompanyContext> _companyContextFactory;
 
         private readonly ICryptoService _cryptoService;
 
-        public UserService(Func<CompanyContext> companyContextFactory, ICryptoService cryptoService)
+        private readonly IMapper _mapper;
+
+        public UserService(Func<CompanyContext> companyContextFactory, ICryptoService cryptoService, IMapper mapper)
         {
             _companyContextFactory = companyContextFactory;
             _cryptoService = cryptoService;
+            _mapper = mapper;
         }
 
         public async Task<OperationResult<UserDto>> CreateUserAsync(
-            UserRegistrationDataDto userRegistrationData,
+            CustomerRegistrationDataDto customerRegistrationData,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             try
             {
-                var userEntity = UserRegistrationDataDtoToUserEntity(userRegistrationData);
+                var customerEntity = _mapper.Map<CustomerEntity>(customerRegistrationData);
 
                 using (var context = _companyContextFactory())
                 using (var transaction = context.Database.BeginTransaction())
                 {
                     try
                     {
-                        var userDb = context.Users.Add(userEntity);
+                        var userDb = context.Users.Add(customerEntity);
                         await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
                         transaction.Commit();
 
-                        var userDto = UserEntityToUserDto(userDb);
+                        var userDto = _mapper.Map<UserDto>(userDb);
 
                         return OperationResult<UserDto>.CreateSuccess(userDto);
                     }
@@ -69,9 +71,8 @@ namespace Diploma.BLL.Services
             {
                 using (var context = _companyContextFactory())
                 {
-                    var userDb = await context.Users.AsNoTracking().SingleOrDefaultAsync(
-                        UserNameEquals(userAuthorizationData.Username),
-                        cancellationToken).ConfigureAwait(false);
+                    var userDb = await context.Users.AsNoTracking()
+                        .SingleOrDefaultAsync(UserNameEquals(userAuthorizationData.Username), cancellationToken).ConfigureAwait(false);
 
                     if (userDb == null)
                     {
@@ -80,7 +81,7 @@ namespace Diploma.BLL.Services
 
                     if (_cryptoService.VerifyPasswordHash(userAuthorizationData.Password, userDb.PasswordHash))
                     {
-                        var userDto = UserEntityToUserDto(userDb);
+                        var userDto = _mapper.Map<UserDto>(userDb);
                         return OperationResult<UserDto>.CreateSuccess(userDto);
                     }
 
@@ -121,12 +122,13 @@ namespace Diploma.BLL.Services
                     try
                     {
                         var userDb = await context.Users.SingleAsync(x => x.Id == userUpdateRequestData.Id, cancellationToken).ConfigureAwait(false);
-                        UpdateUserEntityWithData(userDb, userUpdateRequestData);
+
+                        _mapper.Map(userUpdateRequestData, userDb);
 
                         await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
                         transaction.Commit();
 
-                        var userDto = UserEntityToUserDto(userDb);
+                        var userDto = _mapper.Map<UserDto>(userDb);
 
                         return OperationResult<UserDto>.CreateSuccess(userDto);
                     }
@@ -143,110 +145,10 @@ namespace Diploma.BLL.Services
             }
         }
 
-        private static GenderType DtoGenderTypeToEntityGenderType(DTO.Enums.GenderType gender)
-        {
-            return (GenderType)(int)gender;
-        }
-
-        private static DTO.Enums.GenderType EntityGenderTypeToDtoGenderType(GenderType gender)
-        {
-            return (DTO.Enums.GenderType)(int)gender;
-        }
-
-        private static UserEntity GetUserEntityByRole(UserRoleType role)
-        {
-            UserEntity userEntity;
-            switch (role)
-            {
-                case UserRoleType.Customer:
-                    userEntity = new CustomerEntity();
-                    break;
-                case UserRoleType.Programmer:
-                    userEntity = new ProgrammerEntity();
-                    break;
-                case UserRoleType.Manager:
-                    userEntity = new ManagerEntity();
-                    break;
-                case UserRoleType.Admin:
-                    userEntity = new AdminEntity();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            return userEntity;
-        }
-
-        private static UserDto UserEntityToUserDto(UserEntity dbUser)
-        {
-            var dto = new UserDto
-            {
-                Username = dbUser.Username,
-                PasswordHash = dbUser.PasswordHash,
-                BirthDate = dbUser.BirthDate,
-                FirstName = dbUser.FirstName,
-                LastName = dbUser.LastName,
-                MiddleName = dbUser.MiddleName,
-                Role = UserEntityToUserRoleType(dbUser),
-                Id = dbUser.Id,
-                Gender = EntityGenderTypeToDtoGenderType(dbUser.Gender)
-            };
-            return dto;
-        }
-
-        private static UserRoleType UserEntityToUserRoleType(UserEntity dbUser)
-        {
-            if (dbUser is CustomerEntity)
-            {
-                return UserRoleType.Customer;
-            }
-
-            if (dbUser is ProgrammerEntity)
-            {
-                return UserRoleType.Programmer;
-            }
-
-            if (dbUser is ManagerEntity)
-            {
-                return UserRoleType.Manager;
-            }
-
-            if (dbUser is AdminEntity)
-            {
-                return UserRoleType.Admin;
-            }
-
-            throw new ArgumentException();
-        }
-
-        [SuppressMessage("ReSharper", "SpecifyStringComparison", Justification = "This must be used explicit cuz LINQ to entities doesn't support string.Equals(...).")]
+        [SuppressMessage("ReSharper", "SpecifyStringComparison", Justification = "This must be used as is cuz of LINQ to entities.")]
         private static Expression<Func<UserEntity, bool>> UserNameEquals(string username)
         {
             return x => username.ToUpper() == x.Username.ToUpper();
-        }
-
-        private void UpdateUserEntityWithData(UserEntity userDb, UserUpdateRequestDataDto userUpdateRequestData)
-        {
-            userDb.Gender = DtoGenderTypeToEntityGenderType(userUpdateRequestData.Gender);
-            userDb.BirthDate = userUpdateRequestData.BirthDate;
-            userDb.FirstName = userUpdateRequestData.FirstName;
-            userDb.LastName = userUpdateRequestData.LastName;
-            userDb.MiddleName = userUpdateRequestData.MiddleName;
-        }
-
-        private UserEntity UserRegistrationDataDtoToUserEntity(UserRegistrationDataDto userRegistrationData)
-        {
-            var userEntity = new CustomerEntity
-            {
-                LastName = userRegistrationData.LastName,
-                FirstName = userRegistrationData.FirstName,
-                MiddleName = userRegistrationData.MiddleName,
-                BirthDate = userRegistrationData.BirthDate,
-                Gender = (GenderType)(int)userRegistrationData.Gender,
-                Username = userRegistrationData.Username,
-                PasswordHash = _cryptoService.HashPassword(userRegistrationData.Password)
-            };
-            return userEntity;
         }
     }
 }

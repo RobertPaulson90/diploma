@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:Diploma.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:enums="clr-namespace:Diploma.BLL.DTO.Enums;assembly=Diploma.BLL"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:viewModels="clr-namespace:Diploma.ViewModels"
              xmlns:markupExtensions="clr-namespace:Diploma.MarkupExtensions"
+             xmlns:enums="clr-namespace:Diploma.BLL.Contracts.DTO.Enums;assembly=Diploma.BLL.Contracts"
              d:DataContext="{d:DesignInstance viewModels:EditUserDataViewModel}"
              mc:Ignorable="d">
     <UserControl.Resources>

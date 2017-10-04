@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Diploma.Common
+namespace Diploma.BLL.Contracts
 {
     public class OperationResult<TResult>
     {

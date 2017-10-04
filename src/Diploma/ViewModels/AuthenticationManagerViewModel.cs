@@ -2,7 +2,7 @@
 
 namespace Diploma.ViewModels
 {
-    public class AuthenticationManagerViewModel : Conductor<Screen>
+    public sealed class AuthenticationManagerViewModel : Conductor<Screen>
     {
         public AuthenticationManagerViewModel(LoginViewModel loginViewModel)
         {

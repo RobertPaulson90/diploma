@@ -1,4 +1,4 @@
-﻿namespace Diploma.BLL.Interfaces.Services
+﻿namespace Diploma.BLL.Contracts.Services
 {
     public interface ICryptoService
     {

@@ -1,11 +1,11 @@
 ﻿using System;
-using Diploma.BLL.DTO.Enums;
+using Diploma.BLL.Contracts.DTO.Enums;
 using Diploma.Framework.Validations;
 using FluentValidation;
 
 namespace Diploma.ViewModels
 {
-    public class EditUserDataViewModel : ValidatableScreen<EditUserDataViewModel, IValidator<EditUserDataViewModel>>
+    public sealed class EditUserDataViewModel : ValidatableScreen<EditUserDataViewModel, IValidator<EditUserDataViewModel>>
     {
         private DateTime? _birthDate;
 

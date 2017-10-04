@@ -3,7 +3,7 @@ using Diploma.DAL.Entities;
 
 namespace Diploma.DAL.Contexts.Configurations
 {
-    public class TeamMemberEntityConfiguration : EntityTypeConfiguration<TeamMemberEntity>
+    internal sealed class TeamMemberEntityConfiguration : EntityTypeConfiguration<TeamMemberEntity>
     {
         public TeamMemberEntityConfiguration()
         {

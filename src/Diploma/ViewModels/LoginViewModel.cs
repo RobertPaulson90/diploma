@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using Caliburn.Micro;
-using Diploma.BLL.DTO;
-using Diploma.BLL.Interfaces.Services;
-using Diploma.Common;
+using Diploma.BLL.Contracts.DTO;
+using Diploma.BLL.Contracts.Services;
+using Diploma.Core.Framework;
 using Diploma.Framework.Interfaces;
 using Diploma.Framework.Validations;
 using FluentValidation;

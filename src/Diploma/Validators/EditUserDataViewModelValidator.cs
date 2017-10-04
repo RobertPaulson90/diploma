@@ -5,7 +5,7 @@ using FluentValidation;
 
 namespace Diploma.Validators
 {
-    public class EditUserDataViewModelValidator : AbstractValidator<EditUserDataViewModel>
+    internal sealed class EditUserDataViewModelValidator : AbstractValidator<EditUserDataViewModel>
     {
         public EditUserDataViewModelValidator()
         {

@@ -10,9 +10,9 @@ namespace Diploma.Framework.Validations.PropertyValidators
 
         private const int DefaultMinimumAge = 2;
 
-        private readonly DateTime _minimumBirthDate;
+        private readonly int _minimumAge;
 
-        private readonly DateTime _maximumBirthDate;
+        private readonly int _maximumAge;
 
         public BirthDateValidator()
             : this(DefaultMinimumAge, DefaultMaximumAge)
@@ -27,8 +27,8 @@ namespace Diploma.Framework.Validations.PropertyValidators
                 throw new ArgumentOutOfRangeException(nameof(maximumAge), Resources.Validation_BirthDate_Wrong_Maximum_Age);
             }
 
-            _minimumBirthDate = DateTime.Today.AddYears(-maximumAge);
-            _maximumBirthDate = DateTime.Today.AddYears(-minimumAge);
+            _minimumAge = minimumAge;
+            _maximumAge = maximumAge;
         }
         
         protected override bool IsValid(PropertyValidatorContext context)
@@ -39,15 +39,18 @@ namespace Diploma.Framework.Validations.PropertyValidators
             {
                 return true;
             }
-            
-            if (birthDate >= _minimumBirthDate && birthDate < _maximumBirthDate)
+
+            var minimumBirthDate = DateTime.Today.AddYears(-_maximumAge);
+            var maximumBirthDate = DateTime.Today.AddYears(-_minimumAge);
+
+            if (birthDate >= minimumBirthDate && birthDate < maximumBirthDate)
             {
                 return true;
             }
 
             context.MessageFormatter
-                .AppendArgument("From", _minimumBirthDate)
-                .AppendArgument("To", _maximumBirthDate)
+                .AppendArgument("From", minimumBirthDate)
+                .AppendArgument("To", maximumBirthDate)
                 .AppendArgument("Value", context.PropertyValue);
 
             return false;

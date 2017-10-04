@@ -1,4 +1,4 @@
-namespace Diploma.BLL.DTO
+namespace Diploma.BLL.Contracts.DTO
 {
     public class UserAuthorizationDataDto
     {

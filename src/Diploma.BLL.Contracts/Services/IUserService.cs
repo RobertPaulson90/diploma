@@ -1,14 +1,13 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Diploma.BLL.DTO;
-using Diploma.Common;
+using Diploma.BLL.Contracts.DTO;
 
-namespace Diploma.BLL.Interfaces.Services
+namespace Diploma.BLL.Contracts.Services
 {
     public interface IUserService
     {
         Task<OperationResult<UserDto>> CreateUserAsync(
-            UserRegistrationDataDto userRegistrationData,
+            CustomerRegistrationDataDto customerRegistrationData,
             CancellationToken cancellationToken = default(CancellationToken));
 
         Task<OperationResult<UserDto>> GetUserByCredentialsAsync(
