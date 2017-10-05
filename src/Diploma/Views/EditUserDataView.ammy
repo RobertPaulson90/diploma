@@ -1,0 +1,162 @@
+﻿using Diploma.ViewModels
+using Diploma.MarkupExtensions
+using Diploma.BLL.Contracts.DTO.Enums
+using Diploma.Properties
+using Caliburn.Micro
+using MahApps.Metro.Controls
+using MaterialDesignThemes.Wpf
+
+UserControl "Diploma.Views.EditUserDataView"
+{
+  "xmlns:enums": "clr-namespace:Diploma.BLL.Contracts.DTO.Enums;assembly=Diploma.BLL.Contracts"
+  "xmlns:p": "clr-namespace:Diploma.Properties"
+  "xmlns:l": "http://gu.se/Localization"
+  "xmlns:markupExtensions":"clr-namespace:Diploma.MarkupExtensions"
+  Grid "Body"
+  {
+    Border
+    {
+      Padding: resource "GlobalCardPadding"
+      HorizontalAlignment: Center
+      VerticalAlignment: Center
+      Grid
+      {
+        RowDefinitions:
+        [
+          RowDefinition { Height: Auto }
+          RowDefinition { Height: 4 }
+          RowDefinition { Height: Auto }
+          RowDefinition { Height: 12 }
+          RowDefinition { Height: Auto }
+          RowDefinition { Height: 20 }
+          RowDefinition { Height: Auto }
+        ]
+        Grid "Header"
+        {
+          #Cell(0)
+          #Centered
+          @Header { Text: "{l:Static p:Resources.EditUserDataView_Header_Text}" }
+        }
+        @Divider() { #Cell(2)}
+        Grid "Main"
+        {
+          #Cell(4)
+          #Size(330)
+          Grid
+          {
+            RowDefinitions:
+            [
+              RowDefinition { Height: Auto }
+              RowDefinition { Height: 12 }
+              RowDefinition { Height: Auto }
+              RowDefinition { Height: 12 }
+              RowDefinition { Height: Auto }
+              RowDefinition { Height: "12" }
+              RowDefinition { Height: Auto }
+            ]
+            ColumnDefinitions:
+            [
+              ColumnDefinition { Width: 24 }
+              ColumnDefinition { Width: "4*" }
+              ColumnDefinition { Width: 24 }
+              ColumnDefinition { Width: 24 }
+              ColumnDefinition { Width: "3*" }
+              ColumnDefinition { Width: 24 }
+            ]
+            TextBox "LastNameField"
+            {
+              #Cell(0, 1, none, 4)
+              HintAssist.Hint: "{l:Static p:Resources.EditUserDataView_Field_LastName_Hint}"
+              Style: resource dyn "MaterialDesignFloatingHintTextBox"
+              Text:
+                bind LastName
+                set [ UpdateSourceTrigger: PropertyChanged, ValidatesOnNotifyDataErrors: true, NotifyOnValidationError: true ]
+            }
+            TextBox "FirstNameField"
+            {
+              #Cell(2, 1, none, 4)
+              HintAssist.Hint: "{l:Static p:Resources.EditUserDataView_Field_FirstName_Hint}"
+              Style: resource dyn "MaterialDesignFloatingHintTextBox"
+              Text:
+                bind FirstName
+                set [ UpdateSourceTrigger: PropertyChanged, ValidatesOnNotifyDataErrors: true, NotifyOnValidationError: true ]
+            }
+            TextBox "MiddleNameField"
+            {
+              #Cell(4, 1, none, 4)
+              HintAssist.Hint: "{l:Static p:Resources.EditUserDataView_Field_MiddleName_Hint}"
+              Style: resource dyn "MaterialDesignFloatingHintTextBox"
+              Text:
+                bind MiddleName
+                set [ UpdateSourceTrigger: PropertyChanged, ValidatesOnNotifyDataErrors: true, NotifyOnValidationError: true ]
+            }
+            PackIcon
+            {
+              #Cell(6, 0)
+              Margin: resource "DefaultIconsMargin"
+              VerticalAlignment: Bottom
+              Foreground: "{Binding ElementName=BirthDateField, Path=BorderBrush}"
+              Kind: "Cake"
+            }
+            DatePicker "BirthDateField"
+            {
+              #Cell(6, 1)
+              VerticalContentAlignment: Bottom
+              HintAssist.Hint: "{l:Static p:Resources.EditUserDataView_Field_BirthDate_Hint}"
+              SelectedDate:
+                bind BirthDate
+                set [ UpdateSourceTrigger: PropertyChanged, ValidatesOnNotifyDataErrors: true, NotifyOnValidationError: true ]
+              Style: resource dyn "MaterialDesignFloatingHintDatePicker"
+            }
+            PackIcon
+            {
+              #Cell(6, 3)
+              Margin: resource "DefaultIconsMargin"
+              VerticalAlignment: Bottom
+              Foreground:
+                bind BorderBrush
+                from "GenderField"
+              Kind: "GenderMaleFemale"
+            }
+            ComboBox "GenderField"
+            {
+              #Cell(6, 4)
+              ComboBoxAssist.ShowSelectedItem: false
+              HintAssist.Hint: "{l:Static p:Resources.EditUserDataView_Field_Gender_Hint}"
+              ItemsSource: "{Binding Source={markupExtensions:EnumBindingSource {x:Type enums:GenderType}}}"
+              SelectedValue:
+                bind Gender
+                set [ Mode: TwoWay ]
+              Style: resource dyn "MaterialDesignFloatingHintComboBox"
+            }
+          }
+        }
+        Grid "Footer"
+        {
+          #Cell(6)
+          #ThreeColumns("Auto", 8, "Auto")
+          #Centered
+          Button "Apply"
+          {
+            #Cell(0, 0)
+            Command: DialogHost.CloseDialogCommand
+            CommandParameter: true
+            Content: "{l:Static p:Resources.EditUserDataView_Button_Apply_Text}"
+            IsDefault: true
+            IsEnabled: bind HasErrors convert (bool b) => b ? false : true
+            Style: resource dyn "MaterialDesignRaisedButton"
+          }
+          Button "Cancel"
+          {
+            #Cell(0, 2)
+            Command: DialogHost.CloseDialogCommand
+            CommandParameter: false
+            Content: "{l:Static p:Resources.EditUserDataView_Button_Cancel_Text}"
+            IsCancel: true
+            Style: resource dyn "MaterialDesignFlatButton"
+          }
+        }
+      }
+    }
+  }
+}

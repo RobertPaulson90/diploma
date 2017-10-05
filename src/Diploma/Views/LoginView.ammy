@@ -1,0 +1,111 @@
+﻿using Diploma.Behaviors
+using Diploma.ViewModels
+using Diploma.Properties
+using Caliburn.Micro
+using MahApps.Metro.Controls
+using MaterialDesignThemes.Wpf
+
+UserControl "Diploma.Views.LoginView"
+{
+  "xmlns:p": "clr-namespace:Diploma.Properties"
+  "xmlns:l": "http://gu.se/Localization"
+  ColorZone
+  {
+    Padding: resource "GlobalCardPadding"
+    HorizontalAlignment: Center
+    VerticalAlignment: Center
+    ShadowAssist.ShadowDepth: Depth5
+    CornerRadius: 4
+    Grid
+    {
+      RowDefinitions:
+      [
+        RowDefinition { Height: Auto }
+        RowDefinition { Height: 4 }
+        RowDefinition { Height: Auto }
+        RowDefinition { Height: 12 }
+        RowDefinition { }
+        RowDefinition { Height: 20 }
+        RowDefinition { Height: Auto }
+      ]
+      Grid "Header"
+      {
+        #Cell(0)
+        #Centered
+        @Header { Text: "{l:Static p:Resources.LoginView_Header_Text}" }
+      }
+      @Divider() { #Cell(2) }
+      Grid "Main"
+      {
+        #Cell(4)
+        ScrollViewer
+        {
+          Style: resource "ScrollViewerScrollbarsOverControls"
+          Grid
+          {
+            #FourRows("Auto", 12, "Auto", none)
+            #ThreeColumns(24, none, 24)
+            HorizontalAlignment: Stretch
+            PackIcon
+            {
+              #Cell(0, 0)
+              Margin: resource "DefaultIconsMargin"
+              VerticalAlignment: Bottom
+              Foreground:
+                bind BorderBrush
+                from "UsernameField"
+              Kind: "Account"
+            }
+            TextBox "UsernameField"
+            {
+              #Cell(0, 1)
+              HintAssist.Hint: "{l:Static p:Resources.LoginView_Field_Username_Text}"
+              Style: resource dyn "MaterialDesignFloatingHintTextBox"
+              Text:
+                bind Username
+                set [ UpdateSourceTrigger: PropertyChanged, ValidatesOnNotifyDataErrors: true, NotifyOnValidationError: true ]
+            }
+            PackIcon
+            {
+              #Cell(2, 0)
+              Margin: resource "DefaultIconsMargin"
+              VerticalAlignment: Bottom
+              Foreground:
+                bind BorderBrush
+                from "PasswordField"
+              Kind: "Key"
+            }
+            PasswordBox "PasswordField"
+            {
+              #Cell(2, 1)
+              PasswordBoxAssist.Password:
+                bind Password
+                set [ Mode: TwoWay, UpdateSourceTrigger: PropertyChanged, ValidatesOnNotifyDataErrors: true, NotifyOnValidationError: true ]
+              HintAssist.Hint: "{l:Static p:Resources.LoginView_Field_Password_Text}"
+              Style: resource dyn "MaterialDesignFloatingHintPasswordBox"
+            }
+          }
+        }
+      }
+      Grid "Footer"
+      {
+        #Cell(6)
+        #ThreeColumns("Auto", 8, "Auto")
+        #Centered
+        Button "SignIn"
+        {
+          Grid.Column: 0
+          Content: "{l:Static p:Resources.LoginView_Button_SignIn_Text}"
+          IsDefault: true
+          Style: resource dyn "MaterialDesignRaisedButton"
+        }
+        Button "CreateNewAccount"
+        {
+          Grid.Column: 2
+          Content: "{l:Static p:Resources.LoginView_Button_CreateNewAccount_Text}"
+          Style: resource dyn "MaterialDesignFlatButton"
+        }
+      }
+    }
+  }
+}

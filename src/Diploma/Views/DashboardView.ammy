@@ -1,0 +1,97 @@
+﻿using Diploma.ViewModels
+using Caliburn.Micro
+using MahApps.Metro.Controls
+using MaterialDesignThemes.Wpf
+
+UserControl "Diploma.Views.DashboardView"
+{
+  Grid "Body"
+  {
+    Grid
+    {
+      #ThreeRows("Auto", "Auto", "Auto")
+      Grid "Header"
+      {
+        #Cell(0)
+        ColorZone
+        {
+          Padding: [10, 8, 10, 8]
+          Mode: PrimaryDark
+          DockPanel
+          {
+            Grid
+            {
+              #TwoColumns()
+              DockPanel.Dock: Right
+              Chip
+              {
+                #Cell(0, 0)
+                VerticalAlignment: Center
+                Content: bind CurrentUser.Username
+                Cursor: "Arrow"
+                Icon: PackIcon { Kind: "Account" }
+              }
+              PopupBox
+              {
+                #Cell(0, 1)
+                PlacementMode: BottomAndAlignCentres
+                StaysOpen: false
+                StackPanel
+                {
+                  Button
+                  {
+                    Message.Attach: "Edit"
+                    Content: "Edit"
+                  }
+                  Button
+                  {
+                    Message.Attach: "Logout"
+                    Content: "Log out"
+                  }
+                }
+              }
+            }
+            ColorZone "SearchBar"
+            {
+              #Size(350)
+              Padding: [8, 4, 8, 4]
+              HorizontalAlignment: Left
+              Panel.ZIndex: 1
+              CornerRadius: 2
+              Grid
+              {
+                #TwoColumns(none, "Auto")
+                TextBox
+                {
+                  #Cell(0, 0)
+                  #Size(none, 28)
+                  Margin: [4, 0, 4, 0]
+                  VerticalAlignment: Center
+                  VerticalContentAlignment: Center
+                  HintAssist.Hint: "Search"
+                  TextFieldAssist.DecorationVisibility: Hidden
+                  BorderThickness: 0
+                }
+                Button
+                {
+                  #Cell(0, 1)
+                  VerticalAlignment: Center
+                  Style: resource dyn "MaterialDesignToolButton"
+                  PackIcon { Kind: "Magnify",  Opacity: 0.56 }
+                }
+              }
+            }
+          }
+        }
+      }
+      Grid "Main"
+      {
+        #Cell(1)
+      }
+      Grid "Footer"
+      {
+        #Cell(2)
+      }
+    }
+  }
+}

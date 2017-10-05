@@ -1,0 +1,13 @@
+﻿using Caliburn.Micro
+
+UserControl "Diploma.Views.AuthenticationManagerView"
+{
+  Grid "Body"
+  {
+    Background: resource "MaterialBackground"
+    ContentControl
+    {
+      View.Model: bind ActiveItem
+    }
+  }
+}

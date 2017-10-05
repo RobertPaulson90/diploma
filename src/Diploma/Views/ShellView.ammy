@@ -1,0 +1,39 @@
+﻿using Caliburn.Micro
+using MahApps.Metro.Controls
+using MaterialDesignThemes.Wpf
+
+MetroWindow "Diploma.Views.ShellView"
+{
+  Title: "Diploma"
+  Background: resource dyn "MaterialDesignPaper"
+  FontFamily: resource dyn "MaterialDesignFont"
+  SnapsToDevicePixels: true
+  TextElement.FontSize: 13
+  TextElement.FontWeight: Regular
+  TextElement.Foreground: resource dyn "SecondaryTextBrush"
+  TextOptions.TextFormattingMode: Ideal
+  TextOptions.TextRenderingMode: Auto
+  WindowStartupLocation: CenterScreen
+  BorderThickness: 0
+  GlowBrush: Black
+  DialogHost
+  {
+    CloseOnClickAway: true
+    Identifier: "RootDialog"
+    Grid
+    {
+      ContentControl
+      {
+        View.Model: bind ActiveItem
+        ValidationAssist.OnlyShowOnFocus: true
+        ValidationAssist.UsePopup: true
+      }
+      Snackbar
+      {
+        MessageQueue:
+          bind MessageQueue
+          set [ Mode: OneWay ]
+      }
+    }
+  }
+}
