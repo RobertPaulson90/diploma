@@ -14,10 +14,7 @@ namespace Diploma.Core.Framework
 
         public bool IsBusy
         {
-            get
-            {
-                return _isBusy;
-            }
+            get => _isBusy;
 
             set
             {
@@ -28,10 +25,7 @@ namespace Diploma.Core.Framework
 
         private int WorksCount
         {
-            get
-            {
-                return _worksCount;
-            }
+            get => _worksCount;
 
             set
             {

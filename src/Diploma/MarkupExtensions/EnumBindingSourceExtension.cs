@@ -19,10 +19,7 @@ namespace Diploma.MarkupExtensions
 
         public Type EnumType
         {
-            get
-            {
-                return _enumType;
-            }
+            get => _enumType;
 
             set
             {

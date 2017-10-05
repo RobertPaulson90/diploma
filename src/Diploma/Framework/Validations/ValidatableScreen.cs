@@ -10,7 +10,7 @@ namespace Diploma.Framework.Validations
 {
     public abstract class ValidatableScreen<TProperty, TValidator> : Screen, INotifyDataErrorInfo
         where TProperty : ValidatableScreen<TProperty, TValidator>
-        where TValidator : IValidator<TProperty>
+        where TValidator : class, IValidator<TProperty> 
     {
         private readonly TProperty _target;
 
@@ -20,8 +20,8 @@ namespace Diploma.Framework.Validations
 
         protected ValidatableScreen(TValidator validator)
         {
+            _validator = validator ?? throw new ArgumentNullException(nameof(validator));
             _target = (TProperty)this;
-            _validator = validator;
             Validate();
         }
 

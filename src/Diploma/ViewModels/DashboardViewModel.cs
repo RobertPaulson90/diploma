@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Caliburn.Micro;
 using Diploma.BLL.Contracts.DTO;
 using Diploma.BLL.Contracts.Services;
@@ -16,8 +17,8 @@ namespace Diploma.ViewModels
 
         public DashboardViewModel(IMessageService messageService, IUserService userService)
         {
-            _messageService = messageService;
-            _userService = userService;
+            _messageService = messageService ?? throw new ArgumentNullException(nameof(messageService));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
         public UserDto CurrentUser { get; private set; }

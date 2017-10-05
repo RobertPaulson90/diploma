@@ -19,7 +19,7 @@ namespace Diploma.ViewModels
 
         private DateTime? _birthDate;
 
-        private CancellationTokenSource _cancellationToken = new CancellationTokenSource();
+        private CancellationTokenSource _cancellationToken;
 
         private string _confirmPassword;
 
@@ -38,17 +38,15 @@ namespace Diploma.ViewModels
         public RegisterViewModel(IUserService userService, IMessageService messageService, IValidator<RegisterViewModel> validator)
             : base(validator)
         {
-            _userService = userService;
-            _messageService = messageService;
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _messageService = messageService ?? throw new ArgumentNullException(nameof(messageService));
+            _cancellationToken = new CancellationTokenSource();
             BusyScope = new BusyScope();
         }
 
         public DateTime? BirthDate
         {
-            get
-            {
-                return _birthDate;
-            }
+            get => _birthDate;
 
             set
             {
@@ -63,10 +61,7 @@ namespace Diploma.ViewModels
 
         public string ConfirmPassword
         {
-            get
-            {
-                return _confirmPassword;
-            }
+            get => _confirmPassword;
 
             set
             {
@@ -79,10 +74,7 @@ namespace Diploma.ViewModels
 
         public string FirstName
         {
-            get
-            {
-                return _firstName;
-            }
+            get => _firstName;
 
             set
             {
@@ -95,10 +87,7 @@ namespace Diploma.ViewModels
 
         public GenderType Gender
         {
-            get
-            {
-                return _gender;
-            }
+            get => _gender;
 
             set
             {
@@ -111,10 +100,7 @@ namespace Diploma.ViewModels
 
         public string LastName
         {
-            get
-            {
-                return _lastName;
-            }
+            get => _lastName;
 
             set
             {
@@ -127,10 +113,7 @@ namespace Diploma.ViewModels
 
         public string MiddleName
         {
-            get
-            {
-                return _middleName;
-            }
+            get => _middleName;
 
             set
             {
@@ -143,10 +126,7 @@ namespace Diploma.ViewModels
 
         public string Password
         {
-            get
-            {
-                return _password;
-            }
+            get => _password;
 
             set
             {
@@ -159,10 +139,7 @@ namespace Diploma.ViewModels
 
         public string Username
         {
-            get
-            {
-                return _username;
-            }
+            get => _username;
 
             set
             {
@@ -175,7 +152,7 @@ namespace Diploma.ViewModels
 
         public void Cancel()
         {
-            CancelAsync();
+            SignalCancellationToken();
             ((IConductActiveItem)Parent).ActiveItem = IoC.Get<LoginViewModel>();
         }
 
@@ -220,7 +197,7 @@ namespace Diploma.ViewModels
             }
         }
 
-        private void CancelAsync()
+        private void SignalCancellationToken()
         {
             _cancellationToken?.Cancel();
 

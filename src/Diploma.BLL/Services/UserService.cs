@@ -24,15 +24,20 @@ namespace Diploma.BLL.Services
 
         public UserService(Func<CompanyContext> companyContextFactory, ICryptoService cryptoService, IMapper mapper)
         {
-            _companyContextFactory = companyContextFactory;
-            _cryptoService = cryptoService;
-            _mapper = mapper;
+            _companyContextFactory = companyContextFactory ?? throw new ArgumentNullException(nameof(companyContextFactory));
+            _cryptoService = cryptoService ?? throw new ArgumentNullException(nameof(cryptoService));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<OperationResult<UserDto>> CreateUserAsync(
             CustomerRegistrationDataDto customerRegistrationData,
             CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (customerRegistrationData == null)
+            {
+                throw new ArgumentNullException(nameof(customerRegistrationData));
+            }
+
             try
             {
                 var customerEntity = _mapper.Map<CustomerEntity>(customerRegistrationData);
@@ -67,6 +72,11 @@ namespace Diploma.BLL.Services
             UserCredentialsDto userCredentials,
             CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (userCredentials == null)
+            {
+                throw new ArgumentNullException(nameof(userCredentials));
+            }
+
             try
             {
                 using (var context = _companyContextFactory())
@@ -79,13 +89,13 @@ namespace Diploma.BLL.Services
                         return OperationResult<UserDto>.CreateFailure(Resources.Exception_Authorization_Username_Not_Found);
                     }
 
-                    if (_cryptoService.VerifyPasswordHash(userCredentials.Password, userDb.PasswordHash))
+                    if (!_cryptoService.VerifyPasswordHash(userCredentials.Password, userDb.PasswordHash))
                     {
-                        var userDto = _mapper.Map<UserDto>(userDb);
-                        return OperationResult<UserDto>.CreateSuccess(userDto);
+                        return OperationResult<UserDto>.CreateFailure(Resources.Exception_Authorization_Username_Or_Password_Invalid);
                     }
 
-                    return OperationResult<UserDto>.CreateFailure(Resources.Exception_Authorization_Username_Or_Password_Invalid);
+                    var userDto = _mapper.Map<UserDto>(userDb);
+                    return OperationResult<UserDto>.CreateSuccess(userDto);
                 }
             }
             catch (Exception ex)
@@ -96,6 +106,11 @@ namespace Diploma.BLL.Services
 
         public async Task<OperationResult<bool>> IsUsernameUniqueAsync(string username, CancellationToken cancellationToken)
         {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException(nameof(username));
+            }
+
             try
             {
                 using (var context = _companyContextFactory())
@@ -114,6 +129,11 @@ namespace Diploma.BLL.Services
             UserPersonalInfoDto userPersonalInfo,
             CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (userPersonalInfo == null)
+            {
+                throw new ArgumentNullException(nameof(userPersonalInfo));
+            }
+
             try
             {
                 using (var context = _companyContextFactory())

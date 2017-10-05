@@ -52,9 +52,7 @@ namespace Diploma.Behaviors
 
         private static void OnAttachChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            var passwordBox = sender as PasswordBox;
-
-            if (passwordBox == null)
+            if (!(sender is PasswordBox passwordBox))
             {
                 throw new ArgumentException(nameof(sender));
             }
@@ -72,9 +70,7 @@ namespace Diploma.Behaviors
 
         private static void OnPasswordPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            var passwordBox = sender as PasswordBox;
-
-            if (passwordBox == null)
+            if (!(sender is PasswordBox passwordBox))
             {
                 throw new ArgumentException(nameof(sender));
             }
@@ -90,9 +86,7 @@ namespace Diploma.Behaviors
 
         private static void PasswordChanged(object sender, RoutedEventArgs e)
         {
-            var passwordBox = sender as PasswordBox;
-
-            if (passwordBox == null)
+            if (!(sender is PasswordBox passwordBox))
             {
                 throw new ArgumentException(nameof(sender));
             }

@@ -10,24 +10,16 @@ namespace Diploma.Common.Mappings.Resolvers
     {
         public UserRoleType Resolve(UserEntity source, UserDto destination, UserRoleType destMember, ResolutionContext context)
         {
-            if (source is CustomerEntity)
+            switch (source)
             {
-                return UserRoleType.Customer;
-            }
-
-            if (source is ProgrammerEntity)
-            {
-                return UserRoleType.Programmer;
-            }
-
-            if (source is ManagerEntity)
-            {
-                return UserRoleType.Manager;
-            }
-
-            if (source is AdminEntity)
-            {
-                return UserRoleType.Admin;
+                case CustomerEntity _:
+                    return UserRoleType.Customer;
+                case ProgrammerEntity _:
+                    return UserRoleType.Programmer;
+                case ManagerEntity _:
+                    return UserRoleType.Manager;
+                case AdminEntity _:
+                    return UserRoleType.Admin;
             }
 
             throw new NotSupportedException();

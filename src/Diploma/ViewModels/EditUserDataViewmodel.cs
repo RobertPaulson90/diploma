@@ -24,10 +24,7 @@ namespace Diploma.ViewModels
 
         public DateTime? BirthDate
         {
-            get
-            {
-                return _birthDate;
-            }
+            get => _birthDate;
 
             set
             {
@@ -40,10 +37,7 @@ namespace Diploma.ViewModels
 
         public string FirstName
         {
-            get
-            {
-                return _firstName;
-            }
+            get => _firstName;
 
             set
             {
@@ -56,10 +50,7 @@ namespace Diploma.ViewModels
 
         public GenderType Gender
         {
-            get
-            {
-                return _gender;
-            }
+            get => _gender;
 
             set
             {
@@ -72,10 +63,7 @@ namespace Diploma.ViewModels
 
         public string LastName
         {
-            get
-            {
-                return _lastName;
-            }
+            get => _lastName;
 
             set
             {
@@ -88,10 +76,7 @@ namespace Diploma.ViewModels
 
         public string MiddleName
         {
-            get
-            {
-                return _middleName;
-            }
+            get => _middleName;
 
             set
             {

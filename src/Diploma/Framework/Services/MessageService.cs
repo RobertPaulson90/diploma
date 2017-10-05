@@ -11,7 +11,7 @@ namespace Diploma.Framework.Services
 
         public MessageService(IEventAggregator eventAggregator)
         {
-            _eventAggregator = eventAggregator;
+            _eventAggregator = eventAggregator ?? throw new ArgumentNullException(nameof(eventAggregator));
         }
 
         public void ShowErrorMessage(string message)

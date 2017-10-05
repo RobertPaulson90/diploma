@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Caliburn.Micro;
 using Diploma.BLL.Contracts.DTO;
 using Diploma.BLL.Contracts.Services;
@@ -15,7 +16,7 @@ namespace Diploma.ViewModels
 
         private readonly IUserService _userService;
 
-        private CancellationTokenSource _cancellationToken = new CancellationTokenSource();
+        private CancellationTokenSource _cancellationToken;
 
         private string _password;
 
@@ -24,8 +25,9 @@ namespace Diploma.ViewModels
         public LoginViewModel(IMessageService messageService, IUserService userService, IValidator<LoginViewModel> validator)
             : base(validator)
         {
-            _messageService = messageService;
-            _userService = userService;
+            _messageService = messageService ?? throw new ArgumentNullException(nameof(messageService));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _cancellationToken = new CancellationTokenSource();
             BusyScope = new BusyScope();
         }
 
@@ -33,10 +35,7 @@ namespace Diploma.ViewModels
 
         public string Password
         {
-            get
-            {
-                return _password;
-            }
+            get => _password;
 
             set
             {
@@ -49,10 +48,7 @@ namespace Diploma.ViewModels
 
         public string Username
         {
-            get
-            {
-                return _username;
-            }
+            get => _username;
 
             set
             {
@@ -65,7 +61,7 @@ namespace Diploma.ViewModels
 
         public void CreateNewAccount()
         {
-            CancelAsync();
+            SignalCancellationToken();
             ((IConductActiveItem)Parent).ActiveItem = IoC.Get<RegisterViewModel>();
         }
 
@@ -107,7 +103,7 @@ namespace Diploma.ViewModels
             }
         }
 
-        private void CancelAsync()
+        private void SignalCancellationToken()
         {
             _cancellationToken?.Cancel();
 

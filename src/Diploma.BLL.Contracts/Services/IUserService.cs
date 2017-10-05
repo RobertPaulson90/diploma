@@ -14,7 +14,7 @@ namespace Diploma.BLL.Contracts.Services
             UserCredentialsDto userCredentials,
             CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<OperationResult<bool>> IsUsernameUniqueAsync(string username, CancellationToken cancellationToken);
+        Task<OperationResult<bool>> IsUsernameUniqueAsync(string username, CancellationToken cancellationToken = default(CancellationToken));
 
         Task<OperationResult<UserDto>> UpdateUserAsync(
             UserPersonalInfoDto userPersonalInfo,

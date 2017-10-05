@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Diploma.BLL.Contracts.Services;
@@ -21,7 +22,7 @@ namespace Diploma.Validators
 
         public RegisterViewModelValidator(IUserService userService)
         {
-            _userService = userService;
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
 
             CascadeMode = CascadeMode.StopOnFirstFailure;
 

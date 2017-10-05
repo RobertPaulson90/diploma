@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using Diploma.BLL.Contracts.Services;
 
@@ -10,7 +11,7 @@ namespace Diploma.BLL.Services
         {
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentNullException(nameof(password));
+                throw new ArgumentException(nameof(password));
             }
 
             const int HashSize = 16;
@@ -28,12 +29,12 @@ namespace Diploma.BLL.Services
         {
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentNullException(nameof(password));
+                throw new ArgumentException(nameof(password));
             }
 
             if (string.IsNullOrWhiteSpace(hashedPassword))
             {
-                throw new ArgumentNullException(nameof(hashedPassword));
+                throw new ArgumentException(nameof(hashedPassword));
             }
 
             var hashParts = hashedPassword.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
@@ -44,11 +45,8 @@ namespace Diploma.BLL.Services
             }
 
             var iterations = hashParts[0];
-            var originalSalt = hashParts[1];
-            var originalHash = hashParts[2];
 
-            int iterationsCount;
-            if (!int.TryParse(iterations, out iterationsCount))
+            if (!int.TryParse(iterations, out var iterationsCount))
             {
                 throw new ArgumentException("Hash should contain iterations.", nameof(hashedPassword));
             }
@@ -58,30 +56,33 @@ namespace Diploma.BLL.Services
                 throw new ArgumentException("The number of iterations cannot be less than 1.", nameof(hashedPassword));
             }
 
+            var originalSalt = hashParts[1];
+
             if (string.IsNullOrWhiteSpace(originalSalt))
             {
                 throw new FormatException("Invalid salt.");
             }
 
+            var originalHash = hashParts[2];
             if (string.IsNullOrWhiteSpace(originalHash))
             {
                 throw new FormatException("Invalid hash.");
             }
 
-            var originalSaltBytes = Convert.FromBase64String(hashParts[1]);
+            var originalSaltBytes = Convert.FromBase64String(originalSalt);
 
-            var originalHashBytes = Convert.FromBase64String(hashParts[2]);
+            var originalHashBytes = Convert.FromBase64String(originalHash);
 
             return VerifyPasswordHashInternal(password, iterationsCount, originalSaltBytes, originalHashBytes);
         }
 
-        private static bool VerifyPasswordHashInternal(string password, int iterations, byte[] originalSalt, byte[] originalHash)
+        private static bool VerifyPasswordHashInternal(string password, int iterations, byte[] originalSalt, IReadOnlyList<byte> originalHash)
         {
             using (var hashTool = new Rfc2898DeriveBytes(password, originalSalt, iterations))
             {
-                var hash = hashTool.GetBytes(originalHash.Length);
-                var differences = (uint)originalHash.Length ^ (uint)hash.Length;
-                for (var position = 0; position < Math.Min(originalHash.Length, hash.Length); position++)
+                var hash = hashTool.GetBytes(originalHash.Count);
+                var differences = (uint)originalHash.Count ^ (uint)hash.Length;
+                for (var position = 0; position < Math.Min(originalHash.Count, hash.Length); position++)
                 {
                     differences |= (uint)(originalHash[position] ^ hash[position]);
                 }

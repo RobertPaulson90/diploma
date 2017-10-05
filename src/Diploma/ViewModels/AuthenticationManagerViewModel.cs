@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 
 namespace Diploma.ViewModels
 {
@@ -6,7 +7,7 @@ namespace Diploma.ViewModels
     {
         public AuthenticationManagerViewModel(LoginViewModel loginViewModel)
         {
-            ActiveItem = loginViewModel;
+            ActiveItem = loginViewModel ?? throw new ArgumentNullException(nameof(loginViewModel));
         }
     }
 }
