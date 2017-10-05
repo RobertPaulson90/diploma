@@ -23,10 +23,10 @@ namespace Diploma.BLL.Services
                 throw new ArgumentException(nameof(password));
             }
 
-            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, SaltSize, Iterations))
+            using (var hashTool = new Rfc2898DeriveBytes(password, SaltSize, Iterations))
             {
-                var salt = rfc2898DeriveBytes.Salt;
-                var hash = rfc2898DeriveBytes.GetBytes(HashSize);
+                var salt = hashTool.Salt;
+                var hash = hashTool.GetBytes(HashSize);
                 var base64Salt = Convert.ToBase64String(salt);
                 var base64Hash = Convert.ToBase64String(hash);
                 return string.Join(HashDelimiter, Iterations, base64Salt, base64Hash);
@@ -45,16 +45,19 @@ namespace Diploma.BLL.Services
                 throw new ArgumentException(nameof(hashedPassword));
             }
 
+            return VerifyPasswordHashInternal(password, hashedPassword);
+        }
+
+        private static bool VerifyPasswordHashInternal(string password, string hashedPassword)
+        {
             var hashParts = hashedPassword.Split(new[] { HashDelimiter }, StringSplitOptions.RemoveEmptyEntries);
 
             if (hashParts.Length != 3)
             {
                 throw new FormatException(string.Format(Resources.Exception_Hash_Has_Wrong_Format, nameof(hashedPassword)));
             }
-
-            var iterations = hashParts[0];
-
-            if (!int.TryParse(iterations, out var iterationsCount))
+            
+            if (!int.TryParse(hashParts[0], out var iterationsCount))
             {
                 throw new ArgumentException(Resources.Exception_Hash_Algorithm_Iterations_Not_Specified, nameof(hashedPassword));
             }
@@ -64,40 +67,48 @@ namespace Diploma.BLL.Services
                 throw new ArgumentException(Resources.Exception_Hash_Algorithm_Iterations_Is_Less_Than_One, nameof(hashedPassword));
             }
 
-            var originalBase64Salt = hashParts[1];
-
-            if (string.IsNullOrWhiteSpace(originalBase64Salt))
-            {
-                throw new FormatException(string.Format(Resources.Exception_Hash_Algorithm_Salt_Not_Specified, nameof(hashedPassword)));
-            }
-
-            var originalBase64Hash = hashParts[2];
-            if (string.IsNullOrWhiteSpace(originalBase64Hash))
-            {
-                throw new FormatException(string.Format(Resources.Exception_Hash_Algorithm_Hash_Not_Specified, nameof(hashedPassword)));
-            }
-
-            var originalSalt = Convert.FromBase64String(originalBase64Salt);
-
-            var originalHash = Convert.FromBase64String(originalBase64Hash);
-
-            return VerifyPasswordHashInternal(password, iterationsCount, originalSalt, originalHash);
+            return VerifyPasswordHashInternal(password, hashParts[1], hashParts[2], iterationsCount);
         }
 
-        private static bool VerifyPasswordHashInternal(string password, int iterations, byte[] originalSalt, IReadOnlyList<byte> originalHash)
+        private static bool VerifyPasswordHashInternal(string password, string salt, string hash, int iterations)
         {
-            using (var hashTool = new Rfc2898DeriveBytes(password, originalSalt, iterations))
+            if (string.IsNullOrWhiteSpace(salt))
+            {
+                throw new FormatException(string.Format(Resources.Exception_Hash_Algorithm_Salt_Not_Specified, nameof(salt)));
+            }
+            
+            if (string.IsNullOrWhiteSpace(hash))
+            {
+                throw new FormatException(string.Format(Resources.Exception_Hash_Algorithm_Hash_Not_Specified, nameof(hash)));
+            }
+
+            var originalSalt = Convert.FromBase64String(salt);
+
+            var originalHash = Convert.FromBase64String(hash);
+
+            return VerifyPasswordHashInternal(password, originalHash, originalSalt, iterations);
+        }
+
+        private static bool VerifyPasswordHashInternal(string password, IReadOnlyList<byte> originalHash, byte[] salt, int iterations)
+        {
+            using (var hashTool = new Rfc2898DeriveBytes(password, salt, iterations))
             {
                 var hash = hashTool.GetBytes(originalHash.Count);
-                var differences = (uint)originalHash.Count ^ (uint)hash.Length;
-                for (var position = 0; position < Math.Min(originalHash.Count, hash.Length); position++)
-                {
-                    differences |= (uint)(originalHash[position] ^ hash[position]);
-                }
-
-                var passwordMatches = differences == 0;
+                var passwordMatches = SlowEquals(originalHash, hash) == 0;
                 return passwordMatches;
             }
+        }
+
+        private static uint SlowEquals(IReadOnlyList<byte> first, IReadOnlyList<byte> second)
+        {
+            var differences = (uint)first.Count ^ (uint)second.Count;
+            var length = Math.Min(first.Count, second.Count);
+            for (var position = 0; position < length; position++)
+            {
+                differences |= (uint)(first[position] ^ second[position]);
+            }
+            
+            return differences;
         }
     }
 }
