@@ -123,4 +123,19 @@
   <data name="Exception_Authorization_Username_Or_Password_Invalid" xml:space="preserve">
     <value>Incorrect username or password.</value>
   </data>
+  <data name="Exception_Hash_Algorithm_Iterations_Not_Specified" xml:space="preserve">
+    <value>Hash should contain iterations.</value>
+  </data>
+  <data name="Exception_Hash_Algorithm_Iterations_Is_Less_Than_One" xml:space="preserve">
+    <value>The number of iterations cannot be less than 1.</value>
+  </data>
+  <data name="Exception_Hash_Algorithm_Hash_Not_Specified" xml:space="preserve">
+    <value>The {0} contains invalid hash.</value>
+  </data>
+  <data name="Exception_Hash_Algorithm_Salt_Not_Specified" xml:space="preserve">
+    <value>The {0} contains invalid salt.</value>
+  </data>
+  <data name="Exception_Hash_Has_Wrong_Format" xml:space="preserve">
+    <value>The {0} must match the next format: 'iterations:salt:hash'.</value>
+  </data>
 </root>

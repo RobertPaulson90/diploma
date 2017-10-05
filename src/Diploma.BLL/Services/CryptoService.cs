@@ -2,11 +2,20 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Diploma.BLL.Contracts.Services;
+using Diploma.BLL.Properties;
 
 namespace Diploma.BLL.Services
 {
     internal sealed class CryptoService : ICryptoService
     {
+        internal const string HashDelimiter = ":";
+
+        internal const int HashSize = 16;
+
+        internal const int Iterations = 1000;
+
+        internal const int SaltSize = 16;
+
         public string HashPassword(string password)
         {
             if (string.IsNullOrWhiteSpace(password))
@@ -14,14 +23,13 @@ namespace Diploma.BLL.Services
                 throw new ArgumentException(nameof(password));
             }
 
-            const int HashSize = 16;
-            const int Iterations = 1000;
-            const int SaltSize = 16;
             using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, SaltSize, Iterations))
             {
                 var salt = rfc2898DeriveBytes.Salt;
                 var hash = rfc2898DeriveBytes.GetBytes(HashSize);
-                return $"{Iterations}:{Convert.ToBase64String(salt)}:{Convert.ToBase64String(hash)}";
+                var base64Salt = Convert.ToBase64String(salt);
+                var base64Hash = Convert.ToBase64String(hash);
+                return string.Join(HashDelimiter, Iterations, base64Salt, base64Hash);
             }
         }
 
@@ -37,43 +45,43 @@ namespace Diploma.BLL.Services
                 throw new ArgumentException(nameof(hashedPassword));
             }
 
-            var hashParts = hashedPassword.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            var hashParts = hashedPassword.Split(new[] { HashDelimiter }, StringSplitOptions.RemoveEmptyEntries);
 
             if (hashParts.Length != 3)
             {
-                throw new FormatException($"The {nameof(hashedPassword)} must match the next format: \'iterations:salt:hash\'.");
+                throw new FormatException(string.Format(Resources.Exception_Hash_Has_Wrong_Format, nameof(hashedPassword)));
             }
 
             var iterations = hashParts[0];
 
             if (!int.TryParse(iterations, out var iterationsCount))
             {
-                throw new ArgumentException("Hash should contain iterations.", nameof(hashedPassword));
+                throw new ArgumentException(Resources.Exception_Hash_Algorithm_Iterations_Not_Specified, nameof(hashedPassword));
             }
 
             if (iterationsCount <= 1)
             {
-                throw new ArgumentException("The number of iterations cannot be less than 1.", nameof(hashedPassword));
+                throw new ArgumentException(Resources.Exception_Hash_Algorithm_Iterations_Is_Less_Than_One, nameof(hashedPassword));
             }
 
-            var originalSalt = hashParts[1];
+            var originalBase64Salt = hashParts[1];
 
-            if (string.IsNullOrWhiteSpace(originalSalt))
+            if (string.IsNullOrWhiteSpace(originalBase64Salt))
             {
-                throw new FormatException("Invalid salt.");
+                throw new FormatException(string.Format(Resources.Exception_Hash_Algorithm_Salt_Not_Specified, nameof(hashedPassword)));
             }
 
-            var originalHash = hashParts[2];
-            if (string.IsNullOrWhiteSpace(originalHash))
+            var originalBase64Hash = hashParts[2];
+            if (string.IsNullOrWhiteSpace(originalBase64Hash))
             {
-                throw new FormatException("Invalid hash.");
+                throw new FormatException(string.Format(Resources.Exception_Hash_Algorithm_Hash_Not_Specified, nameof(hashedPassword)));
             }
 
-            var originalSaltBytes = Convert.FromBase64String(originalSalt);
+            var originalSalt = Convert.FromBase64String(originalBase64Salt);
 
-            var originalHashBytes = Convert.FromBase64String(originalHash);
+            var originalHash = Convert.FromBase64String(originalBase64Hash);
 
-            return VerifyPasswordHashInternal(password, iterationsCount, originalSaltBytes, originalHashBytes);
+            return VerifyPasswordHashInternal(password, iterationsCount, originalSalt, originalHash);
         }
 
         private static bool VerifyPasswordHashInternal(string password, int iterations, byte[] originalSalt, IReadOnlyList<byte> originalHash)

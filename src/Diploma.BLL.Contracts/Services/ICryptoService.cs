@@ -1,9 +1,12 @@
-﻿namespace Diploma.BLL.Contracts.Services
+﻿using JetBrains.Annotations;
+
+namespace Diploma.BLL.Contracts.Services
 {
     public interface ICryptoService
     {
-        string HashPassword(string password);
+        [NotNull]
+        string HashPassword([NotNull] string password);
 
-        bool VerifyPasswordHash(string password, string hashedPassword);
+        bool VerifyPasswordHash([NotNull] string password, [NotNull] string hashedPassword);
     }
 }

@@ -77,5 +77,50 @@ namespace Diploma.BLL.Properties {
                 return ResourceManager.GetString("Exception_Authorization_Username_Or_Password_Invalid", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} contains invalid hash..
+        /// </summary>
+        public static string Exception_Hash_Algorithm_Hash_Not_Specified {
+            get {
+                return ResourceManager.GetString("Exception_Hash_Algorithm_Hash_Not_Specified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The number of iterations cannot be less than 1..
+        /// </summary>
+        public static string Exception_Hash_Algorithm_Iterations_Is_Less_Than_One {
+            get {
+                return ResourceManager.GetString("Exception_Hash_Algorithm_Iterations_Is_Less_Than_One", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hash should contain iterations..
+        /// </summary>
+        public static string Exception_Hash_Algorithm_Iterations_Not_Specified {
+            get {
+                return ResourceManager.GetString("Exception_Hash_Algorithm_Iterations_Not_Specified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} contains invalid salt..
+        /// </summary>
+        public static string Exception_Hash_Algorithm_Salt_Not_Specified {
+            get {
+                return ResourceManager.GetString("Exception_Hash_Algorithm_Salt_Not_Specified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} must match the next format: &apos;iterations:salt:hash&apos;..
+        /// </summary>
+        public static string Exception_Hash_Has_Wrong_Format {
+            get {
+                return ResourceManager.GetString("Exception_Hash_Has_Wrong_Format", resourceCulture);
+            }
+        }
     }
 }

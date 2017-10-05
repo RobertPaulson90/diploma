@@ -81,8 +81,8 @@ namespace Diploma.BLL.Services
             {
                 using (var context = _companyContextFactory())
                 {
-                    var userDb = await context.Users.AsNoTracking()
-                        .SingleOrDefaultAsync(UserNameEquals(userCredentials.Username), cancellationToken).ConfigureAwait(false);
+                    var userDb = await context.Users.AsNoTracking().SingleOrDefaultAsync(UserNameEquals(userCredentials.Username), cancellationToken)
+                        .ConfigureAwait(false);
 
                     if (userDb == null)
                     {
