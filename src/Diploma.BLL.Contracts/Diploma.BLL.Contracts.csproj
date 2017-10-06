@@ -45,7 +45,7 @@
     <Compile Include="DTO\UserPersonalInfoDto.cs" />
     <Compile Include="OperationResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ICryptoService.cs" />
+    <Compile Include="Services\IPasswordHasher.cs" />
     <Compile Include="Services\IUserService.cs" />
   </ItemGroup>
   <ItemGroup>

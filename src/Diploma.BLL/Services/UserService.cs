@@ -18,14 +18,14 @@ namespace Diploma.BLL.Services
     {
         private readonly Func<CompanyContext> _companyContextFactory;
 
-        private readonly ICryptoService _cryptoService;
+        private readonly IPasswordHasher _passwordHasher;
 
         private readonly IMapper _mapper;
 
-        public UserService(Func<CompanyContext> companyContextFactory, ICryptoService cryptoService, IMapper mapper)
+        public UserService(Func<CompanyContext> companyContextFactory, IPasswordHasher passwordHasher, IMapper mapper)
         {
             _companyContextFactory = companyContextFactory ?? throw new ArgumentNullException(nameof(companyContextFactory));
-            _cryptoService = cryptoService ?? throw new ArgumentNullException(nameof(cryptoService));
+            _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
@@ -89,7 +89,7 @@ namespace Diploma.BLL.Services
                         return OperationResult<UserDto>.CreateFailure(Resources.Exception_Authorization_Username_Not_Found);
                     }
 
-                    if (!_cryptoService.VerifyPasswordHash(userCredentials.Password, userDb.PasswordHash))
+                    if (!_passwordHasher.VerifyPasswordHash(userCredentials.Password, userDb.PasswordHash))
                     {
                         return OperationResult<UserDto>.CreateFailure(Resources.Exception_Authorization_Username_Or_Password_Invalid);
                     }

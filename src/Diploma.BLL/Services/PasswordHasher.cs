@@ -6,7 +6,7 @@ using Diploma.BLL.Properties;
 
 namespace Diploma.BLL.Services
 {
-    internal sealed class CryptoService : ICryptoService
+    internal sealed class PasswordHasher : IPasswordHasher
     {
         internal const string HashDelimiter = ":";
 

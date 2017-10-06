@@ -14,7 +14,7 @@ namespace Diploma.BLL
             container.RegisterSingleton<Func<CompanyContext>>(() => container.GetInstance<CompanyContext>());
 
             container.RegisterSingleton<IUserService, UserService>();
-            container.RegisterSingleton<ICryptoService, CryptoService>();
+            container.RegisterSingleton<IPasswordHasher, PasswordHasher>();
         }
     }
 }

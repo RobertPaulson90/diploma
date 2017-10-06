@@ -7,16 +7,16 @@ namespace Diploma.Common.Mappings.Resolvers
 {
     internal sealed class PasswordHashResolver : IValueResolver<CustomerRegistrationDataDto, UserEntity, string>
     {
-        private readonly ICryptoService _cryptoService;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public PasswordHashResolver(ICryptoService cryptoService)
+        public PasswordHashResolver(IPasswordHasher passwordHasher)
         {
-            _cryptoService = cryptoService;
+            _passwordHasher = passwordHasher;
         }
 
         public string Resolve(CustomerRegistrationDataDto source, UserEntity destination, string destMember, ResolutionContext context)
         {
-            return _cryptoService.HashPassword(source.Password);
+            return _passwordHasher.HashPassword(source.Password);
         }
     }
 }

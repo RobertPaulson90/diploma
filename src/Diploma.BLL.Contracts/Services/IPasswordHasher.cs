@@ -2,7 +2,7 @@
 
 namespace Diploma.BLL.Contracts.Services
 {
-    public interface ICryptoService
+    public interface IPasswordHasher
     {
         [NotNull]
         string HashPassword([NotNull] string password);
