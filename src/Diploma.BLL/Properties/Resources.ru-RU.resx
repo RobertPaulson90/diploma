@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Exception_Hash_Algorithm_Iterations_Not_Specified" xml:space="preserve">
+    <value>Хэш должен содержать итерации.</value>
+  </data>
+  <data name="Exception_Authorization_Username_Or_Password_Invalid" xml:space="preserve">
+    <value>Неверное имя пользователя или пароль.</value>
+  </data>
+  <data name="Exception_Hash_Algorithm_Hash_Not_Specified" xml:space="preserve">
+    <value>{0} содержит недопустимый хеш.</value>
+  </data>
+  <data name="Exception_Hash_Algorithm_Salt_Not_Specified" xml:space="preserve">
+    <value>В {0} содержится недопустимая соль.</value>
+  </data>
+  <data name="Exception_Hash_Has_Wrong_Format" xml:space="preserve">
+    <value>{0} должен соответствовать следующему формату: 'iterations:salt:hash'.</value>
+  </data>
+  <data name="Exception_Hash_Algorithm_Iterations_Is_Less_Than_One" xml:space="preserve">
+    <value>Количество итераций не может быть меньше 1.</value>
+  </data>
+  <data name="Exception_Authorization_Username_Not_Found" xml:space="preserve">
+    <value>Такой пользователь не существует.</value>
+  </data>
 </root>
