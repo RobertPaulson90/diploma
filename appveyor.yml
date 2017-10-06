@@ -10,10 +10,10 @@ platform: Any CPU
 configuration: Release
 
 build:
-  verbosity: minimal
+  verbosity: quiet
 
 before_build:
-  - cmd: NuGet restore -verbosity quiet
+  - cmd: nuget restore -verbosity quiet
 
 artifacts:
   - path: 'bin\$(configuration)\Diploma'

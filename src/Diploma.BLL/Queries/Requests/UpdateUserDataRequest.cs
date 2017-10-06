@@ -1,17 +1,18 @@
 ﻿using System;
-using Diploma.BLL.Contracts.DTO.Enums;
+using Diploma.BLL.Queries.Responses;
+using MediatR;
 
-namespace Diploma.BLL.Contracts.DTO
+namespace Diploma.BLL.Queries.Requests
 {
-    public class UserPersonalInfoDto
+    public class UpdateUserDataRequest : IRequest<OperationResult<UserDataResponse>>
     {
+        public int Id { get; set; }
+
         public DateTime? BirthDate { get; set; }
 
         public string FirstName { get; set; }
 
         public GenderType Gender { get; set; }
-
-        public int Id { get; set; }
 
         public string LastName { get; set; }
 

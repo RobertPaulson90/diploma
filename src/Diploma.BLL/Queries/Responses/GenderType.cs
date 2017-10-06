@@ -1,4 +1,4 @@
-namespace Diploma.BLL.Contracts.DTO.Enums
+namespace Diploma.BLL.Queries.Responses
 {
     public enum GenderType
     {

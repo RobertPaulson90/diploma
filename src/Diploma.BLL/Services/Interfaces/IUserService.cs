@@ -1,30 +1,31 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Diploma.BLL.Contracts.DTO;
+using Diploma.BLL.Queries.Requests;
+using Diploma.BLL.Queries.Responses;
 using JetBrains.Annotations;
 
-namespace Diploma.BLL.Contracts.Services
+namespace Diploma.BLL.Services.Interfaces
 {
     public interface IUserService
     {
         [NotNull]
-        Task<OperationResult<UserDto>> CreateUserAsync(
-            [NotNull] CustomerRegistrationDataDto customerRegistrationData,
+        Task<OperationResult<UserDataResponse>> CreateCustomerAsync(
+            [NotNull] RegisterCustomerRequest request,
             CancellationToken cancellationToken = default(CancellationToken));
 
         [NotNull]
-        Task<OperationResult<UserDto>> GetUserByCredentialsAsync(
-            [NotNull] UserCredentialsDto userCredentials,
+        Task<OperationResult<UserDataResponse>> GetUserByCredentialsAsync(
+            [NotNull] GetUserByCredentialsRequest request,
             CancellationToken cancellationToken = default(CancellationToken));
 
         [NotNull]
         Task<OperationResult<bool>> IsUsernameUniqueAsync(
-            [NotNull] string username,
+            [NotNull] VerifyUsernameUniqueRequest request,
             CancellationToken cancellationToken = default(CancellationToken));
 
         [NotNull]
-        Task<OperationResult<UserDto>> UpdateUserAsync(
-            [NotNull] UserPersonalInfoDto userPersonalInfo,
+        Task<OperationResult<UserDataResponse>> UpdateUserAsync(
+            [NotNull] UpdateUserDataRequest request,
             CancellationToken cancellationToken = default(CancellationToken));
     }
 }

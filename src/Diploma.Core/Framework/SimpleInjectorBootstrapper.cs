@@ -11,7 +11,7 @@ namespace Diploma.Core.Framework
     {
         private Container _container;
 
-        protected override void BuildUp(object instance)
+        protected override sealed void BuildUp(object instance)
         {
             var registration = _container.GetRegistration(instance.GetType(), true);
             registration.Registration.InitializeInstance(instance);
@@ -23,11 +23,8 @@ namespace Diploma.Core.Framework
             _container.RegisterSingleton<IWindowManager, WindowManager>();
             _container.RegisterSingleton<IEventAggregator, EventAggregator>();
 
-            var assemblies = SelectPackageAssemblies();
-            if (assemblies != null)
-            {
-                _container.RegisterPackages(assemblies);
-            }
+            var assemblies = SelectPackageAssemblies().ToList();
+            _container.RegisterPackages(assemblies);
 
             _container.Verify();
         }

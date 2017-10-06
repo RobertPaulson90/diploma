@@ -138,4 +138,13 @@
   <data name="Exception_Hash_Has_Wrong_Format" xml:space="preserve">
     <value>The {0} must match the next format: 'iterations:salt:hash'.</value>
   </data>
+  <data name="Exception_Registration_Canceled" xml:space="preserve">
+    <value>Canceled.</value>
+  </data>
+  <data name="Exception_Registration_Username_Already_Taken" xml:space="preserve">
+    <value>That username is taken. Try another.</value>
+  </data>
+  <data name="Exception_Update_Canceled" xml:space="preserve">
+    <value>Canceled.</value>
+  </data>
 </root>

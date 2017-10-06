@@ -1,5 +1,5 @@
 ﻿using System;
-using Diploma.BLL.Contracts.DTO.Enums;
+using Diploma.BLL.Queries.Responses;
 using Diploma.Framework.Validations;
 using FluentValidation;
 

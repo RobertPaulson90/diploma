@@ -122,5 +122,32 @@ namespace Diploma.BLL.Properties {
                 return ResourceManager.GetString("Exception_Hash_Has_Wrong_Format", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Canceled..
+        /// </summary>
+        public static string Exception_Registration_Canceled {
+            get {
+                return ResourceManager.GetString("Exception_Registration_Canceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That username is taken. Try another..
+        /// </summary>
+        public static string Exception_Registration_Username_Already_Taken {
+            get {
+                return ResourceManager.GetString("Exception_Registration_Username_Already_Taken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Canceled..
+        /// </summary>
+        public static string Exception_Update_Canceled {
+            get {
+                return ResourceManager.GetString("Exception_Update_Canceled", resourceCulture);
+            }
+        }
     }
 }

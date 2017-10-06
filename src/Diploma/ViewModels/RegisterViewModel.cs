@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 using Caliburn.Micro;
-using Diploma.BLL.Contracts.DTO;
-using Diploma.BLL.Contracts.DTO.Enums;
-using Diploma.BLL.Contracts.Services;
+using Diploma.BLL.Queries.Requests;
+using Diploma.BLL.Queries.Responses;
+using Diploma.BLL.Services.Interfaces;
 using Diploma.Core.Framework;
 using Diploma.Framework.Interfaces;
 using Diploma.Framework.Validations;
@@ -171,7 +171,7 @@ namespace Diploma.ViewModels
 
             using (BusyScope.StartWork())
             {
-                var userRegistrationDataDto = new CustomerRegistrationDataDto
+                var request = new RegisterCustomerRequest
                 {
                     BirthDate = BirthDate,
                     FirstName = FirstName,
@@ -182,15 +182,15 @@ namespace Diploma.ViewModels
                     Username = Username
                 };
 
-                var operation = await _userService.CreateUserAsync(userRegistrationDataDto, _cancellationToken.Token).ConfigureAwait(false);
+                var operation = await _userService.CreateCustomerAsync(request, _cancellationToken.Token).ConfigureAwait(false);
 
-                if (!operation.Success)
+                if (!operation.Succeeded)
                 {
-                    _messageService.ShowErrorMessage(operation.NonSuccessMessage);
+                    _messageService.ShowErrorMessage(operation.ErrorMessage);
                     return;
                 }
 
-                var user = operation.Result;
+                var user = operation.Data;
                 var dashboard = IoC.Get<DashboardViewModel>();
                 dashboard.Init(user);
                 ((IConductActiveItem)Parent).ActiveItem = dashboard;

@@ -2,7 +2,8 @@
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Diploma.BLL.Contracts.Services;
+using Diploma.BLL.Queries.Requests;
+using Diploma.BLL.Services.Interfaces;
 using Diploma.Framework.Validations;
 using Diploma.Properties;
 using Diploma.ViewModels;
@@ -46,9 +47,11 @@ namespace Diploma.Validators
 
         private async Task<bool> BeUniqueUserNameAsync(string username, CancellationToken cancellationToken)
         {
-            var result = await _userService.IsUsernameUniqueAsync(username, cancellationToken).ConfigureAwait(false);
+            var request = new VerifyUsernameUniqueRequest { Username = username };
 
-            return result.Result;
+            var result = await _userService.IsUsernameUniqueAsync(request, cancellationToken).ConfigureAwait(false);
+
+            return result.Data;
         }
     }
 }

@@ -1,14 +1,13 @@
 ﻿using System;
 using AutoMapper;
-using Diploma.BLL.Contracts.DTO;
-using Diploma.BLL.Contracts.DTO.Enums;
+using Diploma.BLL.Queries.Responses;
 using Diploma.DAL.Entities;
 
-namespace Diploma.Common.Mappings.Resolvers
+namespace Diploma.BLL.Mappings.Resolvers
 {
-    internal sealed class UserRoleTypeResolver : IValueResolver<UserEntity, UserDto, UserRoleType>
+    internal sealed class UserRoleTypeResolver : IValueResolver<UserEntity, UserDataResponse, UserRoleType>
     {
-        public UserRoleType Resolve(UserEntity source, UserDto destination, UserRoleType destMember, ResolutionContext context)
+        public UserRoleType Resolve(UserEntity source, UserDataResponse destination, UserRoleType destMember, ResolutionContext context)
         {
             switch (source)
             {

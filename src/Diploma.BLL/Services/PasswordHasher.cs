@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using Diploma.BLL.Contracts.Services;
 using Diploma.BLL.Properties;
+using Diploma.BLL.Services.Interfaces;
 
 namespace Diploma.BLL.Services
 {
@@ -48,6 +48,18 @@ namespace Diploma.BLL.Services
             return VerifyPasswordHashInternal(password, hashedPassword);
         }
 
+        private static uint SlowEquals(IReadOnlyList<byte> first, IReadOnlyList<byte> second)
+        {
+            var differences = (uint)first.Count ^ (uint)second.Count;
+            var length = Math.Min(first.Count, second.Count);
+            for (var position = 0; position < length; position++)
+            {
+                differences |= (uint)(first[position] ^ second[position]);
+            }
+
+            return differences;
+        }
+
         private static bool VerifyPasswordHashInternal(string password, string hashedPassword)
         {
             var hashParts = hashedPassword.Split(new[] { HashDelimiter }, StringSplitOptions.RemoveEmptyEntries);
@@ -56,7 +68,7 @@ namespace Diploma.BLL.Services
             {
                 throw new FormatException(string.Format(Resources.Exception_Hash_Has_Wrong_Format, nameof(hashedPassword)));
             }
-            
+
             if (!int.TryParse(hashParts[0], out var iterationsCount))
             {
                 throw new ArgumentException(Resources.Exception_Hash_Algorithm_Iterations_Not_Specified, nameof(hashedPassword));
@@ -76,7 +88,7 @@ namespace Diploma.BLL.Services
             {
                 throw new FormatException(string.Format(Resources.Exception_Hash_Algorithm_Salt_Not_Specified, nameof(salt)));
             }
-            
+
             if (string.IsNullOrWhiteSpace(hash))
             {
                 throw new FormatException(string.Format(Resources.Exception_Hash_Algorithm_Hash_Not_Specified, nameof(hash)));
@@ -97,18 +109,6 @@ namespace Diploma.BLL.Services
                 var passwordMatches = SlowEquals(originalHash, hash) == 0;
                 return passwordMatches;
             }
-        }
-
-        private static uint SlowEquals(IReadOnlyList<byte> first, IReadOnlyList<byte> second)
-        {
-            var differences = (uint)first.Count ^ (uint)second.Count;
-            var length = Math.Min(first.Count, second.Count);
-            for (var position = 0; position < length; position++)
-            {
-                differences |= (uint)(first[position] ^ second[position]);
-            }
-            
-            return differences;
         }
     }
 }

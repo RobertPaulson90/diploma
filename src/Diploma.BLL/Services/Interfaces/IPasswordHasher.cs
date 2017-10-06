@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace Diploma.BLL.Contracts.Services
+namespace Diploma.BLL.Services.Interfaces
 {
     public interface IPasswordHasher
     {

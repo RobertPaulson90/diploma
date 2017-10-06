@@ -1,9 +1,10 @@
 ﻿using System;
-using Diploma.BLL.Contracts.DTO.Enums;
+using Diploma.BLL.Queries.Responses;
+using MediatR;
 
-namespace Diploma.BLL.Contracts.DTO
+namespace Diploma.BLL.Queries.Requests
 {
-    public class UserDto
+    public sealed class RegisterCustomerRequest : IRequest<OperationResult<UserDataResponse>>
     {
         public DateTime? BirthDate { get; set; }
 
@@ -11,15 +12,11 @@ namespace Diploma.BLL.Contracts.DTO
 
         public GenderType Gender { get; set; }
 
-        public int Id { get; set; }
-
         public string LastName { get; set; }
 
         public string MiddleName { get; set; }
 
-        public string PasswordHash { get; set; }
-
-        public UserRoleType Role { get; set; }
+        public string Password { get; set; }
 
         public string Username { get; set; }
     }

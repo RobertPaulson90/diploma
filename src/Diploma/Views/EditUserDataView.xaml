@@ -8,9 +8,9 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:viewModels="clr-namespace:Diploma.ViewModels"
              xmlns:markupExtensions="clr-namespace:Diploma.MarkupExtensions"
-             xmlns:enums="clr-namespace:Diploma.BLL.Contracts.DTO.Enums;assembly=Diploma.BLL.Contracts"
              xmlns:l="http://gu.se/Localization"
              xmlns:p="clr-namespace:Diploma.Properties"
+             xmlns:enums="clr-namespace:Diploma.BLL.Queries.Responses;assembly=Diploma.BLL"
              d:DataContext="{d:DesignInstance viewModels:EditUserDataViewModel}"
              mc:Ignorable="d">
     <UserControl.Resources>

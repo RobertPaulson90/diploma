@@ -211,7 +211,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)\src\Diploma.BLL.Contracts\Diploma.BLL.Contracts.csproj">
+    <ProjectReference Include="..\Diploma.DAL\Diploma.DAL.csproj">
+      <Project>{4e6d38a2-1d75-4c7a-9325-449fd796c5c6}</Project>
+      <Name>Diploma.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\dev\Diploma\\src\Diploma.BLL.Contracts\Diploma.BLL.Contracts.csproj">
       <Project>{AC206C0D-CE61-4D09-B852-81F7EB437EBB}</Project>
       <Name>Diploma.BLL.Contracts</Name>
     </ProjectReference>
@@ -219,7 +223,7 @@
       <Project>{36F6865A-B0E7-4E94-AF3E-AC5FAFE463D8}</Project>
       <Name>Diploma.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="$(SolutionDir)\src\Diploma.Common\Diploma.Common.csproj">
+    <ProjectReference Include="E:\dev\Diploma\\src\Diploma.Common\Diploma.Common.csproj">
       <Project>{C1FFEDA5-EED6-4ED0-B237-FCD70A2BE3BD}</Project>
       <Name>Diploma.Common</Name>
     </ProjectReference>

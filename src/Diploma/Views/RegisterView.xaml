@@ -7,9 +7,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Diploma.ViewModels"
              xmlns:markupExtensions="clr-namespace:Diploma.MarkupExtensions"
-             xmlns:enums="clr-namespace:Diploma.BLL.Contracts.DTO.Enums;assembly=Diploma.BLL.Contracts"
              xmlns:p="clr-namespace:Diploma.Properties"
              xmlns:l="http://gu.se/Localization"
+             xmlns:enums="clr-namespace:Diploma.BLL.Queries.Responses;assembly=Diploma.BLL"
              d:DataContext="{d:DesignInstance viewModels:RegisterViewModel}"
              mc:Ignorable="d">
     <materialDesign:ColorZone Padding="{StaticResource GlobalCardPadding}"

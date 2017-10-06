@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading;
 using Caliburn.Micro;
-using Diploma.BLL.Contracts.DTO;
-using Diploma.BLL.Contracts.Services;
+using Diploma.BLL.Queries.Requests;
+using Diploma.BLL.Queries.Responses;
+using Diploma.BLL.Services.Interfaces;
 using Diploma.Framework.Interfaces;
 using Diploma.Views;
 using MaterialDesignThemes.Wpf;
@@ -21,7 +22,7 @@ namespace Diploma.ViewModels
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
-        public UserDto CurrentUser { get; private set; }
+        public UserDataResponse CurrentUser { get; private set; }
 
         public async void Edit()
         {
@@ -48,7 +49,7 @@ namespace Diploma.ViewModels
                 return;
             }
 
-            var userUpdateRequestDataDto = new UserPersonalInfoDto
+            var userUpdateRequestDataDto = new UpdateUserDataRequest
             {
                 Id = CurrentUser.Id,
                 LastName = viewModel.LastName,
@@ -60,16 +61,16 @@ namespace Diploma.ViewModels
 
             var operation = await _userService.UpdateUserAsync(userUpdateRequestDataDto).ConfigureAwait(false);
 
-            if (!operation.Success)
+            if (!operation.Succeeded)
             {
-                _messageService.ShowErrorMessage(operation.NonSuccessMessage);
+                _messageService.ShowErrorMessage(operation.ErrorMessage);
                 return;
             }
 
-            CurrentUser = operation.Result;
+            CurrentUser = operation.Data;
         }
 
-        public void Init(UserDto currentUser)
+        public void Init(UserDataResponse currentUser)
         {
             CurrentUser = currentUser;
             _messageService.ShowErrorMessage($"Hello, {CurrentUser.Username}");
