@@ -4,4 +4,4 @@
 [![Tests](https://img.shields.io/appveyor/tests/nestquik/diploma.svg?style=flat-square)](https://ci.appveyor.com/project/nestquik/diploma/build/tests)
 [![C%23 version](https://img.shields.io/badge/C%23-7.0-orange.svg?style=flat-square)](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7)
 
-Just the place to make mistakes.
+Just a place to make mistakes.
