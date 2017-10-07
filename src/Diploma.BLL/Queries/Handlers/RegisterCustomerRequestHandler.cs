@@ -8,6 +8,7 @@ using Diploma.BLL.Queries.Requests;
 using Diploma.BLL.Queries.Responses;
 using Diploma.DAL.Contexts;
 using Diploma.DAL.Entities;
+using Diploma.Infrastructure.Data;
 using MediatR;
 
 namespace Diploma.BLL.Queries.Handlers
@@ -38,7 +39,7 @@ namespace Diploma.BLL.Queries.Handlers
 
                     if (!isUnique)
                     {
-                        return OperationResult<UserDataResponse>.CreateFailure(Resources.Exception_Registration_Username_Already_Taken);
+                        return OperationResultBuilder.CreateFailure<UserDataResponse>(Resources.Exception_Registration_Username_Already_Taken);
                     }
 
                     var userDb = context.Users.Add(customerEntity);
@@ -47,12 +48,12 @@ namespace Diploma.BLL.Queries.Handlers
 
                     var userDto = _mapper.Map<UserDataResponse>(userDb);
 
-                    return OperationResult<UserDataResponse>.CreateSuccess(userDto);
+                    return OperationResultBuilder.CreateSuccess(userDto);
                 }
                 catch (TaskCanceledException)
                 {
                     transaction.Rollback();
-                    return OperationResult<UserDataResponse>.CreateFailure(Resources.Exception_Registration_Canceled);
+                    return OperationResultBuilder.CreateFailure<UserDataResponse>(Resources.Exception_Registration_Canceled);
                 }
             }
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Diploma.BLL.Queries.Responses;
+using Diploma.Infrastructure.Data;
 using MediatR;
 
 namespace Diploma.BLL.Queries.Requests

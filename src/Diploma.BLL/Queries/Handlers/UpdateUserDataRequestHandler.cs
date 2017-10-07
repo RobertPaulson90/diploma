@@ -7,6 +7,7 @@ using Diploma.BLL.Properties;
 using Diploma.BLL.Queries.Requests;
 using Diploma.BLL.Queries.Responses;
 using Diploma.DAL.Contexts;
+using Diploma.Infrastructure.Data;
 using MediatR;
 
 namespace Diploma.BLL.Queries.Handlers
@@ -39,12 +40,12 @@ namespace Diploma.BLL.Queries.Handlers
 
                     var response = _mapper.Map<UserDataResponse>(entity);
 
-                    return OperationResult<UserDataResponse>.CreateSuccess(response);
+                    return OperationResultBuilder.CreateSuccess(response);
                 }
                 catch (TaskCanceledException)
                 {
                     transaction.Rollback();
-                    return OperationResult<UserDataResponse>.CreateFailure(Resources.Exception_Update_Canceled);
+                    return OperationResultBuilder.CreateFailure<UserDataResponse>(Resources.Exception_Update_Canceled);
                 }
             }
         }

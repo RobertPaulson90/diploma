@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Diploma.BLL.Queries.Requests;
 using Diploma.DAL.Contexts;
+using Diploma.Infrastructure.Data;
 using MediatR;
 
 namespace Diploma.BLL.Queries.Handlers
@@ -23,7 +24,7 @@ namespace Diploma.BLL.Queries.Handlers
             {
                 var username = message.Username.ToUpper();
                 var isUnique = !await context.Users.AnyAsync(x => username == x.Username.ToUpper(), cancellationToken).ConfigureAwait(false);
-                return OperationResult<bool>.CreateSuccess(isUnique);
+                return OperationResultBuilder.CreateSuccess(isUnique);
             }
         }
     }

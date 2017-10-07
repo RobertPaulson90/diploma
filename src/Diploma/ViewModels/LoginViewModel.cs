@@ -90,13 +90,13 @@ namespace Diploma.ViewModels
                 var operation = await _userService.GetUserByCredentialsAsync(request, _cancellationToken.Token)
                     .ConfigureAwait(false);
 
-                if (!operation.Succeeded)
+                if (!operation.Success)
                 {
                     _messageService.ShowErrorMessage(operation.ErrorMessage);
                     return;
                 }
 
-                var user = operation.Data;
+                var user = operation.Result;
                 var dashboard = IoC.Get<DashboardViewModel>();
                 dashboard.Init(user);
                 ((IConductActiveItem)Parent).ActiveItem = dashboard;

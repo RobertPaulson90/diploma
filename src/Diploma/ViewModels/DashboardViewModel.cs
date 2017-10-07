@@ -61,13 +61,13 @@ namespace Diploma.ViewModels
 
             var operation = await _userService.UpdateUserAsync(userUpdateRequestDataDto).ConfigureAwait(false);
 
-            if (!operation.Succeeded)
+            if (!operation.Success)
             {
                 _messageService.ShowErrorMessage(operation.ErrorMessage);
                 return;
             }
 
-            CurrentUser = operation.Data;
+            CurrentUser = operation.Result;
         }
 
         public void Init(UserDataResponse currentUser)

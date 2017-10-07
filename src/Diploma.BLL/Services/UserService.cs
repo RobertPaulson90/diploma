@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Diploma.BLL.Queries.Requests;
 using Diploma.BLL.Queries.Responses;
 using Diploma.BLL.Services.Interfaces;
+using Diploma.Infrastructure.Data;
 using MediatR;
 
 namespace Diploma.BLL.Services

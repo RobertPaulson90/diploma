@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Diploma.BLL.Queries.Requests;
 using Diploma.BLL.Queries.Responses;
+using Diploma.Infrastructure.Data;
 using JetBrains.Annotations;
 
 namespace Diploma.BLL.Services.Interfaces

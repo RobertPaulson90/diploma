@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diploma.Core", "src\Diploma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diploma.BLL.Tests", "tests\Diploma.BLL.Tests\Diploma.BLL.Tests.csproj", "{E4B35C9D-76F8-45C3-86D5-1EC68F7939AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diploma.Infrastructure", "src\Diploma.Infrastructure\Diploma.Infrastructure.csproj", "{4B5BAE0C-4DE8-49AC-A27E-F4811247F1C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{E4B35C9D-76F8-45C3-86D5-1EC68F7939AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4B35C9D-76F8-45C3-86D5-1EC68F7939AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4B35C9D-76F8-45C3-86D5-1EC68F7939AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B5BAE0C-4DE8-49AC-A27E-F4811247F1C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B5BAE0C-4DE8-49AC-A27E-F4811247F1C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B5BAE0C-4DE8-49AC-A27E-F4811247F1C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B5BAE0C-4DE8-49AC-A27E-F4811247F1C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,6 +8,7 @@ using Diploma.BLL.Queries.Requests;
 using Diploma.BLL.Queries.Responses;
 using Diploma.BLL.Services.Interfaces;
 using Diploma.DAL.Contexts;
+using Diploma.Infrastructure.Data;
 using MediatR;
 
 namespace Diploma.BLL.Queries.Handlers
@@ -38,16 +39,16 @@ namespace Diploma.BLL.Queries.Handlers
 
                 if (userDb == null)
                 {
-                    return OperationResult<UserDataResponse>.CreateFailure(Resources.Exception_Authorization_Username_Not_Found);
+                    return OperationResultBuilder.CreateFailure<UserDataResponse>(Resources.Exception_Authorization_Username_Not_Found);
                 }
 
                 if (!_passwordHasher.VerifyPasswordHash(message.Password, userDb.PasswordHash))
                 {
-                    return OperationResult<UserDataResponse>.CreateFailure(Resources.Exception_Authorization_Username_Or_Password_Invalid);
+                    return OperationResultBuilder.CreateFailure<UserDataResponse>(Resources.Exception_Authorization_Username_Or_Password_Invalid);
                 }
 
                 var userDto = _mapper.Map<UserDataResponse>(userDb);
-                return OperationResult<UserDataResponse>.CreateSuccess(userDto);
+                return OperationResultBuilder.CreateSuccess(userDto);
             }
         }
     }

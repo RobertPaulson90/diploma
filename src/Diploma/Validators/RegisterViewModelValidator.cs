@@ -51,7 +51,7 @@ namespace Diploma.Validators
 
             var result = await _userService.IsUsernameUniqueAsync(request, cancellationToken).ConfigureAwait(false);
 
-            return result.Data;
+            return result.Result;
         }
     }
 }
