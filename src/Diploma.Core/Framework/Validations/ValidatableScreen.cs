@@ -5,8 +5,9 @@ using System.Linq;
 using Caliburn.Micro;
 using FluentValidation;
 using FluentValidation.Results;
+using JetBrains.Annotations;
 
-namespace Diploma.Framework.Validations
+namespace Diploma.Core.Framework.Validations
 {
     public abstract class ValidatableScreen<TProperty, TValidator> : Screen, INotifyDataErrorInfo
         where TProperty : ValidatableScreen<TProperty, TValidator>
@@ -18,7 +19,7 @@ namespace Diploma.Framework.Validations
 
         private ValidationResult _validationResult;
 
-        protected ValidatableScreen(TValidator validator)
+        protected ValidatableScreen([NotNull] TValidator validator)
         {
             _validator = validator ?? throw new ArgumentNullException(nameof(validator));
             _target = (TProperty)this;

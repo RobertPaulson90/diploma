@@ -1,10 +1,11 @@
-using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Diploma.Behaviors
 {
-    public static class PasswordBoxAssist
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException", Justification = "Dependency property will never be null.")]
+    internal static class PasswordBoxAssist
     {
         public static readonly DependencyProperty PasswordProperty = DependencyProperty.RegisterAttached(
             "Password",
@@ -19,43 +20,38 @@ namespace Diploma.Behaviors
             new PropertyMetadata(false, OnAttachChanged));
 
         public static readonly DependencyProperty IsUpdatingProperty = DependencyProperty.RegisterAttached(
-            "IsUpdating",
+            "IsUpdating", 
             typeof(bool),
             typeof(PasswordBoxAssist));
 
-        public static bool GetAttach(DependencyObject dp)
+        public static bool GetAttach(DependencyObject d)
         {
-            // ReSharper disable once PossibleNullReferenceException
-            return (bool)dp.GetValue(AttachProperty);
+            return (bool)d.GetValue(AttachProperty);
         }
 
-        public static string GetPassword(DependencyObject dp)
+        public static string GetPassword(DependencyObject d)
         {
-            return (string)dp.GetValue(PasswordProperty);
+            return (string)d.GetValue(PasswordProperty);
         }
 
-        public static void SetAttach(DependencyObject dp, bool value)
+        public static void SetAttach(DependencyObject d, bool value)
         {
-            dp.SetValue(AttachProperty, value);
+            d.SetValue(AttachProperty, value);
         }
 
-        public static void SetPassword(DependencyObject dp, string value)
+        public static void SetPassword(DependencyObject d, string value)
         {
-            dp.SetValue(PasswordProperty, value);
+            d.SetValue(PasswordProperty, value);
         }
 
         private static bool GetIsUpdating(DependencyObject dp)
         {
-            // ReSharper disable once PossibleNullReferenceException
             return (bool)dp.GetValue(IsUpdatingProperty);
         }
 
-        private static void OnAttachChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnAttachChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(sender is PasswordBox passwordBox))
-            {
-                throw new ArgumentException(nameof(sender));
-            }
+            var passwordBox = d as PasswordBox;
 
             if ((bool)e.OldValue)
             {
@@ -68,14 +64,12 @@ namespace Diploma.Behaviors
             }
         }
 
-        private static void OnPasswordPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnPasswordPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(sender is PasswordBox passwordBox))
-            {
-                throw new ArgumentException(nameof(sender));
-            }
+            var passwordBox = d as PasswordBox;
 
             passwordBox.PasswordChanged -= PasswordChanged;
+
             if (!GetIsUpdating(passwordBox))
             {
                 passwordBox.Password = (string)e.NewValue;
@@ -86,19 +80,15 @@ namespace Diploma.Behaviors
 
         private static void PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (!(sender is PasswordBox passwordBox))
-            {
-                throw new ArgumentException(nameof(sender));
-            }
-
+            var passwordBox = sender as PasswordBox;
             SetIsUpdating(passwordBox, true);
             SetPassword(passwordBox, passwordBox.Password);
             SetIsUpdating(passwordBox, false);
         }
 
-        private static void SetIsUpdating(DependencyObject dp, bool value)
+        private static void SetIsUpdating(DependencyObject d, bool value)
         {
-            dp.SetValue(IsUpdatingProperty, value);
+            d.SetValue(IsUpdatingProperty, value);
         }
     }
 }

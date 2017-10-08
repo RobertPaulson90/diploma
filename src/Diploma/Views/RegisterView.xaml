@@ -187,7 +187,7 @@
                         Grid.Column="0"
                         Content="{l:Static p:Resources.RegisterView_Button_Register_Text}"
                         IsDefault="True"
-                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                        Style="{DynamicResource MaterialDesignRaisedButton}" />
                 <Button x:Name="Cancel"
                         Grid.Column="2"
                         Content="{l:Static p:Resources.RegisterView_Button_Cancel_Text}"

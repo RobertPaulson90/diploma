@@ -131,7 +131,7 @@
                             Content="{l:Static p:Resources.EditUserDataView_Button_Apply_Text}"
                             IsDefault="True"
                             IsEnabled="{Binding HasErrors, Converter={StaticResource InvertBoolConverter}}"
-                            Style="{StaticResource MaterialDesignRaisedButton}">
+                            Style="{DynamicResource MaterialDesignRaisedButton}">
                         <Button.CommandParameter>
                             <system:Boolean>True</system:Boolean>
                         </Button.CommandParameter>

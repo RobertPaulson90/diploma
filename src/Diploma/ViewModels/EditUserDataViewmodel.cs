@@ -1,7 +1,8 @@
 ﻿using System;
 using Diploma.BLL.Queries.Responses;
-using Diploma.Framework.Validations;
+using Diploma.Core.Framework.Validations;
 using FluentValidation;
+using JetBrains.Annotations;
 
 namespace Diploma.ViewModels
 {
@@ -17,7 +18,7 @@ namespace Diploma.ViewModels
 
         private string _middleName;
 
-        public EditUserDataViewModel(IValidator<EditUserDataViewModel> validator)
+        public EditUserDataViewModel([NotNull] IValidator<EditUserDataViewModel> validator)
             : base(validator)
         {
         }

@@ -12,5 +12,4 @@
     <Grid x:Name="Body" Background="{StaticResource MaterialBackground}">
         <ContentControl cal:View.Model="{Binding ActiveItem}" />
     </Grid>
-
 </UserControl>

@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Diploma.Converters
 {
-    public class EnumDescriptionTypeConverter : EnumConverter
+    internal sealed class EnumDescriptionTypeConverter : EnumConverter
     {
         public EnumDescriptionTypeConverter(Type type)
             : base(type)

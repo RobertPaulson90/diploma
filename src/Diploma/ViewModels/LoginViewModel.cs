@@ -4,9 +4,10 @@ using Caliburn.Micro;
 using Diploma.BLL.Queries.Requests;
 using Diploma.BLL.Services.Interfaces;
 using Diploma.Core.Framework;
+using Diploma.Core.Framework.Validations;
 using Diploma.Framework.Interfaces;
-using Diploma.Framework.Validations;
 using FluentValidation;
+using JetBrains.Annotations;
 
 namespace Diploma.ViewModels
 {
@@ -22,7 +23,7 @@ namespace Diploma.ViewModels
 
         private string _username;
 
-        public LoginViewModel(IMessageService messageService, IUserService userService, IValidator<LoginViewModel> validator)
+        public LoginViewModel([NotNull] IMessageService messageService, [NotNull] IUserService userService, [NotNull] IValidator<LoginViewModel> validator)
             : base(validator)
         {
             _messageService = messageService ?? throw new ArgumentNullException(nameof(messageService));

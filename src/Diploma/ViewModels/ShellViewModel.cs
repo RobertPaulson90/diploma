@@ -1,17 +1,18 @@
 ﻿using System;
 using Caliburn.Micro;
 using Diploma.Framework.Messages;
+using JetBrains.Annotations;
 using MaterialDesignThemes.Wpf;
 
 namespace Diploma.ViewModels
 {
-    public sealed class ShellViewModel : Conductor<Screen>, IHandle<ShowErrorMessage>
+    internal sealed class ShellViewModel : Conductor<Screen>, IHandle<ShowErrorMessage>
     {
         private readonly AuthenticationManagerViewModel _authenticationManagerViewModel;
 
         private readonly IEventAggregator _eventAggregator;
 
-        public ShellViewModel(IEventAggregator eventAggregator, AuthenticationManagerViewModel authenticationManagerViewModel)
+        public ShellViewModel([NotNull] IEventAggregator eventAggregator, [NotNull] AuthenticationManagerViewModel authenticationManagerViewModel)
         {
             _eventAggregator = eventAggregator ?? throw new ArgumentNullException(nameof(eventAggregator));
             _authenticationManagerViewModel =

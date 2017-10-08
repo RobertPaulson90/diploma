@@ -138,4 +138,13 @@
   <data name="Exception_Authorization_Username_Not_Found" xml:space="preserve">
     <value>Такой пользователь не существует.</value>
   </data>
+  <data name="Exception_Registration_Username_Already_Taken" xml:space="preserve">
+    <value>Это имя пользователя уже занято. Попробуйте другое.</value>
+  </data>
+  <data name="Exception_Registration_Canceled" xml:space="preserve">
+    <value>Отменено.</value>
+  </data>
+  <data name="Exception_Update_Canceled" xml:space="preserve">
+    <value>Отменено.</value>
+  </data>
 </root>

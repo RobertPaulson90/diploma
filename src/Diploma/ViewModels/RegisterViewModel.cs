@@ -5,9 +5,10 @@ using Diploma.BLL.Queries.Requests;
 using Diploma.BLL.Queries.Responses;
 using Diploma.BLL.Services.Interfaces;
 using Diploma.Core.Framework;
+using Diploma.Core.Framework.Validations;
 using Diploma.Framework.Interfaces;
-using Diploma.Framework.Validations;
 using FluentValidation;
+using JetBrains.Annotations;
 
 namespace Diploma.ViewModels
 {
@@ -35,7 +36,7 @@ namespace Diploma.ViewModels
 
         private string _username;
 
-        public RegisterViewModel(IUserService userService, IMessageService messageService, IValidator<RegisterViewModel> validator)
+        public RegisterViewModel([NotNull] IUserService userService, [NotNull] IMessageService messageService, [NotNull] IValidator<RegisterViewModel> validator)
             : base(validator)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));

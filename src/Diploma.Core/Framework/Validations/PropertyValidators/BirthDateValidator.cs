@@ -1,8 +1,8 @@
 ﻿using System;
-using Diploma.Properties;
+using Diploma.Core.Properties;
 using FluentValidation.Validators;
 
-namespace Diploma.Framework.Validations.PropertyValidators
+namespace Diploma.Core.Framework.Validations.PropertyValidators
 {
     public class BirthDateValidator : PropertyValidator
     {

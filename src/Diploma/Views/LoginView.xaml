@@ -99,7 +99,7 @@
                         Grid.Column="0"
                         Content="{l:Static p:Resources.LoginView_Button_SignIn_Text}"
                         IsDefault="True"
-                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                        Style="{DynamicResource MaterialDesignRaisedButton}" />
                 <Button x:Name="CreateNewAccount"
                         Grid.Column="2"
                         Content="{l:Static p:Resources.LoginView_Button_CreateNewAccount_Text}"

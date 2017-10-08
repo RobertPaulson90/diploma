@@ -1,62 +1,49 @@
 using System;
+using System.ComponentModel;
 using System.Windows.Markup;
 
 namespace Diploma.MarkupExtensions
 {
     [MarkupExtensionReturnType(typeof(Array))]
-    public class EnumBindingSourceExtension : MarkupExtension
+    internal sealed class EnumBindingSourceExtension : MarkupExtension
     {
-        private Type _enumType;
-
         public EnumBindingSourceExtension()
         {
         }
 
         public EnumBindingSourceExtension(Type enumType)
         {
-            EnumType = enumType;
+            EnumType = enumType ?? throw new ArgumentNullException(nameof(enumType));
         }
 
-        public Type EnumType
-        {
-            get => _enumType;
-
-            set
-            {
-                if (value == _enumType)
-                {
-                    return;
-                }
-
-                if (value != null)
-                {
-                    var enumType = Nullable.GetUnderlyingType(value) ?? value;
-                    if (!enumType.IsEnum)
-                    {
-                        throw new ArgumentException("Type must be of enum.");
-                    }
-                }
-
-                _enumType = value;
-            }
-        }
+        [ConstructorArgument("enumType")]
+        [DefaultValue(null)]
+        public Type EnumType { get; }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            if (_enumType == null)
+            if (EnumType == null)
             {
-                throw new InvalidOperationException("The type of enum must be specified.");
+                throw new InvalidOperationException("EnumType must be filled before calling ProvideValue method");
             }
 
-            var actualEnumType = Nullable.GetUnderlyingType(_enumType) ?? _enumType;
-            var enumValues = Enum.GetValues(actualEnumType);
+            var underlyingType = Nullable.GetUnderlyingType(EnumType);
+            var isNullable = underlyingType != null;
+            var actualType = isNullable ? underlyingType : EnumType;
+            
+            if (!actualType.IsEnum)
+            {
+                throw new InvalidOperationException("EnumType must represent an enumeration.");
+            }
 
-            if (actualEnumType == _enumType)
+            var enumValues = Enum.GetValues(actualType);
+            if (!isNullable)
             {
                 return enumValues;
             }
 
-            var tempArray = Array.CreateInstance(actualEnumType, enumValues.Length + 1);
+            // If type is nullable then we need to add extra 'empty' element to return
+            var tempArray = Array.CreateInstance(actualType, enumValues.Length + 1);
             enumValues.CopyTo(tempArray, 1);
             return tempArray;
         }

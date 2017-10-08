@@ -133,15 +133,6 @@ namespace Diploma.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum age should be larger than minimum..
-        /// </summary>
-        public static string Exception_BirthDate_Wrong_Maximum_Age {
-            get {
-                return ResourceManager.GetString("Exception_BirthDate_Wrong_Maximum_Age", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to CREATE NEW ACCOUNT.
         /// </summary>
         public static string LoginView_Button_CreateNewAccount_Text {

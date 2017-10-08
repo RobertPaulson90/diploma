@@ -60,6 +60,9 @@
     <Reference Include="Gu.Wpf.Localization, Version=6.2.2.0, Culture=neutral, PublicKeyToken=63b557f19697202e, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\Gu.Wpf.Localization.6.2.2.0\lib\net45\Gu.Wpf.Localization.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Annotations, Version=11.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\JetBrains.Annotations.11.0.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
@@ -122,7 +125,6 @@
     <Compile Include="Framework\Interfaces\IMessageService.cs" />
     <Compile Include="Framework\Services\MessageService.cs" />
     <Compile Include="Framework\Messages\ShowErrorMessage.cs" />
-    <Compile Include="Framework\Validations\PropertyValidators\BirthDateValidator.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
@@ -132,8 +134,6 @@
     <Compile Include="Validators\LoginViewModelValidator.cs" />
     <Compile Include="Validators\EditUserDataViewModelValidator.cs" />
     <Compile Include="Validators\RegisterViewModelValidator.cs" />
-    <Compile Include="Framework\Validations\ValidatableScreen.cs" />
-    <Compile Include="Framework\Validations\RuleBuilderExtensions.cs" />
     <Compile Include="ViewModels\AuthenticationManagerViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\EditUserDataViewModel.cs" />

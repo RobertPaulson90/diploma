@@ -5,7 +5,7 @@ using Diploma.Framework.Messages;
 
 namespace Diploma.Framework.Services
 {
-    public class MessageService : IMessageService
+    internal sealed class MessageService : IMessageService
     {
         private readonly IEventAggregator _eventAggregator;
 
@@ -16,11 +16,21 @@ namespace Diploma.Framework.Services
 
         public void ShowErrorMessage(string message)
         {
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
+
             _eventAggregator.PublishOnUIThread(new ShowErrorMessage(message));
         }
 
         public void ShowErrorMessage(Exception exception)
         {
+            if (exception == null)
+            {
+                throw new ArgumentNullException(nameof(exception));
+            }
+
             _eventAggregator.PublishOnUIThread(new ShowErrorMessage(exception));
         }
     }

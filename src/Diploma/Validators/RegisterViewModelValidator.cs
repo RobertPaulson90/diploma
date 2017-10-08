@@ -4,10 +4,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Diploma.BLL.Queries.Requests;
 using Diploma.BLL.Services.Interfaces;
-using Diploma.Framework.Validations;
+using Diploma.Core.Framework.Validations;
 using Diploma.Properties;
 using Diploma.ViewModels;
 using FluentValidation;
+using JetBrains.Annotations;
 
 namespace Diploma.Validators
 {
@@ -21,7 +22,7 @@ namespace Diploma.Validators
 
         private readonly IUserService _userService;
 
-        public RegisterViewModelValidator(IUserService userService)
+        public RegisterViewModelValidator([NotNull] IUserService userService)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
 

@@ -8,7 +8,7 @@ using Diploma.ViewModels;
 
 namespace Diploma
 {
-    public class AppBootstrapper : SimpleInjectorBootstrapper
+    internal sealed class AppBootstrapper : SimpleInjectorBootstrapper
     {
         public AppBootstrapper()
         {

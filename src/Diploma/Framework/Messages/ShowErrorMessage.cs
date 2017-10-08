@@ -1,21 +1,22 @@
 using System;
+using JetBrains.Annotations;
 
 namespace Diploma.Framework.Messages
 {
-    public class ShowErrorMessage
+    internal sealed class ShowErrorMessage
     {
-        public ShowErrorMessage(string message)
+        public ShowErrorMessage([NotNull] string message)
         {
             Message = message;
         }
 
-        public ShowErrorMessage(Exception exception)
+        public ShowErrorMessage([NotNull] Exception exception)
         {
             Exception = exception;
         }
-
+        
         public Exception Exception { get; }
-
+        
         public string Message { get; }
     }
 }

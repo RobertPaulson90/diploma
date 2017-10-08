@@ -6,6 +6,7 @@ using Diploma.BLL.Queries.Responses;
 using Diploma.BLL.Services.Interfaces;
 using Diploma.Framework.Interfaces;
 using Diploma.Views;
+using JetBrains.Annotations;
 using MaterialDesignThemes.Wpf;
 
 namespace Diploma.ViewModels
@@ -16,7 +17,7 @@ namespace Diploma.ViewModels
 
         private readonly IUserService _userService;
 
-        public DashboardViewModel(IMessageService messageService, IUserService userService)
+        public DashboardViewModel([NotNull] IMessageService messageService, [NotNull] IUserService userService)
         {
             _messageService = messageService ?? throw new ArgumentNullException(nameof(messageService));
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));

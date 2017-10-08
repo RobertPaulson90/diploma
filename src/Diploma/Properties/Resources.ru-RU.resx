@@ -180,9 +180,6 @@
   <data name="RegisterView_Field_MiddleName_Hint" xml:space="preserve">
     <value>Отчество</value>
   </data>
-  <data name="Exception_BirthDate_Wrong_Maximum_Age" xml:space="preserve">
-    <value>Максимальный возраст должен быть больше минимального.</value>
-  </data>
   <data name="EditUserDataView_Field_LastName_Hint" xml:space="preserve">
     <value>Фамилия</value>
   </data>

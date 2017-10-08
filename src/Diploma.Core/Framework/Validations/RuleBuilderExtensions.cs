@@ -1,8 +1,8 @@
 ﻿using System;
-using Diploma.Framework.Validations.PropertyValidators;
+using Diploma.Core.Framework.Validations.PropertyValidators;
 using FluentValidation;
 
-namespace Diploma.Framework.Validations
+namespace Diploma.Core.Framework.Validations
 {
     public static class RuleBuilderExtensions
     {
