@@ -376,6 +376,26 @@ namespace Diploma.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The following are allowed in your password:
+        ///a-z, A-Z, 0-9, and common punctuation..
+        /// </summary>
+        public static string Validation_Registration_Password_Contains_Invalid_Characters {
+            get {
+                return ResourceManager.GetString("Validation_Registration_Password_Contains_Invalid_Characters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Short passwords are easy to guess.
+        ///Try one with at least {MinLength} characters..
+        /// </summary>
+        public static string Validation_Registration_Password_Invalid_Length {
+            get {
+                return ResourceManager.GetString("Validation_Registration_Password_Invalid_Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to That username is taken. Try another..
         /// </summary>
         public static string Validation_Registration_Username_Already_Taken {

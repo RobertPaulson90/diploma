@@ -237,4 +237,12 @@
   <data name="EditUserDataView_Header_Text" xml:space="preserve">
     <value>Edit Personal Info</value>
   </data>
+  <data name="Validation_Registration_Password_Invalid_Length" xml:space="preserve">
+    <value>Short passwords are easy to guess.
+Try one with at least {MinLength} characters.</value>
+  </data>
+  <data name="Validation_Registration_Password_Contains_Invalid_Characters" xml:space="preserve">
+    <value>The following are allowed in your password:
+a-z, A-Z, 0-9, and common punctuation.</value>
+  </data>
 </root>

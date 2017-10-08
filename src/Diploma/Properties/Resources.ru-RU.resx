@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -235,6 +235,15 @@
     <value>Дата рождения</value>
   </data>
   <data name="EditUserDataView_Button_Apply_Text" xml:space="preserve">
-    <value>ПРИНЯТЬ</value>
+    <value>ПОДТВЕРДИТЬ</value>
+  </data>
+  <data name="Validation_Registration_Password_Invalid_Length" xml:space="preserve">
+    <value>Пароль слишком короткий его будет легко подобрать.
+Минимальное количество символов – {MinLength}.</value>
+  </data>
+  <data name="Validation_Registration_Password_Contains_Invalid_Characters" xml:space="preserve">
+    <value>В пароле можно использовать латинские буквы
+(как прописные, так и строчные: A–Z, a–z),
+цифры (0–9) и знаки пунктуации.</value>
   </data>
 </root>
