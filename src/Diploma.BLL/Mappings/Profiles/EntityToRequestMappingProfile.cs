@@ -9,7 +9,8 @@ namespace Diploma.BLL.Mappings.Profiles
     {
         public EntityToRequestMappingProfile()
         {
-            CreateMap<UserEntity, UserDataResponse>().ForMember(x => x.Role, opt => opt.ResolveUsing<UserRoleTypeResolver>());
+            CreateMap<UserEntity, UserDataResponse>()
+                .ForMember(x => x.Role, opt => opt.ResolveUsing<UserRoleTypeResolver>());
         }
     }
 }

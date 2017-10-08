@@ -37,7 +37,8 @@ namespace Diploma.ViewModels
             var view = IoC.Get<EditUserDataView>();
             view.DataContext = viewModel;
 
-            var result = await DialogHost.Show(view).ConfigureAwait(false);
+            var result = await DialogHost.Show(view)
+                .ConfigureAwait(false);
             if (!(result is bool) || !(bool)result)
             {
                 return;
@@ -60,7 +61,8 @@ namespace Diploma.ViewModels
                 BirthDate = viewModel.BirthDate
             };
 
-            var operation = await _userService.UpdateUserAsync(userUpdateRequestDataDto).ConfigureAwait(false);
+            var operation = await _userService.UpdateUserAsync(userUpdateRequestDataDto)
+                .ConfigureAwait(false);
 
             if (!operation.Success)
             {

@@ -48,7 +48,8 @@ namespace Diploma.Core.Framework.Validations.PropertyValidators
                 return true;
             }
 
-            context.MessageFormatter.AppendArgument("From", minimumBirthDate).AppendArgument("To", maximumBirthDate)
+            context.MessageFormatter.AppendArgument("From", minimumBirthDate)
+                .AppendArgument("To", maximumBirthDate)
                 .AppendArgument("Value", context.PropertyValue);
 
             return false;

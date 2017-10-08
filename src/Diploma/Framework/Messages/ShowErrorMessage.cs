@@ -14,9 +14,9 @@ namespace Diploma.Framework.Messages
         {
             Exception = exception;
         }
-        
+
         public Exception Exception { get; }
-        
+
         public string Message { get; }
     }
 }

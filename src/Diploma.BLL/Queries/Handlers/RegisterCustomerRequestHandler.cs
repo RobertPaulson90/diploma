@@ -35,7 +35,8 @@ namespace Diploma.BLL.Queries.Handlers
                 try
                 {
                     var username = message.Username.ToUpper();
-                    var isUnique = !await context.Users.AnyAsync(x => username == x.Username.ToUpper(), cancellationToken).ConfigureAwait(false);
+                    var isUnique = !await context.Users.AnyAsync(x => username == x.Username.ToUpper(), cancellationToken)
+                        .ConfigureAwait(false);
 
                     if (!isUnique)
                     {
@@ -43,7 +44,8 @@ namespace Diploma.BLL.Queries.Handlers
                     }
 
                     var userDb = context.Users.Add(customerEntity);
-                    await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                    await context.SaveChangesAsync(cancellationToken)
+                        .ConfigureAwait(false);
                     transaction.Commit();
 
                     var userDto = _mapper.Map<UserDataResponse>(userDb);

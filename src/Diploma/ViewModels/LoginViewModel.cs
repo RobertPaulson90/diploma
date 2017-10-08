@@ -23,7 +23,10 @@ namespace Diploma.ViewModels
 
         private string _username;
 
-        public LoginViewModel([NotNull] IMessageService messageService, [NotNull] IUserService userService, [NotNull] IValidator<LoginViewModel> validator)
+        public LoginViewModel(
+            [NotNull] IMessageService messageService,
+            [NotNull] IUserService userService,
+            [NotNull] IValidator<LoginViewModel> validator)
             : base(validator)
         {
             _messageService = messageService ?? throw new ArgumentNullException(nameof(messageService));

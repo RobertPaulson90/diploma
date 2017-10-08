@@ -13,8 +13,8 @@ using MediatR;
 
 namespace Diploma.BLL.Queries.Handlers
 {
-    internal sealed class GetUserByCredentialsRequestHandler :
-        ICancellableAsyncRequestHandler<GetUserByCredentialsRequest, OperationResult<UserDataResponse>>
+    internal sealed class GetUserByCredentialsRequestHandler
+        : ICancellableAsyncRequestHandler<GetUserByCredentialsRequest, OperationResult<UserDataResponse>>
     {
         private readonly Func<CompanyContext> _companyContextFactory;
 
@@ -34,7 +34,8 @@ namespace Diploma.BLL.Queries.Handlers
             using (var context = _companyContextFactory())
             {
                 var username = message.Username.ToUpper();
-                var userDb = await context.Users.AsNoTracking().SingleOrDefaultAsync(x => username == x.Username.ToUpper(), cancellationToken)
+                var userDb = await context.Users.AsNoTracking()
+                    .SingleOrDefaultAsync(x => username == x.Username.ToUpper(), cancellationToken)
                     .ConfigureAwait(false);
 
                 if (userDb == null)

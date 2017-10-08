@@ -5,7 +5,7 @@ using SimpleInjector.Packaging;
 
 namespace Diploma.DAL
 {
-    public class Package : IPackage
+    public sealed class Package : IPackage
     {
         public void RegisterServices(Container container)
         {

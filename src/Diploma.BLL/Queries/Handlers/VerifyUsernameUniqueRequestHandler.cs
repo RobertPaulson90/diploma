@@ -23,7 +23,8 @@ namespace Diploma.BLL.Queries.Handlers
             using (var context = _companyContextFactory())
             {
                 var username = message.Username.ToUpper();
-                var isUnique = !await context.Users.AnyAsync(x => username == x.Username.ToUpper(), cancellationToken).ConfigureAwait(false);
+                var isUnique = !await context.Users.AnyAsync(x => username == x.Username.ToUpper(), cancellationToken)
+                    .ConfigureAwait(false);
                 return OperationResultBuilder.CreateSuccess(isUnique);
             }
         }

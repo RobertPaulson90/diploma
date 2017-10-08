@@ -9,13 +9,15 @@ namespace Diploma.DAL.Contexts.Configurations
         {
             ToTable("Projects");
 
-            HasMany(x => x.InvolvedTeams).WithMany(x => x.WorkingProjects).Map(
-                x =>
-                {
-                    x.ToTable("ProjectTeams");
-                    x.MapLeftKey("ProjectId");
-                    x.MapRightKey("TeamId");
-                });
+            HasMany(x => x.InvolvedTeams)
+                .WithMany(x => x.WorkingProjects)
+                .Map(
+                    x =>
+                    {
+                        x.ToTable("ProjectTeams");
+                        x.MapLeftKey("ProjectId");
+                        x.MapRightKey("TeamId");
+                    });
         }
     }
 }

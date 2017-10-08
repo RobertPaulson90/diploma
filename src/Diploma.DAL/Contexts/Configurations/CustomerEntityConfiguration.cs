@@ -9,7 +9,9 @@ namespace Diploma.DAL.Contexts.Configurations
         {
             ToTable("Customers");
 
-            HasMany(x => x.Projects).WithRequired(x => x.Customer).HasForeignKey(x => x.CustomerId);
+            HasMany(x => x.Projects)
+                .WithRequired(x => x.Customer)
+                .HasForeignKey(x => x.CustomerId);
         }
     }
 }

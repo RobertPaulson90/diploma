@@ -9,7 +9,7 @@ using SimpleInjector.Packaging;
 
 namespace Diploma
 {
-    public class Package : IPackage
+    public sealed class Package : IPackage
     {
         public void RegisterServices(Container container)
         {

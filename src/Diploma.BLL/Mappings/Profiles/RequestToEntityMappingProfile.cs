@@ -11,9 +11,8 @@ namespace Diploma.BLL.Mappings.Profiles
         {
             CreateMap<UpdateUserDataRequest, UserEntity>(MemberList.Source);
 
-            CreateMap<RegisterCustomerRequest, CustomerEntity>(MemberList.None).ForMember(
-                x => x.PasswordHash,
-                opt => opt.ResolveUsing<PasswordHashResolver>());
+            CreateMap<RegisterCustomerRequest, CustomerEntity>(MemberList.None)
+                .ForMember(x => x.PasswordHash, opt => opt.ResolveUsing<PasswordHashResolver>());
         }
     }
 }

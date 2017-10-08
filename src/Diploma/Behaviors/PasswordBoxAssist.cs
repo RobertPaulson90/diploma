@@ -20,7 +20,7 @@ namespace Diploma.Behaviors
             new PropertyMetadata(false, OnAttachChanged));
 
         public static readonly DependencyProperty IsUpdatingProperty = DependencyProperty.RegisterAttached(
-            "IsUpdating", 
+            "IsUpdating",
             typeof(bool),
             typeof(PasswordBoxAssist));
 

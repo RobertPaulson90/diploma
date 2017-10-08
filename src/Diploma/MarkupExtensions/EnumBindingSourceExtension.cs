@@ -30,7 +30,7 @@ namespace Diploma.MarkupExtensions
             var underlyingType = Nullable.GetUnderlyingType(EnumType);
             var isNullable = underlyingType != null;
             var actualType = isNullable ? underlyingType : EnumType;
-            
+
             if (!actualType.IsEnum)
             {
                 throw new InvalidOperationException("EnumType must represent an enumeration.");

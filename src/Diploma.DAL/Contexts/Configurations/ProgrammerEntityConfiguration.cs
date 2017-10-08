@@ -7,7 +7,9 @@ namespace Diploma.DAL.Contexts.Configurations
     {
         public ProgrammerEntityConfiguration()
         {
-            HasMany(x => x.TeamsMemberships).WithRequired(x => x.Programmer).HasForeignKey(x => x.ProgrammerId);
+            HasMany(x => x.TeamsMemberships)
+                .WithRequired(x => x.Programmer)
+                .HasForeignKey(x => x.ProgrammerId);
         }
     }
 }

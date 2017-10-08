@@ -12,7 +12,7 @@ using SimpleInjector.Packaging;
 
 namespace Diploma.BLL
 {
-    public class Package : IPackage
+    public sealed class Package : IPackage
     {
         public void RegisterServices(Container container)
         {
@@ -21,7 +21,8 @@ namespace Diploma.BLL
             container.RegisterSingleton<IUserService, UserService>();
             container.RegisterSingleton<IPasswordHasher, PasswordHasher>();
 
-            var assemblies = GetAssemblies().ToList();
+            var assemblies = GetAssemblies()
+                .ToList();
             container.RegisterSingleton<IMediator, Mediator>();
             container.Register(typeof(IRequestHandler<,>), assemblies);
             container.Register(typeof(IAsyncRequestHandler<,>), assemblies);

@@ -7,7 +7,9 @@ namespace Diploma.DAL.Contexts.Configurations
     {
         public ManagerEntityConfiguration()
         {
-            HasMany(x => x.ManagedProjects).WithRequired(x => x.Manager).HasForeignKey(x => x.ManagerId);
+            HasMany(x => x.ManagedProjects)
+                .WithRequired(x => x.Manager)
+                .HasForeignKey(x => x.ManagerId);
         }
     }
 }

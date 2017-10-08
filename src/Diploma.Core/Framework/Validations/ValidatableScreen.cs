@@ -11,7 +11,7 @@ namespace Diploma.Core.Framework.Validations
 {
     public abstract class ValidatableScreen<TProperty, TValidator> : Screen, INotifyDataErrorInfo
         where TProperty : ValidatableScreen<TProperty, TValidator>
-        where TValidator : class, IValidator<TProperty> 
+        where TValidator : class, IValidator<TProperty>
     {
         private readonly TProperty _target;
 
@@ -32,7 +32,8 @@ namespace Diploma.Core.Framework.Validations
 
         public IEnumerable GetErrors(string propertyName)
         {
-            return _validationResult.Errors.Where(x => x.PropertyName == propertyName).Select(x => x.ErrorMessage);
+            return _validationResult.Errors.Where(x => x.PropertyName == propertyName)
+                .Select(x => x.ErrorMessage);
         }
 
         public bool Validate()

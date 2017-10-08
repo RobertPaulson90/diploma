@@ -31,11 +31,13 @@ namespace Diploma.BLL.Queries.Handlers
             {
                 try
                 {
-                    var entity = await context.Users.SingleAsync(x => x.Id == message.Id, cancellationToken).ConfigureAwait(false);
+                    var entity = await context.Users.SingleAsync(x => x.Id == message.Id, cancellationToken)
+                        .ConfigureAwait(false);
 
                     _mapper.Map(message, entity);
 
-                    await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                    await context.SaveChangesAsync(cancellationToken)
+                        .ConfigureAwait(false);
                     transaction.Commit();
 
                     var response = _mapper.Map<UserDataResponse>(entity);

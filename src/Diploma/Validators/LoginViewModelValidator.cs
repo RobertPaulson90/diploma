@@ -10,9 +10,13 @@ namespace Diploma.Validators
         {
             CascadeMode = CascadeMode.StopOnFirstFailure;
 
-            RuleFor(x => x.Username).NotEmpty().WithMessage(x => Resources.Validation_Authorization_Username_Can_Not_Be_Empty);
+            RuleFor(x => x.Username)
+                .NotEmpty()
+                .WithMessage(x => Resources.Validation_Authorization_Username_Can_Not_Be_Empty);
 
-            RuleFor(x => x.Password).NotEmpty().WithMessage(x => Resources.Validation_Authorization_Password_Can_Not_Be_Empty);
+            RuleFor(x => x.Password)
+                .NotEmpty()
+                .WithMessage(x => Resources.Validation_Authorization_Password_Can_Not_Be_Empty);
         }
     }
 }

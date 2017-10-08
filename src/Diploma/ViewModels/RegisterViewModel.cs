@@ -36,7 +36,10 @@ namespace Diploma.ViewModels
 
         private string _username;
 
-        public RegisterViewModel([NotNull] IUserService userService, [NotNull] IMessageService messageService, [NotNull] IValidator<RegisterViewModel> validator)
+        public RegisterViewModel(
+            [NotNull] IUserService userService,
+            [NotNull] IMessageService messageService,
+            [NotNull] IValidator<RegisterViewModel> validator)
             : base(validator)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
@@ -183,7 +186,8 @@ namespace Diploma.ViewModels
                     Username = Username
                 };
 
-                var operation = await _userService.CreateCustomerAsync(request, _cancellationToken.Token).ConfigureAwait(false);
+                var operation = await _userService.CreateCustomerAsync(request, _cancellationToken.Token)
+                    .ConfigureAwait(false);
 
                 if (!operation.Success)
                 {

@@ -54,6 +54,14 @@ namespace Diploma.BLL.Tests
             Should.Throw<ArgumentException>(() => _passwordHasher.VerifyPasswordHash(password, passwordHash));
         }
 
+        [TestCase(null, "1000:grNq68etgzXX6tXDPaCmdA==:KioCDLN6rAHjc2KiEc/q5Q==")]
+        [TestCase("", "1000:grNq68etgzXX6tXDPaCmdA==:KioCDLN6rAHjc2KiEc/q5Q==")]
+        [TestCase(" ", "1000:grNq68etgzXX6tXDPaCmdA==:KioCDLN6rAHjc2KiEc/q5Q==")]
+        public void VerifyPasswordHash_Should_Throw_ArgumentException_When_Password_Is_Null_Or_WhiteSpace(string password, string passwordHash)
+        {
+            Should.Throw<ArgumentException>(() => _passwordHasher.VerifyPasswordHash(password, passwordHash));
+        }
+
         [TestCase("1q2w3e", "1000")]
         [TestCase("1q2w3e", "1000:")]
         [TestCase("1q2w3e", "1000:grNq68etgzXX6tXDPaCmdA==:")]
@@ -63,29 +71,19 @@ namespace Diploma.BLL.Tests
             Should.Throw<FormatException>(() => _passwordHasher.VerifyPasswordHash(password, passwordHash));
         }
 
+        [TestCase("1q2w3e", null)]
+        [TestCase("1q2w3e", "")]
+        [TestCase("1q2w3e", " ")]
+        public void VerifyPasswordHash_Should_Throw_ArgumentException_When_PasswordHash_Is_Null_Or_WhiteSpace(string password, string passwordHash)
+        {
+            Should.Throw<ArgumentException>(() => _passwordHasher.VerifyPasswordHash(password, passwordHash));
+        }
+
         [TestCase("1q2w3e", "1000: :KioCDLN6rAHjc2KiEc/q5Q==")]
         [TestCase("1q2w3e", "1000:grNq68etgzXX6tXDPaCmdA=%:KioCDLN6rAHjc2KiEc/q5Q==")]
         public void VerifyPasswordHash_Should_Throw_ArgumentException_When_Salt_Is_Not_Valid_Base64_String(string password, string passwordHash)
         {
             Should.Throw<FormatException>(() => _passwordHasher.VerifyPasswordHash(password, passwordHash));
-        }
-
-        [TestCase(null, "1000:grNq68etgzXX6tXDPaCmdA==:KioCDLN6rAHjc2KiEc/q5Q==")]
-        [TestCase("", "1000:grNq68etgzXX6tXDPaCmdA==:KioCDLN6rAHjc2KiEc/q5Q==")]
-        [TestCase(" ", "1000:grNq68etgzXX6tXDPaCmdA==:KioCDLN6rAHjc2KiEc/q5Q==")]
-        public void VerifyPasswordHash_Should_Throw_ArgumentException_When_Password_Is_Null_Or_WhiteSpace(string password, string passwordHash)
-        {
-            Should.Throw<ArgumentException>(() => _passwordHasher.VerifyPasswordHash(password, passwordHash));
-        }
-
-        [TestCase("1q2w3e", null)]
-        [TestCase("1q2w3e", "")]
-        [TestCase("1q2w3e", " ")]
-        public void VerifyPasswordHash_Should_Throw_ArgumentException_When_PasswordHash_Is_Null_Or_WhiteSpace(
-            string password,
-            string passwordHash)
-        {
-            Should.Throw<ArgumentException>(() => _passwordHasher.VerifyPasswordHash(password, passwordHash));
         }
 
         [TestCase("1q2w3e", "1000:grNq68etgzXX6tXDPaCmdA==:KioCDLN6rAHjc2KiEc/q5Q==")]

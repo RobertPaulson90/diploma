@@ -9,7 +9,9 @@ namespace Diploma.DAL.Contexts.Configurations
         {
             ToTable("Teams");
 
-            HasMany(x => x.InvolvedMembers).WithRequired(x => x.Team).HasForeignKey(x => x.TeamId);
+            HasMany(x => x.InvolvedMembers)
+                .WithRequired(x => x.Team)
+                .HasForeignKey(x => x.TeamId);
         }
     }
 }

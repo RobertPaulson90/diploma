@@ -1,6 +1,6 @@
 ﻿namespace Diploma.Infrastructure.Data
 {
-    public class OperationResult<T>
+    public sealed class OperationResult<T>
     {
         internal OperationResult(string errorMessage)
         {
@@ -14,9 +14,9 @@
             Result = result;
         }
 
-        public T Result { get; }
-
         public string ErrorMessage { get; }
+
+        public T Result { get; }
 
         public bool Success { get; }
     }

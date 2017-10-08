@@ -21,7 +21,8 @@ namespace Diploma.BLL.Services
             RegisterCustomerRequest request,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            var response = await _mediator.Send(request, cancellationToken).ConfigureAwait(false);
+            var response = await _mediator.Send(request, cancellationToken)
+                .ConfigureAwait(false);
             return response;
         }
 
@@ -29,13 +30,15 @@ namespace Diploma.BLL.Services
             GetUserByCredentialsRequest request,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            var response = await _mediator.Send(request, cancellationToken).ConfigureAwait(false);
+            var response = await _mediator.Send(request, cancellationToken)
+                .ConfigureAwait(false);
             return response;
         }
 
         public async Task<OperationResult<bool>> IsUsernameUniqueAsync(VerifyUsernameUniqueRequest request, CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(request, cancellationToken).ConfigureAwait(false);
+            var response = await _mediator.Send(request, cancellationToken)
+                .ConfigureAwait(false);
             return response;
         }
 
@@ -43,7 +46,8 @@ namespace Diploma.BLL.Services
             UpdateUserDataRequest request,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            var response = await _mediator.Send(request, cancellationToken).ConfigureAwait(false);
+            var response = await _mediator.Send(request, cancellationToken)
+                .ConfigureAwait(false);
             return response;
         }
     }
