@@ -186,6 +186,7 @@
                 <Button x:Name="Register"
                         Grid.Column="0"
                         Content="{l:Static p:Resources.RegisterView_Button_Register_Text}"
+                        IsEnabled="{Binding BusyScope.IsBusy, Converter={StaticResource InvertBoolConverter}}"
                         IsDefault="True"
                         Style="{DynamicResource MaterialDesignRaisedButton}" />
                 <Button x:Name="Cancel"

@@ -78,7 +78,9 @@ namespace Diploma.ViewModels
                 return;
             }
 
-            var isValid = Validate();
+            var isValid = await ValidateAsync(_cancellationToken.Token)
+                .ConfigureAwait(false);
+
             if (!isValid)
             {
                 _messageService.ShowErrorMessage("Incorrect username or password.");

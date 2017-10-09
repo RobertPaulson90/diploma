@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using Caliburn.Micro;
 using Diploma.BLL.Queries.Requests;
 using Diploma.BLL.Queries.Responses;
@@ -47,7 +46,9 @@ namespace Diploma.ViewModels
                 return;
             }
 
-            var isValid = viewModel.Validate();
+            var isValid = await viewModel.ValidateAsync()
+                .ConfigureAwait(false);
+
             if (!isValid)
             {
                 _messageService.ShowErrorMessage("There were problems saving your personal info. Check input and try again.");
@@ -85,7 +86,6 @@ namespace Diploma.ViewModels
         public void Logout()
         {
             _messageService.ShowErrorMessage($"Goodbye, {CurrentUser.Username}");
-            Thread.CurrentPrincipal = null;
             CurrentUser = null;
             ((IConductActiveItem)Parent).ActiveItem = IoC.Get<LoginViewModel>();
         }

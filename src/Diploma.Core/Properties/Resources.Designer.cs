@@ -22,7 +22,7 @@ namespace Diploma.Core.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Diploma.Core.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Diploma.Core.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Diploma.Core.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Diploma.Core.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The &apos;{PropertyName}&apos; is not a valid date of birth. It must be between {From} and {To}. You entered {Value}..
         /// </summary>
-        internal static string BirthDateValidator_Default_Validation_Message {
+        public static string BirthDateValidator_Default_Validation_Message {
             get {
                 return ResourceManager.GetString("BirthDateValidator_Default_Validation_Message", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Diploma.Core.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Maximum age should be larger than minimum..
         /// </summary>
-        internal static string Exception_BirthDate_Wrong_Maximum_Age {
+        public static string Exception_BirthDate_Wrong_Maximum_Age {
             get {
                 return ResourceManager.GetString("Exception_BirthDate_Wrong_Maximum_Age", resourceCulture);
             }

@@ -167,7 +167,10 @@ namespace Diploma.ViewModels
                 return;
             }
 
-            if (HasErrors)
+            var isValid = await ValidateAsync(_cancellationToken.Token)
+                .ConfigureAwait(false);
+
+            if (!isValid)
             {
                 _messageService.ShowErrorMessage("There were problems creating your account. Check input and try again.");
                 return;

@@ -79,10 +79,10 @@ namespace Diploma.Validators
                 Username = username
             };
 
-            var result = await _userService.IsUsernameUniqueAsync(request, cancellationToken)
+            var response = await _userService.IsUsernameUniqueAsync(request, cancellationToken)
                 .ConfigureAwait(false);
 
-            return result.Result;
+            return response.Result;
         }
     }
 }
