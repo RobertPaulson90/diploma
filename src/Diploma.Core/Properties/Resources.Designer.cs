@@ -61,6 +61,15 @@ namespace Diploma.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The &apos;{PropertyName}&apos; is not a valid date of birth. It must be between {From} and {To}. You entered {Value}..
+        /// </summary>
+        internal static string BirthDateValidator_Default_Validation_Message {
+            get {
+                return ResourceManager.GetString("BirthDateValidator_Default_Validation_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maximum age should be larger than minimum..
         /// </summary>
         internal static string Exception_BirthDate_Wrong_Maximum_Age {

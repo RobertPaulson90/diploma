@@ -23,6 +23,7 @@ namespace Diploma.BLL
 
             var assemblies = GetAssemblies()
                 .ToList();
+
             container.RegisterSingleton<IMediator, Mediator>();
             container.Register(typeof(IRequestHandler<,>), assemblies);
             container.Register(typeof(IAsyncRequestHandler<,>), assemblies);
@@ -33,8 +34,7 @@ namespace Diploma.BLL
             container.RegisterCollection(typeof(INotificationHandler<>), assemblies);
             container.RegisterCollection(typeof(IAsyncNotificationHandler<>), assemblies);
             container.RegisterCollection(typeof(ICancellableAsyncNotificationHandler<>), assemblies);
-
-            // Pipeline
+            
             container.RegisterCollection(
                 typeof(IPipelineBehavior<,>),
                 new[] { typeof(RequestPreProcessorBehavior<,>), typeof(RequestPostProcessorBehavior<,>) });

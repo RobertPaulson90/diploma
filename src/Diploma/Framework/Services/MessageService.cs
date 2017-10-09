@@ -2,14 +2,16 @@
 using Caliburn.Micro;
 using Diploma.Framework.Interfaces;
 using Diploma.Framework.Messages;
+using JetBrains.Annotations;
 
 namespace Diploma.Framework.Services
 {
     internal sealed class MessageService : IMessageService
     {
+        [NotNull]
         private readonly IEventAggregator _eventAggregator;
 
-        public MessageService(IEventAggregator eventAggregator)
+        public MessageService([NotNull] IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator ?? throw new ArgumentNullException(nameof(eventAggregator));
         }

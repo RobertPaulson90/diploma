@@ -120,4 +120,7 @@
   <data name="Exception_BirthDate_Wrong_Maximum_Age" xml:space="preserve">
     <value>Максимальный возраст должен быть больше минимального.</value>
   </data>
+  <data name="BirthDateValidator_Default_Validation_Message" xml:space="preserve">
+    <value>'{PropertyName}' не является допустимой датой рождения. Она должно быть между {From} и {To}. Вы ввели {Value}. "</value>
+  </data>
 </root>

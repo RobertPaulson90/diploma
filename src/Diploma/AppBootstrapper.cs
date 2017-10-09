@@ -19,7 +19,7 @@ namespace Diploma
         {
             DisplayRootViewFor<ShellViewModel>();
         }
-
+        
         protected override void PreInitialize()
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");

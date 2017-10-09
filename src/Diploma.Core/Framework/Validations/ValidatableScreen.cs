@@ -13,8 +13,10 @@ namespace Diploma.Core.Framework.Validations
         where TProperty : ValidatableScreen<TProperty, TValidator>
         where TValidator : class, IValidator<TProperty>
     {
+        [NotNull]
         private readonly TProperty _target;
 
+        [NotNull]
         private readonly TValidator _validator;
 
         private ValidationResult _validationResult;
@@ -46,7 +48,7 @@ namespace Diploma.Core.Framework.Validations
             }
 
             NotifyOfPropertyChange(nameof(HasErrors));
-            return !HasErrors;
+            return _validationResult.IsValid;
         }
 
         private void RaiseErrorsChanged(string propertyName)

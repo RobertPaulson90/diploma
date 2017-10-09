@@ -13,8 +13,10 @@ namespace Diploma.ViewModels
 {
     public sealed class DashboardViewModel : Conductor<Screen>
     {
+        [NotNull]
         private readonly IMessageService _messageService;
 
+        [NotNull]
         private readonly IUserService _userService;
 
         public DashboardViewModel([NotNull] IMessageService messageService, [NotNull] IUserService userService)
@@ -39,6 +41,7 @@ namespace Diploma.ViewModels
 
             var result = await DialogHost.Show(view)
                 .ConfigureAwait(false);
+
             if (!(result is bool) || !(bool)result)
             {
                 return;

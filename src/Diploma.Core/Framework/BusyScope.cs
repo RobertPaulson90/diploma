@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
 
 namespace Diploma.Core.Framework
 {
@@ -52,12 +53,13 @@ namespace Diploma.Core.Framework
             return new DisposableScope(this);
         }
 
+        [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private class DisposableScope : IDisposable
+        private sealed class DisposableScope : IDisposable
         {
             private readonly BusyScope _parent;
 

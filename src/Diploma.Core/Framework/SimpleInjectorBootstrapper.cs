@@ -25,6 +25,7 @@ namespace Diploma.Core.Framework
 
             var assemblies = SelectPackageAssemblies()
                 .ToList();
+
             _container.RegisterPackages(assemblies);
 
             _container.Verify();

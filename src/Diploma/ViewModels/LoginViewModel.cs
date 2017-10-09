@@ -13,8 +13,10 @@ namespace Diploma.ViewModels
 {
     public sealed class LoginViewModel : ValidatableScreen<LoginViewModel, IValidator<LoginViewModel>>
     {
+        [NotNull]
         private readonly IMessageService _messageService;
 
+        [NotNull]
         private readonly IUserService _userService;
 
         private CancellationTokenSource _cancellationToken;

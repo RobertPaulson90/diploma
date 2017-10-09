@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BirthDateValidator_Default_Validation_Message" xml:space="preserve">
+    <value>The '{PropertyName}' is not a valid date of birth. It must be between {From} and {To}. You entered {Value}.</value>
+  </data>
   <data name="Exception_BirthDate_Wrong_Maximum_Age" xml:space="preserve">
     <value>Maximum age should be larger than minimum.</value>
   </data>

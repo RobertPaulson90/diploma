@@ -8,8 +8,10 @@ namespace Diploma.ViewModels
 {
     internal sealed class ShellViewModel : Conductor<Screen>, IHandle<ShowErrorMessage>
     {
+        [NotNull]
         private readonly AuthenticationManagerViewModel _authenticationManagerViewModel;
 
+        [NotNull]
         private readonly IEventAggregator _eventAggregator;
 
         public ShellViewModel([NotNull] IEventAggregator eventAggregator, [NotNull] AuthenticationManagerViewModel authenticationManagerViewModel)

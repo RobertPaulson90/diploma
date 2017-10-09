@@ -20,7 +20,7 @@ namespace Diploma.Core.Framework.Validations.PropertyValidators
         }
 
         public BirthDateValidator(int minimumAge, int maximumAge)
-            : base("The '{PropertyName}' is not a valid date of birth. It must be between {From} and {To}. You entered {Value}.")
+            : base(nameof(Resources.BirthDateValidator_Default_Validation_Message), typeof(Resources))
         {
             if (maximumAge < minimumAge)
             {

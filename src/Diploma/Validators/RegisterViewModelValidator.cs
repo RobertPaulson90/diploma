@@ -26,6 +26,7 @@ namespace Diploma.Validators
 
         private static readonly Regex UsernameValidationRegex = new Regex("^[a-zA-Z0-9_.-]*$", RegexOptions.Compiled);
 
+        [NotNull]
         private readonly IUserService _userService;
 
         public RegisterViewModelValidator([NotNull] IUserService userService)
