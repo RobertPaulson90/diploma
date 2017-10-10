@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using Diploma.Core.Framework.Validations;
 using Diploma.Framework.Interfaces;
 using Diploma.Framework.Services;
 using Diploma.Validators;
@@ -13,6 +16,11 @@ namespace Diploma
     {
         public void RegisterServices(Container container)
         {
+            container.Register(typeof(IValidationAdapter<>), typeof(FluentValidationAdapter<>));
+
+            var fluentValidatorsAssemblies = GetAssemblies();
+            container.Register(typeof(IValidator<>), fluentValidatorsAssemblies);
+
             container.RegisterSingleton<IMessageService, MessageService>();
 
             container.Register<ShellViewModel>();
@@ -21,16 +29,18 @@ namespace Diploma
 
             container.Register<RegisterViewModel>();
             container.RegisterSingleton<Func<RegisterViewModel>>(() => container.GetInstance<RegisterViewModel>());
-            container.RegisterSingleton<IValidator<RegisterViewModel>, RegisterViewModelValidator>();
 
             container.Register<LoginViewModel>();
             container.RegisterSingleton<Func<LoginViewModel>>(() => container.GetInstance<LoginViewModel>());
-            container.RegisterSingleton<IValidator<LoginViewModel>, LoginViewModelValidator>();
 
             container.Register<DashboardViewModel>();
 
             container.Register<EditUserDataViewModel>();
-            container.RegisterSingleton<IValidator<EditUserDataViewModel>, EditUserDataViewModelValidator>();
+        }
+
+        private static IEnumerable<Assembly> GetAssemblies()
+        {
+            yield return typeof(Package).Assembly;
         }
     }
 }

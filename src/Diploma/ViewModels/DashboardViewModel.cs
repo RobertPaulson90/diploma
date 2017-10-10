@@ -46,10 +46,7 @@ namespace Diploma.ViewModels
                 return;
             }
 
-            var isValid = await viewModel.ValidateAsync()
-                .ConfigureAwait(false);
-
-            if (!isValid)
+            if (viewModel.HasErrors)
             {
                 _messageService.ShowErrorMessage("There were problems saving your personal info. Check input and try again.");
                 return;

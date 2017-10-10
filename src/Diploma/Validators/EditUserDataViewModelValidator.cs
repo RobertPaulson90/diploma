@@ -1,5 +1,4 @@
-﻿using Diploma.Core.Framework.Validations;
-using Diploma.Properties;
+﻿using Diploma.Properties;
 using Diploma.ViewModels;
 using FluentValidation;
 

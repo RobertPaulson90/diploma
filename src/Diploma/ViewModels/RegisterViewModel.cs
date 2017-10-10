@@ -7,12 +7,11 @@ using Diploma.BLL.Services.Interfaces;
 using Diploma.Core.Framework;
 using Diploma.Core.Framework.Validations;
 using Diploma.Framework.Interfaces;
-using FluentValidation;
 using JetBrains.Annotations;
 
 namespace Diploma.ViewModels
 {
-    public sealed class RegisterViewModel : ValidatableScreen<RegisterViewModel, IValidator<RegisterViewModel>>
+    public sealed class RegisterViewModel : ValidatableScreen
     {
         private readonly IMessageService _messageService;
 
@@ -39,13 +38,14 @@ namespace Diploma.ViewModels
         public RegisterViewModel(
             [NotNull] IUserService userService,
             [NotNull] IMessageService messageService,
-            [NotNull] IValidator<RegisterViewModel> validator)
-            : base(validator)
+            [NotNull] IValidationAdapter<RegisterViewModel> validationAdapter)
+            : base(validationAdapter)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _messageService = messageService ?? throw new ArgumentNullException(nameof(messageService));
             _cancellationToken = new CancellationTokenSource();
             BusyScope = new BusyScope();
+            Validate();
         }
 
         public DateTime? BirthDate
@@ -166,11 +166,8 @@ namespace Diploma.ViewModels
             {
                 return;
             }
-
-            var isValid = await ValidateAsync(_cancellationToken.Token)
-                .ConfigureAwait(false);
-
-            if (!isValid)
+            
+            if (HasErrors)
             {
                 _messageService.ShowErrorMessage("There were problems creating your account. Check input and try again.");
                 return;

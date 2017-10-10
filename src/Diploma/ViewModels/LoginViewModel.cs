@@ -6,12 +6,11 @@ using Diploma.BLL.Services.Interfaces;
 using Diploma.Core.Framework;
 using Diploma.Core.Framework.Validations;
 using Diploma.Framework.Interfaces;
-using FluentValidation;
 using JetBrains.Annotations;
 
 namespace Diploma.ViewModels
 {
-    public sealed class LoginViewModel : ValidatableScreen<LoginViewModel, IValidator<LoginViewModel>>
+    public sealed class LoginViewModel : ValidatableScreen
     {
         [NotNull]
         private readonly IMessageService _messageService;
@@ -24,17 +23,18 @@ namespace Diploma.ViewModels
         private string _password;
 
         private string _username;
-
+        
         public LoginViewModel(
             [NotNull] IMessageService messageService,
             [NotNull] IUserService userService,
-            [NotNull] IValidator<LoginViewModel> validator)
-            : base(validator)
+            [NotNull] IValidationAdapter<LoginViewModel> validationAdapter)
+            : base(validationAdapter)
         {
             _messageService = messageService ?? throw new ArgumentNullException(nameof(messageService));
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _cancellationToken = new CancellationTokenSource();
             BusyScope = new BusyScope();
+            Validate();
         }
 
         public BusyScope BusyScope { get; }
@@ -42,27 +42,13 @@ namespace Diploma.ViewModels
         public string Password
         {
             get => _password;
-
-            set
-            {
-                if (Set(ref _password, value))
-                {
-                    Validate();
-                }
-            }
+            set => Set(ref _password, value);
         }
 
         public string Username
         {
             get => _username;
-
-            set
-            {
-                if (Set(ref _username, value))
-                {
-                    Validate();
-                }
-            }
+            set => Set(ref _username, value);
         }
 
         public void CreateNewAccount()
@@ -77,11 +63,8 @@ namespace Diploma.ViewModels
             {
                 return;
             }
-
-            var isValid = await ValidateAsync(_cancellationToken.Token)
-                .ConfigureAwait(false);
-
-            if (!isValid)
+            
+            if (HasErrors)
             {
                 _messageService.ShowErrorMessage("Incorrect username or password.");
                 return;

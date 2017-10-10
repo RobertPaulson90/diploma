@@ -131,9 +131,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Validators\FluentValidationAdapter.cs" />
     <Compile Include="Validators\LoginViewModelValidator.cs" />
     <Compile Include="Validators\EditUserDataViewModelValidator.cs" />
+    <Compile Include="Validators\PropertyValidators\BirthDateValidator.cs" />
     <Compile Include="Validators\RegisterViewModelValidator.cs" />
+    <Compile Include="Validators\RuleBuilderExtensions.cs" />
     <Compile Include="ViewModels\AuthenticationManagerViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\EditUserDataViewModel.cs" />

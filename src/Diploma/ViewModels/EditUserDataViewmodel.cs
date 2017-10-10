@@ -1,12 +1,11 @@
 ﻿using System;
 using Diploma.BLL.Queries.Responses;
 using Diploma.Core.Framework.Validations;
-using FluentValidation;
 using JetBrains.Annotations;
 
 namespace Diploma.ViewModels
 {
-    public sealed class EditUserDataViewModel : ValidatableScreen<EditUserDataViewModel, IValidator<EditUserDataViewModel>>
+    public sealed class EditUserDataViewModel : ValidatableScreen
     {
         private DateTime? _birthDate;
 
@@ -18,74 +17,40 @@ namespace Diploma.ViewModels
 
         private string _middleName;
 
-        public EditUserDataViewModel([NotNull] IValidator<EditUserDataViewModel> validator)
-            : base(validator)
+        public EditUserDataViewModel([NotNull] IValidationAdapter<EditUserDataViewModel> validationAdapter)
+            : base(validationAdapter)
         {
+            Validate();
         }
 
         public DateTime? BirthDate
         {
             get => _birthDate;
-
-            set
-            {
-                if (Set(ref _birthDate, value))
-                {
-                    Validate();
-                }
-            }
+            set => Set(ref _birthDate, value);
         }
 
         public string FirstName
         {
             get => _firstName;
-
-            set
-            {
-                if (Set(ref _firstName, value))
-                {
-                    Validate();
-                }
-            }
+            set => Set(ref _firstName, value);
         }
 
         public GenderType Gender
         {
             get => _gender;
-
-            set
-            {
-                if (Set(ref _gender, value))
-                {
-                    Validate();
-                }
-            }
+            set => Set(ref _gender, value);
         }
 
         public string LastName
         {
             get => _lastName;
-
-            set
-            {
-                if (Set(ref _lastName, value))
-                {
-                    Validate();
-                }
-            }
+            set => Set(ref _lastName, value);
         }
 
         public string MiddleName
         {
             get => _middleName;
-
-            set
-            {
-                if (Set(ref _middleName, value))
-                {
-                    Validate();
-                }
-            }
+            set => Set(ref _middleName, value);
         }
     }
 }

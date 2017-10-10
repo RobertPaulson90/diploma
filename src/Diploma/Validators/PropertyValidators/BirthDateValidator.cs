@@ -2,9 +2,9 @@
 using Diploma.Core.Properties;
 using FluentValidation.Validators;
 
-namespace Diploma.Core.Framework.Validations.PropertyValidators
+namespace Diploma.Validators.PropertyValidators
 {
-    public class BirthDateValidator : PropertyValidator
+    public sealed class BirthDateValidator : PropertyValidator
     {
         private const int DefaultMaximumAge = 131;
 

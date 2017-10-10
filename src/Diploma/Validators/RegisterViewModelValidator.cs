@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Diploma.BLL.Queries.Requests;
 using Diploma.BLL.Services.Interfaces;
-using Diploma.Core.Framework.Validations;
 using Diploma.Properties;
 using Diploma.ViewModels;
 using FluentValidation;
