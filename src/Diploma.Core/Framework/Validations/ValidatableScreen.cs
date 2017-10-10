@@ -18,6 +18,7 @@ namespace Diploma.Core.Framework.Validations
 
         private readonly SemaphoreSlim _propertyErrorsLock;
 
+        [NotNull]
         private readonly IValidationAdapter _validator;
 
         private ValidatableScreen()
@@ -38,6 +39,7 @@ namespace Diploma.Core.Framework.Validations
 
         public bool HasErrors => _propertyErrors.Values.Any(x => x != null && x.Length > 0);
 
+        [UsedImplicitly]
         protected bool AutoValidate { get; set; }
 
         public IEnumerable GetErrors(string propertyName)
@@ -64,7 +66,7 @@ namespace Diploma.Core.Framework.Validations
         {
             base.NotifyOfPropertyChange(propertyName);
 
-            if (_validator != null && AutoValidate && propertyName != nameof(HasErrors))
+            if (AutoValidate && propertyName != nameof(HasErrors))
             {
                 var _ = await ValidatePropertyAsync(propertyName)
                     .ConfigureAwait(false);
@@ -77,6 +79,13 @@ namespace Diploma.Core.Framework.Validations
             {
                 RaiseErrorsChanged(property);
             }
+
+            NotifyOfPropertyChange(nameof(HasErrors));
+        }
+
+        protected virtual void OnValidationStateChanged(string changedProperty)
+        {
+            RaiseErrorsChanged(changedProperty);
 
             NotifyOfPropertyChange(nameof(HasErrors));
         }
@@ -105,11 +114,6 @@ namespace Diploma.Core.Framework.Validations
 
         protected virtual async Task<bool> ValidateAsync()
         {
-            if (_validator == null)
-            {
-                throw new InvalidOperationException("Can't run validation if a validator hasn't been set");
-            }
-
             var results = await _validator.ValidateAllPropertiesAsync()
                               .ConfigureAwait(false) ?? new Dictionary<string, IEnumerable<string>>();
 
@@ -201,6 +205,7 @@ namespace Diploma.Core.Framework.Validations
 
             await _propertyErrorsLock.WaitAsync()
                 .ConfigureAwait(false);
+
             try
             {
                 if (!_propertyErrors.ContainsKey(propertyName))
@@ -221,7 +226,7 @@ namespace Diploma.Core.Framework.Validations
 
             if (propertyErrorsChanged)
             {
-                OnValidationStateChanged(new[] { propertyName });
+                OnValidationStateChanged(propertyName);
             }
 
             return newErrors == null || newErrors.Length == 0;
