@@ -51,14 +51,7 @@ namespace Diploma.ViewModels
         public DateTime? BirthDate
         {
             get => _birthDate;
-
-            set
-            {
-                if (Set(ref _birthDate, value))
-                {
-                    Validate();
-                }
-            }
+            set => Set(ref _birthDate, value);
         }
 
         public BusyScope BusyScope { get; }
@@ -66,77 +59,41 @@ namespace Diploma.ViewModels
         public string ConfirmPassword
         {
             get => _confirmPassword;
-
-            set
-            {
-                if (Set(ref _confirmPassword, value))
-                {
-                    Validate();
-                }
-            }
+            set => Set(ref _confirmPassword, value);
         }
 
         public string FirstName
         {
             get => _firstName;
-
-            set
-            {
-                if (Set(ref _firstName, value))
-                {
-                    Validate();
-                }
-            }
+            set => Set(ref _firstName, value);
         }
 
         public GenderType Gender
         {
             get => _gender;
-
-            set
-            {
-                if (Set(ref _gender, value))
-                {
-                    Validate();
-                }
-            }
+            set => Set(ref _gender, value);
         }
 
         public string LastName
         {
             get => _lastName;
-
-            set
-            {
-                if (Set(ref _lastName, value))
-                {
-                    Validate();
-                }
-            }
+            set => Set(ref _lastName, value);
         }
 
         public string MiddleName
         {
             get => _middleName;
-
-            set
-            {
-                if (Set(ref _middleName, value))
-                {
-                    Validate();
-                }
-            }
+            set => Set(ref _middleName, value);
         }
 
         public string Password
         {
             get => _password;
-
             set
             {
                 if (Set(ref _password, value))
                 {
-                    Validate();
+                    NotifyOfPropertyChange(nameof(ConfirmPassword));
                 }
             }
         }
@@ -144,14 +101,7 @@ namespace Diploma.ViewModels
         public string Username
         {
             get => _username;
-
-            set
-            {
-                if (Set(ref _username, value))
-                {
-                    Validate();
-                }
-            }
+            set => Set(ref _username, value);
         }
 
         public void Cancel()
