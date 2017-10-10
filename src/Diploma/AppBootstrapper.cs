@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
-using System.Threading;
 using System.Windows;
 using Diploma.Core.Framework;
 using Diploma.ViewModels;
+using Gu.Localization;
 
 namespace Diploma
 {
@@ -24,8 +24,8 @@ namespace Diploma
         {
             base.PrepareApplication();
 
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            var cultureInfo = CultureInfo.GetCultureInfo("ru");
+            Translator.Culture = cultureInfo;
         }
 
         protected override IEnumerable<Assembly> SelectPackageAssemblies()
