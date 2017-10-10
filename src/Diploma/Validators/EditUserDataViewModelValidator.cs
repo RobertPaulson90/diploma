@@ -21,6 +21,10 @@ namespace Diploma.Validators
             RuleFor(x => x.BirthDate)
                 .BirthDate()
                 .WithMessage(x => Resources.Validation_Editing_BirthDate_Must_Be_Be_Valid_Age);
+
+            RuleFor(x => x.Gender)
+                .IsInEnum()
+                .WithMessage(x => Resources.Validation_Editing_Gender_Invalid);
         }
     }
 }

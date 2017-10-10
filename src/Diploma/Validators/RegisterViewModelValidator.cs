@@ -69,6 +69,10 @@ namespace Diploma.Validators
                 .WithMessage(x => Resources.Validation_Registration_ConfirmPassword_Can_Not_Be_Empty)
                 .Equal(customer => customer.Password)
                 .WithMessage(x => Resources.Validation_Registration_ConfirmPassword_Not_Match_Password);
+
+            RuleFor(x => x.Gender)
+                .IsInEnum()
+                .WithMessage(x => Resources.Validation_Registration_Gender_Invalid);
         }
 
         private async Task<bool> BeUniqueUsernameAsync(string username, CancellationToken cancellationToken)

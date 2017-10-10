@@ -313,6 +313,15 @@ namespace Diploma.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unsupported value of gender..
+        /// </summary>
+        public static string Validation_Editing_Gender_Invalid {
+            get {
+                return ResourceManager.GetString("Validation_Editing_Gender_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You can&apos;t leave this empty..
         /// </summary>
         public static string Validation_Editing_LastName_Can_Not_Be_Empty {
@@ -354,6 +363,15 @@ namespace Diploma.Properties {
         public static string Validation_Registration_FirstName_Can_Not_Be_Empty {
             get {
                 return ResourceManager.GetString("Validation_Registration_FirstName_Can_Not_Be_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsupported value of gender..
+        /// </summary>
+        public static string Validation_Registration_Gender_Invalid {
+            get {
+                return ResourceManager.GetString("Validation_Registration_Gender_Invalid", resourceCulture);
             }
         }
         
@@ -428,15 +446,6 @@ namespace Diploma.Properties {
         public static string Validation_Registration_Username_Invalid_Length {
             get {
                 return ResourceManager.GetString("Validation_Registration_Username_Invalid_Length", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unsupported value of user role..
-        /// </summary>
-        public static string Validation_Registration_UserRole_Invalid_Value {
-            get {
-                return ResourceManager.GetString("Validation_Registration_UserRole_Invalid_Value", resourceCulture);
             }
         }
     }

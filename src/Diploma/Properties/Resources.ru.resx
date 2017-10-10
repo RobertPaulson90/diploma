@@ -156,9 +156,6 @@
   <data name="Validation_Authorization_Password_Can_Not_Be_Empty" xml:space="preserve">
     <value>Это поле должно быть заполнено.</value>
   </data>
-  <data name="Validation_Registration_UserRole_Invalid_Value" xml:space="preserve">
-    <value>Неподдерживаемое значение роли пользователя.</value>
-  </data>
   <data name="Validation_Registration_ConfirmPassword_Not_Match_Password" xml:space="preserve">
     <value>Пароли не совпадают. Повторите попытку.</value>
   </data>
@@ -245,5 +242,11 @@
     <value>В пароле можно использовать латинские буквы
 (как прописные, так и строчные: A–Z, a–z),
 цифры (0–9) и знаки пунктуации.</value>
+  </data>
+  <data name="Validation_Registration_Gender_Invalid" xml:space="preserve">
+    <value>Неподдерживаемое значение пола.</value>
+  </data>
+  <data name="Validation_Editing_Gender_Invalid" xml:space="preserve">
+    <value>Неподдерживаемое значение пола.</value>
   </data>
 </root>
