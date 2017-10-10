@@ -41,7 +41,7 @@
             <Border Grid.Row="2" Style="{StaticResource Divider}" />
 
             <Grid x:Name="Main" Grid.Row="4">
-                <ScrollViewer Style="{StaticResource ScrollViewerScrollbarsOverControls}">
+                <ScrollViewer>
                     <Grid HorizontalAlignment="Stretch">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
