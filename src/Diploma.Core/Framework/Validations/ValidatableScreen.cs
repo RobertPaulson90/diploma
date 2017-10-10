@@ -14,25 +14,18 @@ namespace Diploma.Core.Framework.Validations
 {
     public abstract class ValidatableScreen : Screen, INotifyDataErrorInfo
     {
-        private readonly Dictionary<string, string[]> _propertyErrors;
+        private readonly Dictionary<string, string[]> _propertyErrors = new Dictionary<string, string[]>();
 
-        private readonly SemaphoreSlim _propertyErrorsLock;
+        private readonly SemaphoreSlim _propertyErrorsLock = new SemaphoreSlim(1, 1);
 
         [NotNull]
         private readonly IValidationAdapter _validator;
-
-        private ValidatableScreen()
-        {
-            _propertyErrorsLock = new SemaphoreSlim(1, 1);
-            _propertyErrors = new Dictionary<string, string[]>();
-            AutoValidate = true;
-        }
-
+        
         protected ValidatableScreen([NotNull] IValidationAdapter validationAdapter)
-            : this()
         {
             _validator = validationAdapter ?? throw new ArgumentNullException(nameof(validationAdapter));
             _validator.Initialize(this);
+            AutoValidate = true;
         }
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
