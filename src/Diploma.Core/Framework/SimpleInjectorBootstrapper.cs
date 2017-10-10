@@ -43,32 +43,12 @@ namespace Diploma.Core.Framework
         {
             return _container.GetInstance(service);
         }
-
-        protected new void Initialize()
-        {
-            PreInitialize();
-            base.Initialize();
-            PostInitialize();
-        }
-
+        
         protected override void OnExit(object sender, EventArgs e)
         {
             _container.Dispose();
         }
-
-        protected virtual void PostInitialize()
-        {
-        }
-
-        protected virtual void PreInitialize()
-        {
-        }
-
-        protected override IEnumerable<Assembly> SelectAssemblies()
-        {
-            yield return Assembly.GetEntryAssembly();
-        }
-
+        
         protected abstract IEnumerable<Assembly> SelectPackageAssemblies();
     }
 }
