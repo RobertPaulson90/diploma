@@ -61,20 +61,42 @@ namespace Diploma.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The &apos;{PropertyName}&apos; is not a valid date of birth. It must be between {From} and {To}. You entered {Value}..
+        ///   Looks up a localized string similar to Maximum age should be larger than minimum.
+        ///Max: {0}.
+        ///Min: {1}..
         /// </summary>
-        public static string BirthDateValidator_Default_Validation_Message {
+        public static string Exception_BirthDateValidator_Maximum_Age_Less_Than_Minimum_Age {
             get {
-                return ResourceManager.GetString("BirthDateValidator_Default_Validation_Message", resourceCulture);
+                return ResourceManager.GetString("Exception_BirthDateValidator_Maximum_Age_Less_Than_Minimum_Age", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum age should be larger than minimum..
+        ///   Looks up a localized string similar to Maximum age should be a positive number.
+        ///Value: {0}..
         /// </summary>
-        public static string Exception_BirthDate_Wrong_Maximum_Age {
+        public static string Exception_BirthDateValidator_Maximum_Age_Non_Positive {
             get {
-                return ResourceManager.GetString("Exception_BirthDate_Wrong_Maximum_Age", resourceCulture);
+                return ResourceManager.GetString("Exception_BirthDateValidator_Maximum_Age_Non_Positive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum age should be a positive number.
+        ///Value: {0}..
+        /// </summary>
+        public static string Exception_BirthDateValidator_Minimum_Age_Non_Positive {
+            get {
+                return ResourceManager.GetString("Exception_BirthDateValidator_Minimum_Age_Non_Positive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The &apos;{PropertyName}&apos; is not a valid date of birth. It must be between {Min} and {Max}. You entered {PropertyValue}..
+        /// </summary>
+        public static string Validation_BirthDateValidator_Default_Message {
+            get {
+                return ResourceManager.GetString("Validation_BirthDateValidator_Default_Message", resourceCulture);
             }
         }
     }

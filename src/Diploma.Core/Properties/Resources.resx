@@ -117,10 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BirthDateValidator_Default_Validation_Message" xml:space="preserve">
-    <value>The '{PropertyName}' is not a valid date of birth. It must be between {From} and {To}. You entered {Value}.</value>
+  <data name="Validation_BirthDateValidator_Default_Message" xml:space="preserve">
+    <value>The '{PropertyName}' is not a valid date of birth. It must be between {Min} and {Max}. You entered {PropertyValue}.</value>
+    <comment>{PropertyName} - the name of the property being validated.
+{Min} - the minimum date of birth.
+{Max} - the maximum date of birth.
+{PropertyValue} - the current value of the property.</comment>
   </data>
-  <data name="Exception_BirthDate_Wrong_Maximum_Age" xml:space="preserve">
-    <value>Maximum age should be larger than minimum.</value>
+  <data name="Exception_BirthDateValidator_Maximum_Age_Non_Positive" xml:space="preserve">
+    <value>Maximum age should be a positive number.
+Value: {0}.</value>
+  </data>
+  <data name="Exception_BirthDateValidator_Minimum_Age_Non_Positive" xml:space="preserve">
+    <value>Minimum age should be a positive number.
+Value: {0}.</value>
+  </data>
+  <data name="Exception_BirthDateValidator_Maximum_Age_Less_Than_Minimum_Age" xml:space="preserve">
+    <value>Maximum age should be larger than minimum.
+Max: {0}.
+Min: {1}.</value>
   </data>
 </root>

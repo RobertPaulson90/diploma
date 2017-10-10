@@ -117,10 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Exception_BirthDate_Wrong_Maximum_Age" xml:space="preserve">
-    <value>Максимальный возраст должен быть больше минимального.</value>
+  <data name="Exception_BirthDateValidator_Maximum_Age_Less_Than_Minimum_Age" xml:space="preserve">
+    <value>Максимальный возраст должен быть больше минимального.
+Максимальный: {0}.
+Минимальный: {1}.</value>
   </data>
-  <data name="BirthDateValidator_Default_Validation_Message" xml:space="preserve">
-    <value>'{PropertyName}' не является допустимой датой рождения. Она должно быть между {From} и {To}. Вы ввели {Value}. "</value>
+  <data name="Validation_BirthDateValidator_Default_Message" xml:space="preserve">
+    <value>'{PropertyName}' не является допустимой датой рождения. Она должно быть между {Min} и {Max}. Вы ввели {PropertyValue}.</value>
+  </data>
+  <data name="Exception_BirthDateValidator_Minimum_Age_Non_Positive" xml:space="preserve">
+    <value>Минимальный возраст должен быть положительным числом.
+Значение: {0}.</value>
+  </data>
+  <data name="Exception_BirthDateValidator_Maximum_Age_Non_Positive" xml:space="preserve">
+    <value>Максимальный возраст должен быть положительным числом.
+Значение: {0}.</value>
   </data>
 </root>

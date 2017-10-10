@@ -20,11 +20,21 @@ namespace Diploma.Validators.PropertyValidators
         }
 
         public BirthDateValidator(int minimumAge, int maximumAge)
-            : base(nameof(Resources.BirthDateValidator_Default_Validation_Message), typeof(Resources))
+            : base(nameof(Resources.Validation_BirthDateValidator_Default_Message), typeof(Resources))
         {
+            if (minimumAge < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(minimumAge), string.Format(Resources.Exception_BirthDateValidator_Minimum_Age_Non_Positive, minimumAge));
+            }
+
+            if (maximumAge < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(maximumAge), string.Format(Resources.Exception_BirthDateValidator_Maximum_Age_Non_Positive, maximumAge));
+            }
+
             if (maximumAge < minimumAge)
             {
-                throw new ArgumentOutOfRangeException(nameof(maximumAge), Resources.Exception_BirthDate_Wrong_Maximum_Age);
+                throw new ArgumentOutOfRangeException(nameof(maximumAge), string.Format(Resources.Exception_BirthDateValidator_Maximum_Age_Less_Than_Minimum_Age, maximumAge, minimumAge));
             }
 
             _minimumAge = minimumAge;
@@ -48,9 +58,9 @@ namespace Diploma.Validators.PropertyValidators
                 return true;
             }
 
-            context.MessageFormatter.AppendArgument("From", minimumBirthDate)
-                .AppendArgument("To", maximumBirthDate)
-                .AppendArgument("Value", context.PropertyValue);
+            context.MessageFormatter
+                .AppendArgument("Min", minimumBirthDate)
+                .AppendArgument("Max", maximumBirthDate);
 
             return false;
         }
