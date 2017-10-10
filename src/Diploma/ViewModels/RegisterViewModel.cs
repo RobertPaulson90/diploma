@@ -44,7 +44,7 @@ namespace Diploma.ViewModels
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _messageService = messageService ?? throw new ArgumentNullException(nameof(messageService));
             _cancellationToken = new CancellationTokenSource();
-            BusyScope = new BusyScope();
+            BusyWatcher = new BusyWatcher();
             Validate();
         }
 
@@ -54,7 +54,7 @@ namespace Diploma.ViewModels
             set => Set(ref _birthDate, value);
         }
 
-        public BusyScope BusyScope { get; }
+        public BusyWatcher BusyWatcher { get; }
 
         public string ConfirmPassword
         {
@@ -112,7 +112,7 @@ namespace Diploma.ViewModels
 
         public async void Register()
         {
-            if (BusyScope.IsBusy)
+            if (BusyWatcher.IsBusy)
             {
                 return;
             }
@@ -123,7 +123,7 @@ namespace Diploma.ViewModels
                 return;
             }
 
-            using (BusyScope.StartWork())
+            using (BusyWatcher.GetTicket())
             {
                 var request = new RegisterCustomerRequest
                 {

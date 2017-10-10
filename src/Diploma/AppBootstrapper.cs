@@ -1,10 +1,8 @@
 using System.Collections.Generic;
-using System.Globalization;
 using System.Reflection;
 using System.Windows;
 using Diploma.Core.Framework;
 using Diploma.ViewModels;
-using Gu.Localization;
 
 namespace Diploma
 {
@@ -20,13 +18,13 @@ namespace Diploma
             DisplayRootViewFor<ShellViewModel>();
         }
 
-        protected override void PrepareApplication()
-        {
-            base.PrepareApplication();
+        //protected override void PrepareApplication()
+        //{
+        //    base.PrepareApplication();
 
-            var cultureInfo = CultureInfo.GetCultureInfo("ru");
-            Translator.Culture = cultureInfo;
-        }
+        //    var cultureInfo = CultureInfo.GetCultureInfo("ru");
+        //    Translator.Culture = cultureInfo;
+        //}
 
         protected override IEnumerable<Assembly> SelectPackageAssemblies()
         {

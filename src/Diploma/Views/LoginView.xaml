@@ -98,7 +98,7 @@
                 <Button x:Name="SignIn"
                         Grid.Column="0"
                         Content="{l:Static p:Resources.LoginView_Button_SignIn_Text}"
-                        IsEnabled="{Binding BusyScope.IsBusy, Converter={StaticResource InvertBoolConverter}}"
+                        IsEnabled="{Binding BusyWatcher.IsBusy, Converter={StaticResource InvertBoolConverter}}"
                         IsDefault="True"
                         Style="{DynamicResource MaterialDesignRaisedButton}" />
                 <Button x:Name="CreateNewAccount"
