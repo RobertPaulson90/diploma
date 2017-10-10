@@ -43,14 +43,14 @@ namespace Diploma.BLL.Queries.Handlers
                         return OperationResultBuilder.CreateFailure<UserDataResponse>(Resources.Exception_Registration_Username_Already_Taken);
                     }
 
-                    var userDb = context.Users.Add(customerEntity);
+                    var userEntity = context.Users.Add(customerEntity);
                     await context.SaveChangesAsync(cancellationToken)
                         .ConfigureAwait(false);
                     transaction.Commit();
 
-                    var userDto = _mapper.Map<UserDataResponse>(userDb);
+                    var response = _mapper.Map<UserDataResponse>(userEntity);
 
-                    return OperationResultBuilder.CreateSuccess(userDto);
+                    return OperationResultBuilder.CreateSuccess(response);
                 }
                 catch (TaskCanceledException)
                 {

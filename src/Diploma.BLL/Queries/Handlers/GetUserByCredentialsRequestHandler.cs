@@ -48,8 +48,8 @@ namespace Diploma.BLL.Queries.Handlers
                     return OperationResultBuilder.CreateFailure<UserDataResponse>(Resources.Exception_Authorization_Username_Or_Password_Invalid);
                 }
 
-                var userDto = _mapper.Map<UserDataResponse>(userDb);
-                return OperationResultBuilder.CreateSuccess(userDto);
+                var response = _mapper.Map<UserDataResponse>(userDb);
+                return OperationResultBuilder.CreateSuccess(response);
             }
         }
     }

@@ -48,6 +48,7 @@ namespace Diploma.Core.Framework
         {
             PreInitialize();
             base.Initialize();
+            PostInitialize();
         }
 
         protected override void OnExit(object sender, EventArgs e)
@@ -55,7 +56,13 @@ namespace Diploma.Core.Framework
             _container.Dispose();
         }
 
-        protected abstract void PreInitialize();
+        protected virtual void PostInitialize()
+        {
+        }
+
+        protected virtual void PreInitialize()
+        {
+        }
 
         protected override IEnumerable<Assembly> SelectAssemblies()
         {
