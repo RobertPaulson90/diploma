@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:behaviors="clr-namespace:Diploma.Behaviors"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:l="http://gu.se/Localization"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:Diploma.ViewModels"
-             xmlns:l="http://gu.se/Localization"
              xmlns:p="clr-namespace:Diploma.Properties"
+             xmlns:viewModels="clr-namespace:Diploma.ViewModels"
              d:DataContext="{d:DesignInstance viewModels:LoginViewModel}"
              mc:Ignorable="d">
     <materialDesign:ColorZone Padding="{StaticResource GlobalCardPadding}"
@@ -67,9 +67,9 @@
                                  Grid.Row="0"
                                  Grid.Column="1"
                                  materialDesign:HintAssist.Hint="{l:Static p:Resources.LoginView_Field_Username_Text}"
+                                 MaxLength="30"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
-                                 MaxLength="30" />
+                                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}" />
 
                         <materialDesign:PackIcon Grid.Row="2"
                                                  Grid.Column="0"
@@ -99,10 +99,11 @@
                 </Grid.ColumnDefinitions>
                 <Button x:Name="SignIn"
                         Grid.Column="0"
+                        materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding BusyWatcher.IsBusy}"
                         Content="{l:Static p:Resources.LoginView_Button_SignIn_Text}"
-                        IsEnabled="{Binding BusyWatcher.IsBusy, Converter={StaticResource InvertBoolConverter}}"
                         IsDefault="True"
-                        Style="{DynamicResource MaterialDesignRaisedButton}" />
+                        IsEnabled="{Binding BusyWatcher.IsBusy, Converter={StaticResource InvertBoolConverter}}"
+                        Style="{DynamicResource MaterialDesignRaisedButtonWithIndicator}" />
                 <Button x:Name="CreateNewAccount"
                         Grid.Column="2"
                         Content="{l:Static p:Resources.LoginView_Button_CreateNewAccount_Text}"

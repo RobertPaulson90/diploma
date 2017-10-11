@@ -191,10 +191,11 @@
                 </Grid.ColumnDefinitions>
                 <Button x:Name="Register"
                         Grid.Column="0"
+                        materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding BusyWatcher.IsBusy}"
                         Content="{l:Static p:Resources.RegisterView_Button_Register_Text}"
                         IsDefault="True"
                         IsEnabled="{Binding BusyWatcher.IsBusy, Converter={StaticResource InvertBoolConverter}}"
-                        Style="{DynamicResource MaterialDesignRaisedButton}" />
+                        Style="{DynamicResource MaterialDesignRaisedButtonWithIndicator}" />
                 <Button x:Name="Cancel"
                         Grid.Column="2"
                         Content="{l:Static p:Resources.RegisterView_Button_Cancel_Text}"

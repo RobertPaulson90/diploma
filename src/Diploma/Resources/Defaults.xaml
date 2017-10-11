@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <Style x:Key="MaterialDesignDatePickerTextBox"
@@ -75,6 +76,40 @@
             </Canvas>
         </VisualBrush.Visual>
     </VisualBrush>
+
+    <Style x:Key="MaterialDesignRaisedButtonWithIndicator"
+           BasedOn="{StaticResource MaterialDesignRaisedButton}"
+           TargetType="{x:Type Button}">
+        <Style.Resources>
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+        </Style.Resources>
+        <Style.Triggers>
+            <Trigger Property="materialDesign:ButtonProgressAssist.IsIndicatorVisible" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation AutoReverse="True"
+                                             FillBehavior="Stop"
+                                             RepeatBehavior="Forever"
+                                             Storyboard.TargetProperty="(materialDesign:ButtonProgressAssist.Value)"
+                                             From="0"
+                                             To="100"
+                                             Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(materialDesign:ButtonProgressAssist.Value)"
+                                             To="100"
+                                             Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
     <system:Double x:Key="ScrollSize">8</system:Double>
     <SolidColorBrush x:Key="ScrollColor" Color="{DynamicResource Primary700Foreground}" />
