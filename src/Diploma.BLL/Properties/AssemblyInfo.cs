@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -19,8 +18,6 @@ using System.Runtime.InteropServices;
 // to COM components.  If you need to access a type in this assembly from
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
-
-[assembly: NeutralResourcesLanguage("en")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("36f6865a-b0e7-4e94-af3e-ac5fafe463d8")]
