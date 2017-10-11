@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 namespace Diploma.ViewModels
 {
-    public sealed class EditUserDataViewModel : ValidatableScreen
+    internal sealed class EditUserDataViewModel : ValidatableScreen
     {
         private DateTime? _birthDate;
 

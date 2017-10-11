@@ -11,7 +11,7 @@ using JetBrains.Annotations;
 
 namespace Diploma.ViewModels
 {
-    public sealed class RegisterViewModel : ValidatableScreen
+    internal sealed class RegisterViewModel : ValidatableScreen
     {
         private readonly IMessageService _messageService;
 

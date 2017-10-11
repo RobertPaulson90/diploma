@@ -6,9 +6,9 @@ using Diploma.Core.Framework.Validations;
 using FluentValidation;
 using JetBrains.Annotations;
 
-namespace Diploma.Validators
+namespace Diploma.Framework
 {
-    public sealed class FluentValidationAdapter<T> : IValidationAdapter<T>
+    internal sealed class FluentValidationAdapter<T> : IValidationAdapter<T>
     {
         [NotNull]
         private readonly IValidator<T> _validator;

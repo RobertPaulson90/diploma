@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 
 namespace Diploma.ViewModels
 {
-    public sealed class AuthenticationManagerViewModel : Conductor<Screen>
+    internal sealed class AuthenticationManagerViewModel : Conductor<Screen>
     {
         [NotNull]
         private readonly LoginViewModel _loginViewModel;

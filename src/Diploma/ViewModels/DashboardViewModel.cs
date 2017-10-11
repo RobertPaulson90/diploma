@@ -10,7 +10,7 @@ using MaterialDesignThemes.Wpf;
 
 namespace Diploma.ViewModels
 {
-    public sealed class DashboardViewModel : Conductor<Screen>
+    internal sealed class DashboardViewModel : Conductor<Screen>
     {
         [NotNull]
         private readonly IMessageService _messageService;

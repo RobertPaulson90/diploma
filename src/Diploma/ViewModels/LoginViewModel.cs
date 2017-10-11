@@ -10,7 +10,7 @@ using JetBrains.Annotations;
 
 namespace Diploma.ViewModels
 {
-    public sealed class LoginViewModel : ValidatableScreen
+    internal sealed class LoginViewModel : ValidatableScreen
     {
         [NotNull]
         private readonly IMessageService _messageService;
