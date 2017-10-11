@@ -19,13 +19,13 @@
                       TextOptions.TextRenderingMode="Auto"
                       WindowStartupLocation="CenterScreen"
                       mc:Ignorable="d">
-    <materialDesign:DialogHost CloseOnClickAway="True" Identifier="RootDialog">
+    <materialDesign:DialogHost CloseOnClickAway="True" Identifier="RootDialog" SnackbarMessageQueue="{Binding ElementName=Snackbar, Path=MessageQueue}">
         <materialDesign:DialogHost.Content>
             <Grid>
                 <ContentControl cal:View.Model="{Binding ActiveItem}"
                                 materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                                 materialDesign:ValidationAssist.UsePopup="True" />
-                <materialDesign:Snackbar MessageQueue="{Binding MessageQueue, Mode=OneTime}" />
+                <materialDesign:Snackbar x:Name="Snackbar" MessageQueue="{Binding MessageQueue, Mode=OneTime}" />
             </Grid>
         </materialDesign:DialogHost.Content>
     </materialDesign:DialogHost>
