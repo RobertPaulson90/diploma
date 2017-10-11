@@ -3,13 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:behaviors="clr-namespace:Diploma.Behaviors"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:enums="clr-namespace:Diploma.BLL.Queries.Responses;assembly=Diploma.BLL"
+             xmlns:l="http://gu.se/Localization"
+             xmlns:markupExtensions="clr-namespace:Diploma.MarkupExtensions"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:Diploma.ViewModels"
-             xmlns:markupExtensions="clr-namespace:Diploma.MarkupExtensions"
              xmlns:p="clr-namespace:Diploma.Properties"
-             xmlns:l="http://gu.se/Localization"
-             xmlns:enums="clr-namespace:Diploma.BLL.Queries.Responses;assembly=Diploma.BLL"
+             xmlns:viewModels="clr-namespace:Diploma.ViewModels"
              d:DataContext="{d:DesignInstance viewModels:RegisterViewModel}"
              mc:Ignorable="d">
     <materialDesign:ColorZone Padding="{StaticResource GlobalCardPadding}"
@@ -97,6 +97,7 @@
                         <materialDesign:PackIcon Grid.Row="6"
                                                  Grid.Column="0"
                                                  Margin="{StaticResource DefaultIconsMargin}"
+                                                 HorizontalAlignment="Right"
                                                  VerticalAlignment="Bottom"
                                                  Foreground="{Binding ElementName=UsernameField, Path=BorderBrush}"
                                                  Kind="Account" />
@@ -106,12 +107,14 @@
                                  Grid.Column="1"
                                  Grid.ColumnSpan="4"
                                  materialDesign:HintAssist.Hint="{l:Static p:Resources.RegisterView_Field_Username_Hint}"
+                                 MaxLength="30"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}" />
 
                         <materialDesign:PackIcon Grid.Row="8"
                                                  Grid.Column="0"
                                                  Margin="{StaticResource DefaultIconsMargin}"
+                                                 HorizontalAlignment="Right"
                                                  VerticalAlignment="Bottom"
                                                  Foreground="{Binding ElementName=PasswordField, Path=BorderBrush}"
                                                  Kind="Key" />
@@ -128,6 +131,7 @@
                         <materialDesign:PackIcon Grid.Row="10"
                                                  Grid.Column="0"
                                                  Margin="{StaticResource DefaultIconsMargin}"
+                                                 HorizontalAlignment="Right"
                                                  VerticalAlignment="Bottom"
                                                  Foreground="{Binding ElementName=ConfirmPasswordField, Path=BorderBrush}"
                                                  Kind="Key" />
@@ -144,6 +148,7 @@
                         <materialDesign:PackIcon Grid.Row="12"
                                                  Grid.Column="0"
                                                  Margin="{StaticResource DefaultIconsMargin}"
+                                                 HorizontalAlignment="Right"
                                                  VerticalAlignment="Bottom"
                                                  Foreground="{Binding ElementName=BirthDateField, Path=BorderBrush}"
                                                  Kind="Cake" />
@@ -159,6 +164,7 @@
                         <materialDesign:PackIcon Grid.Row="12"
                                                  Grid.Column="3"
                                                  Margin="{StaticResource DefaultIconsMargin}"
+                                                 HorizontalAlignment="Right"
                                                  VerticalAlignment="Bottom"
                                                  Foreground="{Binding ElementName=GenderField, Path=BorderBrush}"
                                                  Kind="GenderMaleFemale" />
@@ -186,8 +192,8 @@
                 <Button x:Name="Register"
                         Grid.Column="0"
                         Content="{l:Static p:Resources.RegisterView_Button_Register_Text}"
-                        IsEnabled="{Binding BusyWatcher.IsBusy, Converter={StaticResource InvertBoolConverter}}"
                         IsDefault="True"
+                        IsEnabled="{Binding BusyWatcher.IsBusy, Converter={StaticResource InvertBoolConverter}}"
                         Style="{DynamicResource MaterialDesignRaisedButton}" />
                 <Button x:Name="Cancel"
                         Grid.Column="2"

@@ -58,7 +58,7 @@
                         <materialDesign:PackIcon Grid.Row="0"
                                                  Grid.Column="0"
                                                  Margin="{StaticResource DefaultIconsMargin}"
-                                                 HorizontalAlignment="Stretch"
+                                                 HorizontalAlignment="Right"
                                                  VerticalAlignment="Bottom"
                                                  Foreground="{Binding ElementName=UsernameField, Path=BorderBrush}"
                                                  Kind="Account" />
@@ -68,11 +68,13 @@
                                  Grid.Column="1"
                                  materialDesign:HintAssist.Hint="{l:Static p:Resources.LoginView_Field_Username_Text}"
                                  Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}" />
+                                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
+                                 MaxLength="30" />
 
                         <materialDesign:PackIcon Grid.Row="2"
                                                  Grid.Column="0"
                                                  Margin="{StaticResource DefaultIconsMargin}"
+                                                 HorizontalAlignment="Right"
                                                  VerticalAlignment="Bottom"
                                                  Foreground="{Binding ElementName=PasswordField, Path=BorderBrush}"
                                                  Kind="Key" />

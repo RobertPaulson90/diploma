@@ -28,9 +28,12 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <materialDesign:Chip Grid.Column="0"
+                                                 MaxWidth="350"
                                                  VerticalAlignment="Center"
-                                                 Content="{Binding CurrentUser.Username}"
                                                  Cursor="Arrow">
+                                <materialDesign:Chip.Content>
+                                    <TextBlock Text="{Binding Path=CurrentUser.Username}" TextTrimming="CharacterEllipsis" />
+                                </materialDesign:Chip.Content>
                                 <materialDesign:Chip.Icon>
                                     <materialDesign:PackIcon Kind="Account" />
                                 </materialDesign:Chip.Icon>
