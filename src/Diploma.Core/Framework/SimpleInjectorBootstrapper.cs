@@ -22,6 +22,7 @@ namespace Diploma.Core.Framework
             _container = new Container();
             _container.RegisterSingleton<IWindowManager, WindowManager>();
             _container.RegisterSingleton<IEventAggregator, EventAggregator>();
+            _container.RegisterSingleton<IScreenFactory, ScreenFactory>();
 
             var assemblies = SelectPackageAssemblies()
                 .ToList();

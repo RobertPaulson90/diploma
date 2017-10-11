@@ -61,6 +61,33 @@ namespace Diploma.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Goodbye, {0}!.
+        /// </summary>
+        public static string Dashboard_Farewell_Message_Text {
+            get {
+                return ResourceManager.GetString("Dashboard_Farewell_Message_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, {0}!.
+        /// </summary>
+        public static string Dashboard_Welcome_Message_Text {
+            get {
+                return ResourceManager.GetString("Dashboard_Welcome_Message_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There were problems saving your personal info. Check input and try again..
+        /// </summary>
+        public static string Editing_Message_Validation_Errors {
+            get {
+                return ResourceManager.GetString("Editing_Message_Validation_Errors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to APPLY.
         /// </summary>
         public static string EditUserDataView_Button_Apply_Text {
@@ -273,6 +300,15 @@ namespace Diploma.Properties {
         public static string RegisterView_Header_Text {
             get {
                 return ResourceManager.GetString("RegisterView_Header_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There were problems creating your account. Check input and try again..
+        /// </summary>
+        public static string Registration_Message_Validation_Errors {
+            get {
+                return ResourceManager.GetString("Registration_Message_Validation_Errors", resourceCulture);
             }
         }
         

@@ -1,49 +1,55 @@
 ﻿using System;
 using Caliburn.Micro;
+using Diploma.Core.Framework;
 using Diploma.Framework.Messages;
 using JetBrains.Annotations;
 using MaterialDesignThemes.Wpf;
 
 namespace Diploma.ViewModels
 {
-    internal sealed class ShellViewModel : Conductor<Screen>, IHandle<ShowErrorMessage>
+    internal sealed class ShellViewModel : Conductor<IScreen>, IHandle<ShowErrorMessage>, IHandle<LoggedInMessage>, IHandle<LoggedOutMessage>
     {
-        [NotNull]
-        private readonly AuthenticationManagerViewModel _authenticationManagerViewModel;
-
         [NotNull]
         private readonly IEventAggregator _eventAggregator;
 
-        public ShellViewModel([NotNull] IEventAggregator eventAggregator, [NotNull] AuthenticationManagerViewModel authenticationManagerViewModel)
+        [NotNull]
+        private readonly IScreenFactory _screenFactory;
+
+        public ShellViewModel([NotNull] IEventAggregator eventAggregator, [NotNull] IScreenFactory screenFactory)
         {
             _eventAggregator = eventAggregator ?? throw new ArgumentNullException(nameof(eventAggregator));
-            _authenticationManagerViewModel =
-                authenticationManagerViewModel ?? throw new ArgumentNullException(nameof(authenticationManagerViewModel));
-            _eventAggregator.Subscribe(this);
+            _screenFactory = screenFactory ?? throw new ArgumentNullException(nameof(screenFactory));
             MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
-            OpenAuthenticationManager();
         }
 
         public SnackbarMessageQueue MessageQueue { get; }
 
-        public void Handle(ShowErrorMessage message)
+        void IHandle<ShowErrorMessage>.Handle(ShowErrorMessage message)
         {
             MessageQueue.Enqueue(message.Message, true);
+        }
+
+        void IHandle<LoggedInMessage>.Handle(LoggedInMessage message)
+        {
+            var dashboard = _screenFactory.CreateScreen<DashboardViewModel>();
+            dashboard.Init(message.User);
+            ActiveItem = dashboard;
+        }
+
+        void IHandle<LoggedOutMessage>.Handle(LoggedOutMessage message)
+        {
+            ActiveItem = _screenFactory.CreateScreen<AuthenticationManagerViewModel>();
         }
 
         protected override void OnActivate()
         {
             _eventAggregator.Subscribe(this);
+            ActiveItem = _screenFactory.CreateScreen<AuthenticationManagerViewModel>();
         }
 
         protected override void OnDeactivate(bool close)
         {
             _eventAggregator.Unsubscribe(this);
-        }
-
-        private void OpenAuthenticationManager()
-        {
-            ActiveItem = _authenticationManagerViewModel;
         }
     }
 }

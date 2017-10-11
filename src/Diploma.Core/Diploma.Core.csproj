@@ -51,6 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Framework\BusyWatcher.cs" />
+    <Compile Include="Framework\IScreenFactory.cs" />
+    <Compile Include="Framework\ScreenFactory.cs" />
     <Compile Include="Framework\SimpleInjectorBootstrapper.cs" />
     <Compile Include="Framework\Validations\IValidationAdapter.cs" />
     <Compile Include="Framework\Validations\ValidatableScreen.cs" />

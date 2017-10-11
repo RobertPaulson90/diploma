@@ -21,8 +21,8 @@ namespace Diploma
 
             container.RegisterSingleton<IMessageService, MessageService>();
 
-            container.Register<ShellViewModel>();
-            container.Register<AuthenticationManagerViewModel>();
+            container.RegisterSingleton<ShellViewModel>();
+            container.RegisterSingleton<AuthenticationManagerViewModel>();
             container.Register<RegisterViewModel>();
             container.Register<LoginViewModel>();
             container.Register<DashboardViewModel>();

@@ -16,7 +16,7 @@ namespace Diploma.Framework.Services
             _eventAggregator = eventAggregator ?? throw new ArgumentNullException(nameof(eventAggregator));
         }
 
-        public void ShowErrorMessage(string message)
+        public void ShowMessage(string message)
         {
             if (string.IsNullOrWhiteSpace(message))
             {

@@ -61,20 +61,20 @@ namespace Diploma.BLL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incorrect username or password..
+        /// </summary>
+        public static string Authorization_Message_Validation_Errors {
+            get {
+                return ResourceManager.GetString("Authorization_Message_Validation_Errors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User not exists..
         /// </summary>
         public static string Exception_Authorization_Username_Not_Found {
             get {
                 return ResourceManager.GetString("Exception_Authorization_Username_Not_Found", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Incorrect username or password..
-        /// </summary>
-        public static string Exception_Authorization_Username_Or_Password_Invalid {
-            get {
-                return ResourceManager.GetString("Exception_Authorization_Username_Or_Password_Invalid", resourceCulture);
             }
         }
         

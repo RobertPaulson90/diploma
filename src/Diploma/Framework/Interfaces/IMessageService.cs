@@ -5,8 +5,8 @@ namespace Diploma.Framework.Interfaces
 {
     public interface IMessageService
     {
-        void ShowErrorMessage([NotNull] string message);
-
+        void ShowMessage([NotNull] [LocalizationRequired] string message);
+        
         void ShowErrorMessage([NotNull] Exception exception);
     }
 }

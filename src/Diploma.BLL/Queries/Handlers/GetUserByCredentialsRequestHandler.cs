@@ -45,7 +45,7 @@ namespace Diploma.BLL.Queries.Handlers
 
                 if (!_passwordHasher.VerifyPasswordHash(message.Password, userDb.PasswordHash))
                 {
-                    return OperationResultBuilder.CreateFailure<UserDataResponse>(Resources.Exception_Authorization_Username_Or_Password_Invalid);
+                    return OperationResultBuilder.CreateFailure<UserDataResponse>(Resources.Authorization_Message_Validation_Errors);
                 }
 
                 var response = _mapper.Map<UserDataResponse>(userDb);

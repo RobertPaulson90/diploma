@@ -118,6 +118,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Framework\Messages\LoggedInMessage.cs" />
     <Compile Include="MarkupExtensions\EnumBindingSourceExtension.cs" />
     <Compile Include="Converters\EnumDescriptionTypeConverter.cs" />
     <Compile Include="Behaviors\PasswordBoxAssist.cs" />
@@ -138,8 +139,10 @@
     <Compile Include="Validators\RegisterViewModelValidator.cs" />
     <Compile Include="Validators\RuleBuilderExtensions.cs" />
     <Compile Include="ViewModels\AuthenticationManagerViewModel.cs" />
+    <Compile Include="Framework\Messages\ChangeAuthenticationManagerStateMessage.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\EditUserDataViewModel.cs" />
+    <Compile Include="Framework\Messages\LoggedOutMessage.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />

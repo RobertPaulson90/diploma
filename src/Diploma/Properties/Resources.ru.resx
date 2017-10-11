@@ -249,4 +249,16 @@
   <data name="Validation_Editing_Gender_Invalid" xml:space="preserve">
     <value>Неподдерживаемое значение пола.</value>
   </data>
+  <data name="Dashboard_Welcome_Message_Text" xml:space="preserve">
+    <value>Добро пожаловать, {0}!</value>
+  </data>
+  <data name="Dashboard_Farewell_Message_Text" xml:space="preserve">
+    <value>До свидания, {0}!</value>
+  </data>
+  <data name="Registration_Message_Validation_Errors" xml:space="preserve">
+    <value>Во время создания учетной записи возникли ошибки. Проверьте ввод и повторите попытку.</value>
+  </data>
+  <data name="Editing_Message_Validation_Errors" xml:space="preserve">
+    <value>Во время сохранения личных данных возникли ошибки. Проверьте ввод и повторите попытку.</value>
+  </data>
 </root>

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Caliburn.Micro;
 using Diploma.BLL.Queries.Requests;
 using Diploma.BLL.Queries.Responses;
 using Diploma.BLL.Services.Interfaces;
 using Diploma.Framework.Interfaces;
+using Diploma.Framework.Messages;
+using Diploma.Properties;
 using Diploma.Views;
 using JetBrains.Annotations;
 using MaterialDesignThemes.Wpf;
@@ -18,14 +21,19 @@ namespace Diploma.ViewModels
         [NotNull]
         private readonly IUserService _userService;
 
-        public DashboardViewModel([NotNull] IMessageService messageService, [NotNull] IUserService userService)
+        [NotNull]
+        private readonly IEventAggregator _eventAggregator;
+
+        public DashboardViewModel([NotNull] IMessageService messageService, [NotNull] IUserService userService, [NotNull] IEventAggregator eventAggregator)
         {
             _messageService = messageService ?? throw new ArgumentNullException(nameof(messageService));
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _eventAggregator = eventAggregator ?? throw new ArgumentNullException(nameof(eventAggregator));
         }
 
         public UserDataResponse CurrentUser { get; private set; }
 
+        [UsedImplicitly]
         public async void Edit()
         {
             var viewModel = IoC.Get<EditUserDataViewModel>();
@@ -48,11 +56,11 @@ namespace Diploma.ViewModels
 
             if (viewModel.HasErrors)
             {
-                _messageService.ShowErrorMessage("There were problems saving your personal info. Check input and try again.");
+                _messageService.ShowMessage(Resources.Editing_Message_Validation_Errors);
                 return;
             }
 
-            var userUpdateRequestDataDto = new UpdateUserDataRequest
+            var updateUserDataRequest = new UpdateUserDataRequest
             {
                 Id = CurrentUser.Id,
                 LastName = viewModel.LastName,
@@ -62,12 +70,12 @@ namespace Diploma.ViewModels
                 BirthDate = viewModel.BirthDate
             };
 
-            var operation = await _userService.UpdateUserAsync(userUpdateRequestDataDto)
+            var operation = await _userService.UpdateUserAsync(updateUserDataRequest)
                 .ConfigureAwait(false);
 
             if (!operation.Success)
             {
-                _messageService.ShowErrorMessage(operation.ErrorMessage);
+                _messageService.ShowMessage(operation.ErrorMessage);
                 return;
             }
 
@@ -77,14 +85,18 @@ namespace Diploma.ViewModels
         public void Init(UserDataResponse currentUser)
         {
             CurrentUser = currentUser;
-            _messageService.ShowErrorMessage($"Hello, {CurrentUser.Username}");
+            _messageService.ShowMessage(string.Format(Resources.Dashboard_Welcome_Message_Text, CurrentUser.Username));
         }
 
-        public void Logout()
+        [UsedImplicitly]
+        [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "This method is called on button click")]
+        public async void Logout()
         {
-            _messageService.ShowErrorMessage($"Goodbye, {CurrentUser.Username}");
+            _messageService.ShowMessage(string.Format(Resources.Dashboard_Farewell_Message_Text, CurrentUser.Username));
             CurrentUser = null;
-            ((IConductActiveItem)Parent).ActiveItem = IoC.Get<LoginViewModel>();
+            var message = new LoggedOutMessage();
+            await _eventAggregator.PublishOnUIThreadAsync(message)
+                .ConfigureAwait(false);
         }
     }
 }

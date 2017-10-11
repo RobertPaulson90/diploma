@@ -120,7 +120,7 @@
   <data name="Exception_Hash_Algorithm_Iterations_Not_Specified" xml:space="preserve">
     <value>Хэш должен содержать итерации.</value>
   </data>
-  <data name="Exception_Authorization_Username_Or_Password_Invalid" xml:space="preserve">
+  <data name="Authorization_Message_Validation_Errors" xml:space="preserve">
     <value>Неверное имя пользователя или пароль.</value>
   </data>
   <data name="Exception_Hash_Algorithm_Hash_Not_Specified" xml:space="preserve">

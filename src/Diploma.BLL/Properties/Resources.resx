@@ -120,7 +120,7 @@
   <data name="Exception_Authorization_Username_Not_Found" xml:space="preserve">
     <value>User not exists.</value>
   </data>
-  <data name="Exception_Authorization_Username_Or_Password_Invalid" xml:space="preserve">
+  <data name="Authorization_Message_Validation_Errors" xml:space="preserve">
     <value>Incorrect username or password.</value>
   </data>
   <data name="Exception_Hash_Algorithm_Iterations_Not_Specified" xml:space="preserve">
