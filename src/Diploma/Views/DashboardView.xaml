@@ -1,11 +1,11 @@
 ﻿<UserControl x:Class="Diploma.Views.DashboardView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:cal="http://www.caliburnproject.org"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Diploma.ViewModels"
+             xmlns:views="clr-namespace:Diploma.Views"
              d:DataContext="{d:DesignInstance viewModels:DashboardViewModel}"
              d:DesignHeight="480"
              d:DesignWidth="636"
@@ -35,41 +35,43 @@
                                     <TextBlock Text="{Binding Path=CurrentUser.Username}" TextTrimming="CharacterEllipsis" />
                                 </materialDesign:Chip.Content>
                                 <materialDesign:Chip.Icon>
-                                    <materialDesign:PackIcon Kind="Account" />
+                                    <materialDesign:PopupBox Padding="0"
+                                                             PlacementMode="BottomAndAlignRightEdges"
+                                                             StaysOpen="False">
+                                        <materialDesign:PopupBox.ToggleContent>
+                                            <materialDesign:PackIcon Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Kind="Account" />
+                                        </materialDesign:PopupBox.ToggleContent>
+                                        <materialDesign:PopupBox.PopupContent>
+                                            <views:UserPreferencesView />
+                                        </materialDesign:PopupBox.PopupContent>
+                                    </materialDesign:PopupBox>
                                 </materialDesign:Chip.Icon>
                             </materialDesign:Chip>
-                            <materialDesign:PopupBox Grid.Column="1"
-                                                     PlacementMode="BottomAndAlignCentres"
-                                                     StaysOpen="False">
-                                <StackPanel>
-                                    <Button cal:Message.Attach="Edit" Content="Edit" />
-                                    <Button cal:Message.Attach="Logout" Content="Log out" />
-                                </StackPanel>
-                            </materialDesign:PopupBox>
+
                         </Grid>
 
                         <materialDesign:ColorZone x:Name="SearchBar"
                                                   Width="350"
                                                   Padding="8 4"
                                                   HorizontalAlignment="Left"
+                                                  VerticalAlignment="Center"
                                                   Panel.ZIndex="1"
                                                   CornerRadius="2">
                             <Grid>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="4" />
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="4" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0"
-                                         Height="28"
-                                         Margin="4 0 4 0"
-                                         VerticalAlignment="Center"
+                                <TextBox Grid.Column="1"
                                          VerticalContentAlignment="Center"
                                          materialDesign:HintAssist.Hint="Search"
                                          materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                          BorderThickness="0" />
 
-                                <Button Grid.Column="1"
-                                        VerticalAlignment="Center"
+                                <Button Grid.Column="2"
+                                        materialDesign:RippleAssist.IsCentered="True"
                                         Style="{DynamicResource MaterialDesignToolButton}">
                                     <materialDesign:PackIcon Kind="Magnify" Opacity=".56" />
                                 </Button>
