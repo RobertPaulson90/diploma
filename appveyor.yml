@@ -10,11 +10,19 @@ platform: Any CPU
 configuration: Release
 
 build:
+  project: Diploma.sln
   verbosity: quiet
 
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: jbzWbDlD5lfmq+kzZt9KhWLAmOLwJ2MTbvM604T/RUZ5Teav7nzT9dSBkHgXT2hi
+
 before_build:
-  - cmd: nuget restore -verbosity quiet
+  - cmd: nuget restore ".\Diploma.sln" -verbosity quiet
 
 artifacts:
   - path: 'bin\$(configuration)\Diploma'
     name: 'Diploma-Binaries'
+
+test_script:
+  - ps: .\scripts\coveralls.ps1

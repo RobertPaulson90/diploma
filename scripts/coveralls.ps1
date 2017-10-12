@@ -1,0 +1,3 @@
+.\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe" "-targetargs: "".\bin\$env:CONFIGURATION\Diploma.BLL.Tests\Diploma.BLL.Tests.dll""" -filter:"+[Diploma.*]* -[Diploma.*.Tests]*" -excludebyfile:"*.Designer.cs" -output:opencoverCoverage.xml
+
+.\packages\coveralls.net.0.7.0\tools\csmacnz.coveralls.exe --opencover -i opencoverCoverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --useRelativePaths --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_BUILD_NUMBER --serviceName appveyor
