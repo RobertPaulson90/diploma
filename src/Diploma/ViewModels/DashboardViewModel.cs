@@ -16,22 +16,31 @@ namespace Diploma.ViewModels
     internal sealed class DashboardViewModel : Conductor<Screen>
     {
         [NotNull]
+        private readonly IEventAggregator _eventAggregator;
+
+        [NotNull]
         private readonly IMessageService _messageService;
 
         [NotNull]
         private readonly IUserService _userService;
 
-        [NotNull]
-        private readonly IEventAggregator _eventAggregator;
+        private UserDataResponse _currentUser;
 
-        public DashboardViewModel([NotNull] IMessageService messageService, [NotNull] IUserService userService, [NotNull] IEventAggregator eventAggregator)
+        public DashboardViewModel(
+            [NotNull] IMessageService messageService,
+            [NotNull] IUserService userService,
+            [NotNull] IEventAggregator eventAggregator)
         {
             _messageService = messageService ?? throw new ArgumentNullException(nameof(messageService));
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _eventAggregator = eventAggregator ?? throw new ArgumentNullException(nameof(eventAggregator));
         }
 
-        public UserDataResponse CurrentUser { get; private set; }
+        public UserDataResponse CurrentUser
+        {
+            get => _currentUser;
+            private set => Set(ref _currentUser, value);
+        }
 
         [UsedImplicitly]
         public async void Edit()

@@ -20,7 +20,7 @@
         <Grid Grid.Row="0"
               Grid.Column="0"
               Grid.ColumnSpan="3"
-              Background="{DynamicResource MaterialDesignSelection}">
+              Background="{DynamicResource PrimaryHueLightBrush}">
             <Border Padding="16">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -30,13 +30,17 @@
                     </Grid.ColumnDefinitions>
                     <Grid Width="40">
                         <Ellipse x:Name="Bg"
-                                 Fill="#FFA6A6A6"
-                                 Stroke="#FF009587"
+                                 Fill="{DynamicResource PrimaryHueDarkBrush}"
+                                 Width="40"
+                                 Height="40"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
                                  StrokeThickness="0" />
                         <materialDesign:PackIcon Width="32"
                                                  Height="32"
                                                  HorizontalAlignment="Center"
                                                  VerticalAlignment="Center"
+                                                 Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
                                                  Kind="Account" />
                     </Grid>
                     <Grid Grid.Column="2">
@@ -63,9 +67,11 @@
 
         <ScrollViewer Grid.Row="1"
                       Grid.Column="0"
-                      Grid.ColumnSpan="3">
+                      Grid.ColumnSpan="3"
+                      Margin="0 4">
             <StackPanel>
-                <Button cal:Message.Attach="Edit" HorizontalContentAlignment="Stretch">
+                <Button cal:Message.Attach="Edit"
+                        HorizontalContentAlignment="Stretch">
                     <Grid VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition SharedSizeGroup="Icons" />
@@ -83,7 +89,8 @@
                     </Grid>
                 </Button>
 
-                <Button cal:Message.Attach="Logout" HorizontalContentAlignment="Stretch">
+                <Button cal:Message.Attach="Logout"
+                        HorizontalContentAlignment="Stretch">
                     <Grid VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition SharedSizeGroup="Icons" />
@@ -103,7 +110,8 @@
 
                 <Separator />
 
-                <Button cal:Message.Attach="Settings" HorizontalContentAlignment="Stretch">
+                <Button cal:Message.Attach="Settings"
+                        HorizontalContentAlignment="Stretch">
                     <Grid VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition SharedSizeGroup="Icons" />
@@ -124,6 +132,3 @@
         </ScrollViewer>
     </Grid>
 </UserControl>
-
-
-
