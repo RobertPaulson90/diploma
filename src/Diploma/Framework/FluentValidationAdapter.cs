@@ -20,13 +20,13 @@ namespace Diploma.Framework
             _validator = validator ?? throw new ArgumentNullException(nameof(validator));
         }
         
-        public async Task<Dictionary<string, IEnumerable<string>>> ValidateAllPropertiesAsync()
+        public async Task<Dictionary<string, string[]>> ValidateAllPropertiesAsync()
         {
             var validationResult = await _validator.ValidateAsync(_subject)
                 .ConfigureAwait(false);
 
             var errors = validationResult.Errors.GroupBy(x => x.PropertyName)
-                .ToDictionary(x => x.Key, x => x.Select(failure => failure.ErrorMessage));
+                .ToDictionary(x => x.Key, x => x.Select(f => f.ErrorMessage).ToArray());
 
             return errors;
         }
@@ -36,12 +36,12 @@ namespace Diploma.Framework
             _subject = (T)subject;
         }
 
-        public async Task<IEnumerable<string>> ValidatePropertyAsync(string propertyName)
+        public async Task<string[]> ValidatePropertyAsync(string propertyName)
         {
             var validationResult = await _validator.ValidateAsync(_subject, propertyName)
                 .ConfigureAwait(false);
 
-            var errors = validationResult.Errors.Select(x => x.ErrorMessage);
+            var errors = validationResult.Errors.Select(x => x.ErrorMessage).ToArray();
 
             return errors;
         }

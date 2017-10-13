@@ -8,9 +8,11 @@ namespace Diploma.Core.Framework.Validations
     {
         void Initialize([NotNull] object subject);
 
-        Task<IEnumerable<string>> ValidatePropertyAsync(string propertyName);
+        [NotNull]
+        Task<string[]> ValidatePropertyAsync(string propertyName);
 
-        Task<Dictionary<string, IEnumerable<string>>> ValidateAllPropertiesAsync();
+        [NotNull]
+        Task<Dictionary<string, string[]>> ValidateAllPropertiesAsync();
     }
 
     public interface IValidationAdapter<in T> : IValidationAdapter

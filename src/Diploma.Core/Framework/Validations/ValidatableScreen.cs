@@ -20,7 +20,7 @@ namespace Diploma.Core.Framework.Validations
 
         [NotNull]
         private readonly IValidationAdapter _validator;
-        
+
         protected ValidatableScreen([NotNull] IValidationAdapter validationAdapter)
         {
             _validator = validationAdapter ?? throw new ArgumentNullException(nameof(validationAdapter));
@@ -55,44 +55,65 @@ namespace Diploma.Core.Framework.Validations
             }
         }
 
-        public override async void NotifyOfPropertyChange([CallerMemberName] string propertyName = null)
+        public new virtual async void NotifyOfPropertyChange([CallerMemberName] string propertyName = null)
         {
             base.NotifyOfPropertyChange(propertyName);
 
-            if (AutoValidate && propertyName != nameof(HasErrors))
+            if (AutoValidate)
             {
                 var _ = await ValidatePropertyAsync(propertyName)
                     .ConfigureAwait(false);
             }
         }
 
-        protected virtual void OnValidationStateChanged(IEnumerable<string> changedProperties)
+        public new virtual bool Set<T>(ref T oldValue, T newValue, [CallerMemberName] string propertyName = null)
         {
-            foreach (var property in changedProperties)
+            if (EqualityComparer<T>.Default.Equals(oldValue, newValue))
             {
-                RaiseErrorsChanged(property);
+                return false;
             }
 
-            NotifyOfPropertyChange(nameof(HasErrors));
+            oldValue = newValue;
+            NotifyOfPropertyChange(propertyName ?? string.Empty);
+            return true;
         }
 
-        protected virtual void OnValidationStateChanged(string changedProperty)
+        protected virtual void NotifyOfErrorsChanged(string propertyName)
         {
-            RaiseErrorsChanged(changedProperty);
-
-            NotifyOfPropertyChange(nameof(HasErrors));
-        }
-
-        protected virtual void RaiseErrorsChanged(string propertyName)
-        {
-            var handler = ErrorsChanged;
-            if (handler != null)
+            if (ErrorsChanged == null)
             {
-                OnUIThread(() => handler(this, new DataErrorsChangedEventArgs(propertyName)));
+                return;
             }
+
+            OnUIThread(() => OnErrorsChanged(new DataErrorsChangedEventArgs(propertyName)));
         }
-        
-        protected bool Validate()
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected void OnErrorsChanged(DataErrorsChangedEventArgs e)
+        {
+            var errorsChanged = ErrorsChanged;
+
+            errorsChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnValidationStateChanged(IEnumerable<string> propertyNames)
+        {
+            foreach (var propertyName in propertyNames)
+            {
+                NotifyOfErrorsChanged(propertyName);
+            }
+
+            base.NotifyOfPropertyChange(nameof(HasErrors));
+        }
+
+        protected virtual void OnValidationStateChanged(string propertyName)
+        {
+            NotifyOfErrorsChanged(propertyName);
+
+            base.NotifyOfPropertyChange(nameof(HasErrors));
+        }
+
+        protected virtual bool Validate()
         {
             try
             {
@@ -108,7 +129,7 @@ namespace Diploma.Core.Framework.Validations
         protected virtual async Task<bool> ValidateAsync()
         {
             var results = await _validator.ValidateAllPropertiesAsync()
-                              .ConfigureAwait(false) ?? new Dictionary<string, IEnumerable<string>>();
+                .ConfigureAwait(false);
 
             await _propertyErrorsLock.WaitAsync()
                 .ConfigureAwait(false);
@@ -118,25 +139,18 @@ namespace Diploma.Core.Framework.Validations
 
                 foreach (var kvp in results)
                 {
-                    var newErrors = kvp.Value?.ToArray();
-                    if (!_propertyErrors.ContainsKey(kvp.Key))
-                    {
-                        _propertyErrors[kvp.Key] = newErrors;
-                    }
-                    else if (ErrorsEqual(_propertyErrors[kvp.Key], newErrors))
+                    var propertyName = kvp.Key;
+                    var propertyErrors = kvp.Value;
+                    if (_propertyErrors.ContainsKey(propertyName) && ErrorsEqual(_propertyErrors[propertyName], propertyErrors))
                     {
                         continue;
                     }
-                    else
-                    {
-                        _propertyErrors[kvp.Key] = newErrors;
-                    }
 
-                    changedProperties.Add(kvp.Key);
+                    _propertyErrors[propertyName] = propertyErrors;
+                    changedProperties.Add(propertyName);
                 }
 
-                foreach (var removedKey in _propertyErrors.Keys.Except(results.Keys)
-                    .ToArray())
+                foreach (var removedKey in _propertyErrors.Keys.Except(results.Keys))
                 {
                     _propertyErrors[removedKey] = null;
                     changedProperties.Add(removedKey);
@@ -155,12 +169,19 @@ namespace Diploma.Core.Framework.Validations
             }
         }
 
-        protected virtual bool ValidateProperty<TProperty>(Expression<Func<TProperty>> property)
+        protected virtual bool ValidateProperty<TProperty>([NotNull] Expression<Func<TProperty>> property)
         {
-            return ValidateProperty(property.GetMemberInfo().Name);
+            if (property == null)
+            {
+                throw new ArgumentNullException(nameof(property));
+            }
+
+            return ValidateProperty(
+                property.GetMemberInfo()
+                    .Name);
         }
 
-        protected bool ValidateProperty([CallerMemberName] string propertyName = null)
+        protected virtual bool ValidateProperty([CallerMemberName] string propertyName = null)
         {
             try
             {
@@ -173,9 +194,16 @@ namespace Diploma.Core.Framework.Validations
             }
         }
 
-        protected virtual Task<bool> ValidatePropertyAsync<TProperty>(Expression<Func<TProperty>> property)
+        protected virtual Task<bool> ValidatePropertyAsync<TProperty>([NotNull] Expression<Func<TProperty>> property)
         {
-            return ValidatePropertyAsync(property.GetMemberInfo().Name);
+            if (property == null)
+            {
+                throw new ArgumentNullException(nameof(property));
+            }
+
+            return ValidatePropertyAsync(
+                property.GetMemberInfo()
+                    .Name);
         }
 
         protected virtual async Task<bool> ValidatePropertyAsync([CallerMemberName] string propertyName = null)
@@ -190,10 +218,9 @@ namespace Diploma.Core.Framework.Validations
                 propertyName = string.Empty;
             }
 
-            var newErrorsRaw = await _validator.ValidatePropertyAsync(propertyName)
+            var propertyErrors = await _validator.ValidatePropertyAsync(propertyName)
                 .ConfigureAwait(false);
-
-            var newErrors = newErrorsRaw?.ToArray();
+            
             var propertyErrorsChanged = false;
 
             await _propertyErrorsLock.WaitAsync()
@@ -206,9 +233,9 @@ namespace Diploma.Core.Framework.Validations
                     _propertyErrors.Add(propertyName, null);
                 }
 
-                if (!ErrorsEqual(_propertyErrors[propertyName], newErrors))
+                if (!ErrorsEqual(_propertyErrors[propertyName], propertyErrors))
                 {
-                    _propertyErrors[propertyName] = newErrors;
+                    _propertyErrors[propertyName] = propertyErrors;
                     propertyErrorsChanged = true;
                 }
             }
@@ -222,10 +249,10 @@ namespace Diploma.Core.Framework.Validations
                 OnValidationStateChanged(propertyName);
             }
 
-            return newErrors == null || newErrors.Length == 0;
+            return propertyErrors == null || propertyErrors.Length == 0;
         }
 
-        private bool ErrorsEqual(string[] e1, string[] e2)
+        private static bool ErrorsEqual(string[] e1, string[] e2)
         {
             if (e1 == null && e2 == null)
             {
