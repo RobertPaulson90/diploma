@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
@@ -115,15 +116,9 @@ namespace Diploma.Core.Framework.Validations
 
         protected virtual bool Validate()
         {
-            try
-            {
-                return ValidateAsync()
-                    .Result;
-            }
-            catch (AggregateException e) when (e.InnerException != null)
-            {
-                throw e.InnerException;
-            }
+            return ValidateAsync()
+                .GetAwaiter()
+                .GetResult();
         }
 
         protected virtual async Task<bool> ValidateAsync()
@@ -150,7 +145,8 @@ namespace Diploma.Core.Framework.Validations
                     changedProperties.Add(propertyName);
                 }
 
-                foreach (var removedKey in _propertyErrors.Keys.Except(results.Keys))
+                var keys = _propertyErrors.Keys.Except(results.Keys).ToArray();
+                foreach (var removedKey in keys)
                 {
                     _propertyErrors[removedKey] = null;
                     changedProperties.Add(removedKey);
@@ -176,43 +172,29 @@ namespace Diploma.Core.Framework.Validations
                 throw new ArgumentNullException(nameof(property));
             }
 
-            return ValidateProperty(
-                property.GetMemberInfo()
-                    .Name);
+            return ValidateProperty(property.GetMemberInfo().Name);
         }
 
         protected virtual bool ValidateProperty([CallerMemberName] string propertyName = null)
         {
-            try
-            {
-                return ValidatePropertyAsync(propertyName)
-                    .Result;
-            }
-            catch (AggregateException e) when (e.InnerException != null)
-            {
-                throw e.InnerException;
-            }
+            return ValidatePropertyAsync(propertyName)
+                .GetAwaiter()
+                .GetResult();
         }
 
-        protected virtual Task<bool> ValidatePropertyAsync<TProperty>([NotNull] Expression<Func<TProperty>> property)
+        [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "It's OK")]
+        protected virtual async Task<bool> ValidatePropertyAsync<TProperty>([NotNull] Expression<Func<TProperty>> property)
         {
             if (property == null)
             {
                 throw new ArgumentNullException(nameof(property));
             }
 
-            return ValidatePropertyAsync(
-                property.GetMemberInfo()
-                    .Name);
+            return await ValidatePropertyAsync(property.GetMemberInfo().Name).ConfigureAwait(false);
         }
 
         protected virtual async Task<bool> ValidatePropertyAsync([CallerMemberName] string propertyName = null)
         {
-            if (_validator == null)
-            {
-                throw new InvalidOperationException("Can't run validation if a validator hasn't been set");
-            }
-
             if (propertyName == null)
             {
                 propertyName = string.Empty;
