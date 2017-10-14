@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Diploma.Core.Framework.Validations;
@@ -29,112 +28,120 @@ namespace Diploma.Core.Tests.Framework.Validations
         [Test]
         public void Event_Raised_And_HasErrors_Changed_If_Error_Was_Empty_Array_And_Now_Is_Not()
         {
-            _validator.Setup(x => x.ValidatePropertyAsync("IntProperty"))
+            const string PropertyName = "IntProperty";
+
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
                 .ReturnsAsync(new string[0]);
 
-            var unused1 = _myValidatableScreen.ValidateProperty("IntProperty");
+            var unused1 = _myValidatableScreen.ValidateProperty(PropertyName);
 
             string changedProperty = null;
             _myValidatableScreen.ErrorsChanged += (o, e) => changedProperty = e.PropertyName;
             var hasErrorsRaised = false;
             _myValidatableScreen.PropertyChanged += (o, e) =>
             {
-                if (e.PropertyName == "HasErrors")
+                if (e.PropertyName == nameof(ValidatableScreen.HasErrors))
                 {
                     hasErrorsRaised = true;
                 }
             };
 
-            _validator.Setup(x => x.ValidatePropertyAsync("IntProperty"))
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
                 .ReturnsAsync(new[] { "error" });
 
-            var unused2 = _myValidatableScreen.ValidateProperty("IntProperty");
+            var unused2 = _myValidatableScreen.ValidateProperty(PropertyName);
 
-            changedProperty.ShouldBe("IntProperty");
+            changedProperty.ShouldBe(PropertyName);
             hasErrorsRaised.ShouldBeTrue();
         }
 
         [Test]
         public void Event_Raised_And_HasErrors_Changed_If_Error_Was_Null_And_Now_Is_Not()
         {
-            _validator.Setup(x => x.ValidatePropertyAsync("IntProperty"))
+            const string PropertyName = "IntProperty";
+
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
                 .ReturnsAsync(() => null);
 
-            var unused1 = _myValidatableScreen.ValidateProperty("IntProperty");
+            var unused1 = _myValidatableScreen.ValidateProperty(PropertyName);
 
             string changedProperty = null;
             _myValidatableScreen.ErrorsChanged += (o, e) => changedProperty = e.PropertyName;
             var hasErrorsRaised = false;
             _myValidatableScreen.PropertyChanged += (o, e) =>
             {
-                if (e.PropertyName == "HasErrors")
+                if (e.PropertyName == nameof(ValidatableScreen.HasErrors))
                 {
                     hasErrorsRaised = true;
                 }
             };
 
-            _validator.Setup(x => x.ValidatePropertyAsync("IntProperty"))
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
                 .ReturnsAsync(new[] { "error" });
 
-            var unused2 = _myValidatableScreen.ValidateProperty("IntProperty");
+            var unused2 = _myValidatableScreen.ValidateProperty(PropertyName);
 
-            changedProperty.ShouldBe("IntProperty");
+            changedProperty.ShouldBe(PropertyName);
             hasErrorsRaised.ShouldBeTrue();
         }
 
         [Test]
         public void Event_Raised_And_HasErrors_Changed_If_Error_Was_Set_And_Is_Now_Empty_Array()
         {
-            _validator.Setup(x => x.ValidatePropertyAsync("IntProperty"))
+            const string PropertyName = "IntProperty";
+
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
                 .ReturnsAsync(new[] { "error" });
 
-            var unused1 = _myValidatableScreen.ValidateProperty("IntProperty");
+            var unused1 = _myValidatableScreen.ValidateProperty(PropertyName);
 
             string changedProperty = null;
             _myValidatableScreen.ErrorsChanged += (o, e) => changedProperty = e.PropertyName;
             var hasErrorsRaised = false;
             _myValidatableScreen.PropertyChanged += (o, e) =>
             {
-                if (e.PropertyName == "HasErrors")
+                if (e.PropertyName == nameof(ValidatableScreen.HasErrors))
                 {
                     hasErrorsRaised = true;
                 }
             };
 
-            _validator.Setup(x => x.ValidatePropertyAsync("IntProperty"))
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
                 .ReturnsAsync(new string[0]);
 
-            var unused2 = _myValidatableScreen.ValidateProperty("IntProperty");
+            var unused2 = _myValidatableScreen.ValidateProperty(PropertyName);
             
-            changedProperty.ShouldBe("IntProperty");
+            changedProperty.ShouldBe(PropertyName);
             hasErrorsRaised.ShouldBeTrue();
         }
 
         [Test]
         public void Event_Raised_And_HasErrors_Changed_If_Error_Was_Set_And_Is_Now_Null()
         {
-            _validator.Setup(x => x.ValidatePropertyAsync("IntProperty"))
+            const string PropertyName = "IntProperty";
+
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
                 .ReturnsAsync(new[] { "error" });
 
-            var unused1 = _myValidatableScreen.ValidateProperty("IntProperty");
+            var unused1 = _myValidatableScreen.ValidateProperty(PropertyName);
 
             string changedProperty = null;
             _myValidatableScreen.ErrorsChanged += (o, e) => changedProperty = e.PropertyName;
             var hasErrorsRaised = false;
             _myValidatableScreen.PropertyChanged += (o, e) =>
             {
-                if (e.PropertyName == "HasErrors")
+                if (e.PropertyName == nameof(ValidatableScreen.HasErrors))
                 {
                     hasErrorsRaised = true;
                 }
             };
 
-            _validator.Setup(x => x.ValidatePropertyAsync("IntProperty"))
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
                 .ReturnsAsync(() => null);
 
-            var unused2 = _myValidatableScreen.ValidateProperty("IntProperty");
+            var unused2 = _myValidatableScreen.ValidateProperty(PropertyName);
 
-            changedProperty.ShouldBe("IntProperty");
+            changedProperty.ShouldBe(PropertyName);
             hasErrorsRaised.ShouldBeTrue();
         }
 
@@ -169,7 +176,7 @@ namespace Diploma.Core.Tests.Framework.Validations
             var hasErrorsChangedCount = 0;
             _myValidatableScreen.PropertyChanged += (o, e) =>
             {
-                if (e.PropertyName == "HasErrors")
+                if (e.PropertyName == nameof(ValidatableScreen.HasErrors))
                 {
                     hasErrorsChangedCount++;
                 }
@@ -184,12 +191,14 @@ namespace Diploma.Core.Tests.Framework.Validations
         [Test]
         public void GetErrors_Returns_Errors_For_Property()
         {
-            _validator.Setup(x => x.ValidatePropertyAsync("IntProperty"))
+            const string PropertyName = "IntProperty";
+
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
                 .ReturnsAsync(new[] { "error1", "error2" });
 
-            var unused = _myValidatableScreen.ValidateProperty("IntProperty");
+            var unused = _myValidatableScreen.ValidateProperty(PropertyName);
 
-            var errors = _myValidatableScreen.GetErrors("IntProperty");
+            var errors = _myValidatableScreen.GetErrors(PropertyName);
 
             errors.ShouldBe(new[] { "error1", "error2" });
         }
@@ -197,7 +206,9 @@ namespace Diploma.Core.Tests.Framework.Validations
         [Test]
         public void GetErrors_Returns_Null_If_No_Errors_For_That_Property()
         {
-            var errors = _myValidatableScreen.GetErrors("FooBar");
+            const string PropertyName = "FooBar";
+
+            var errors = _myValidatableScreen.GetErrors(PropertyName);
             errors.ShouldBeNull();
         }
 
@@ -220,16 +231,20 @@ namespace Diploma.Core.Tests.Framework.Validations
         [Test]
         public void Setting_Property_Does_Not_Validate_If_Auto_Validate_Is_False()
         {
+            const string PropertyName = "IntProperty";
+
             _myValidatableScreen.AutoValidate = false;
             _myValidatableScreen.IntProperty = 5;
-            _validator.Verify(x => x.ValidatePropertyAsync("IntProperty"), Times.Never);
+            _validator.Verify(x => x.ValidatePropertyAsync(PropertyName), Times.Never);
         }
 
         [Test]
         public void Setting_Property_Validates_If_AutoValidate_Is_True()
         {
+            const string PropertyName = "IntProperty";
+
             _myValidatableScreen.IntProperty = 5;
-            _validator.Verify(x => x.ValidatePropertyAsync("IntProperty"));
+            _validator.Verify(x => x.ValidatePropertyAsync(PropertyName));
         }
 
         [Test]
@@ -269,8 +284,11 @@ namespace Diploma.Core.Tests.Framework.Validations
         [Test]
         public async Task ValidatePropertAsync_By_Expression_Calls_Adapter_ValidatePropertAsync()
         {
-            _validator.Setup(x => x.ValidatePropertyAsync("IntProperty"))
-                .ReturnsAsync(Enumerable.Empty<string>().ToArray)
+            const string PropertyName = nameof(MyValidatableScreen.IntProperty);
+            var validationErrors = new string[0];
+
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
+                .ReturnsAsync(validationErrors)
                 .Verifiable();
 
             var unused = await _myValidatableScreen.ValidatePropertyAsync(() => _myValidatableScreen.IntProperty);
@@ -283,15 +301,18 @@ namespace Diploma.Core.Tests.Framework.Validations
         {
             return _myValidatableScreen.ValidatePropertyAsync((Expression<Func<object>>)null).ShouldThrowAsync<ArgumentNullException>();
         }
-
+        
         [Test]
         public async Task ValidatePropertyAsync_By_Name_Calls_Adapter_ValidatePropertyAsync()
         {
-            _validator.Setup(x => x.ValidatePropertyAsync("test"))
-                .ReturnsAsync(Enumerable.Empty<string>().ToArray())
+            const string PropertyName = "test";
+            var validationErrors = new string[0];
+
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
+                .ReturnsAsync(validationErrors)
                 .Verifiable();
 
-            var unused = await _myValidatableScreen.ValidatePropertyAsync("test");
+            var unused = await _myValidatableScreen.ValidatePropertyAsync(PropertyName);
 
             _validator.Verify();
         }
@@ -299,11 +320,14 @@ namespace Diploma.Core.Tests.Framework.Validations
         [Test]
         public async Task ValidatePropertyAsync_With_Empty_String_Calls_Adapter_ValidatePropertyAsync_With_Empty_String()
         {
-            _validator.Setup(x => x.ValidatePropertyAsync(string.Empty))
-                .ReturnsAsync(Enumerable.Empty<string>().ToArray)
+            const string PropertyName = "";
+            var validationErrors = new string[0];
+
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
+                .ReturnsAsync(validationErrors)
                 .Verifiable();
 
-            var unused = await _myValidatableScreen.ValidatePropertyAsync(string.Empty);
+            var unused = await _myValidatableScreen.ValidatePropertyAsync(PropertyName);
 
             _validator.Verify();
         }
@@ -311,11 +335,14 @@ namespace Diploma.Core.Tests.Framework.Validations
         [Test]
         public async Task ValidatePropertyAsync_With_Null_Calls_Adapter_ValidatePropertyAsync_With_Empty_String()
         {
-            _validator.Setup(x => x.ValidatePropertyAsync(string.Empty))
-                .ReturnsAsync(Enumerable.Empty<string>().ToArray())
+            const string PropertyName = "";
+            var validationErrors = new string[0];
+
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
+                .ReturnsAsync(validationErrors)
                 .Verifiable();
 
-            var unused = await _myValidatableScreen.ValidatePropertyAsync(string.Empty);
+            var unused = await _myValidatableScreen.ValidatePropertyAsync(PropertyName);
 
             _validator.Verify();
         }
@@ -323,8 +350,11 @@ namespace Diploma.Core.Tests.Framework.Validations
         [Test]
         public void ValidateProperty_By_Expression_Calls_Adapter_Validate()
         {
-            _validator.Setup(x => x.ValidatePropertyAsync("IntProperty"))
-                .ReturnsAsync(Enumerable.Empty<string>().ToArray)
+            const string PropertyName = nameof(MyValidatableScreen.IntProperty);
+            var validationErrors = new string[0];
+
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
+                .ReturnsAsync(validationErrors)
                 .Verifiable();
 
             var unused = _myValidatableScreen.ValidateProperty(() => _myValidatableScreen.IntProperty);
@@ -341,11 +371,14 @@ namespace Diploma.Core.Tests.Framework.Validations
         [Test]
         public void ValidateProperty_By_Name_Calls_Adapter_Validate()
         {
-            _validator.Setup(x => x.ValidatePropertyAsync("test"))
-                .ReturnsAsync(Enumerable.Empty<string>().ToArray)
+            const string PropertyName = "test";
+            var validationErrors = new string[0];
+
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
+                .ReturnsAsync(validationErrors)
                 .Verifiable();
 
-            var unused = _myValidatableScreen.ValidateProperty("test");
+            var unused = _myValidatableScreen.ValidateProperty(PropertyName);
 
             _validator.Verify();
         }
@@ -353,28 +386,25 @@ namespace Diploma.Core.Tests.Framework.Validations
         [Test]
         public void ValidateProperty_Returns_False_If_Validation_Failed()
         {
-            _validator.Setup(x => x.ValidatePropertyAsync("IntProperty"))
-                .ReturnsAsync(new[] { "error" });
+            const string PropertyName = nameof(MyValidatableScreen.IntProperty);
+            var validationErrors = new[] { "error" };
 
-            var result = _myValidatableScreen.ValidateProperty("IntProperty");
+            _validator.Setup(x => x.ValidatePropertyAsync(PropertyName))
+                .ReturnsAsync(validationErrors);
+
+            var result = _myValidatableScreen.ValidateProperty(PropertyName);
 
             result.ShouldBeFalse();
         }
 
-        [Test]
-        public void ValidateProperty_Returns_True_If_ValidationPassed()
+        [TestCase(nameof(MyValidatableScreen.IntProperty), null)]
+        [TestCase(nameof(MyValidatableScreen.IntProperty), new string[0])]
+        public void ValidateProperty_Returns_True_If_ValidationPassed(string propertyName, string[] validationErrors)
         {
-            _validator.Setup(x => x.ValidatePropertyAsync("IntProperty"))
-                .ReturnsAsync(() => null);
+            _validator.Setup(x => x.ValidatePropertyAsync(propertyName))
+                .ReturnsAsync(() => validationErrors);
 
-            var result = _myValidatableScreen.ValidateProperty("IntProperty");
-
-            result.ShouldBeTrue();
-
-            _validator.Setup(x => x.ValidatePropertyAsync("IntProperty"))
-                .ReturnsAsync(new string[0]);
-
-            result = _myValidatableScreen.ValidateProperty("IntProperty");
+            var result = _myValidatableScreen.ValidateProperty(propertyName);
 
             result.ShouldBeTrue();
         }
@@ -386,7 +416,7 @@ namespace Diploma.Core.Tests.Framework.Validations
                 .ReturnsAsync(
                     new Dictionary<string, string[]>
                     {
-                        { "IntProperty", new[] { "error" } }
+                        { nameof(MyValidatableScreen.IntProperty), new[] { "error" } }
                     });
 
             var result = _myValidatableScreen.Validate();
@@ -401,7 +431,7 @@ namespace Diploma.Core.Tests.Framework.Validations
                 .ReturnsAsync(
                     new Dictionary<string, string[]>
                     {
-                        { "IntProperty", null }
+                        { nameof(MyValidatableScreen.IntProperty), null }
                     });
 
             var result = _myValidatableScreen.Validate();
@@ -412,7 +442,7 @@ namespace Diploma.Core.Tests.Framework.Validations
                 .ReturnsAsync(
                     new Dictionary<string, string[]>
                     {
-                        { "IntProperty", new string[0] }
+                        { nameof(MyValidatableScreen.IntProperty), new string[0] }
                     });
 
             result = _myValidatableScreen.Validate();

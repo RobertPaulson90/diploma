@@ -6,6 +6,8 @@ namespace Diploma.Core.Framework
     {
         private readonly BusyWatcher _parent;
 
+        private bool _disposed;
+
         public BusyWatcherTicket(BusyWatcher parent)
         {
             _parent = parent;
@@ -14,7 +16,13 @@ namespace Diploma.Core.Framework
 
         public void Dispose()
         {
+            if (_disposed)
+            {
+                return;
+            }
+
             _parent.RemoveWatch();
+            _disposed = true;
         }
     }
 }

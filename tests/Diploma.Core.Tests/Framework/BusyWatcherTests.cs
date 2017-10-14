@@ -29,7 +29,6 @@ namespace Diploma.Core.Tests.Framework
             busyWatcher.IsBusy.ShouldBeTrue();
         }
 
-
         [Test]
         public void Obtaining_Multiple_Tickets_Should_Not_Make_BusyWatcher_Busy_After_Disposal()
         {
@@ -38,11 +37,22 @@ namespace Diploma.Core.Tests.Framework
             using (var dummy1 = busyWatcher.GetTicket())
             {
             }
+
             using (var dummy2 = busyWatcher.GetTicket())
             {
             }
 
             busyWatcher.IsBusy.ShouldBeFalse();
+        }
+
+        [Test]
+        public void BusyWatcher_Should_Throw_When_RemoveWatch_Called_Without_AddWatch()
+        {
+            var busyWatcher = new BusyWatcher();
+            Should.Throw<InvalidOperationException>(() =>
+            {
+                busyWatcher.RemoveWatch();
+            });
         }
 
         [Test]
@@ -52,7 +62,6 @@ namespace Diploma.Core.Tests.Framework
             
             busyWatcher.IsBusy.ShouldBeFalse();
         }
-
 
         [Test]
         public void BusyWatcher_RemoveWatch_Should_Throw_If_Not_Ticket_Present()
