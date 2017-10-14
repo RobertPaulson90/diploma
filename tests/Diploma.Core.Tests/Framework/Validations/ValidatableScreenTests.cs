@@ -282,7 +282,7 @@ namespace Diploma.Core.Tests.Framework.Validations
         }
 
         [Test]
-        public async Task ValidatePropertAsync_By_Expression_Calls_Adapter_ValidatePropertAsync()
+        public async Task ValidatePropertyAsync_By_Expression_Calls_Adapter_ValidatePropertyAsync()
         {
             const string PropertyName = nameof(MyValidatableScreen.IntProperty);
             var validationErrors = new string[0];
@@ -297,7 +297,7 @@ namespace Diploma.Core.Tests.Framework.Validations
         }
 
         [Test]
-        public Task ValidatePropertAsync_By_Expression_Throws_When_Expression_Is_Null()
+        public Task ValidatePropertyAsync_By_Expression_Throws_When_Expression_Is_Null()
         {
             return _myValidatableScreen.ValidatePropertyAsync((Expression<Func<object>>)null).ShouldThrowAsync<ArgumentNullException>();
         }
