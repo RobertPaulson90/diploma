@@ -297,9 +297,12 @@ namespace Diploma.Core.Tests.Framework.Validations
         }
 
         [Test]
-        public Task ValidatePropertyAsync_By_Expression_Throws_When_Expression_Is_Null()
+        public void ValidatePropertyAsync_By_Expression_Throws_When_Expression_Is_Null()
         {
-            return _myValidatableScreen.ValidatePropertyAsync((Expression<Func<object>>)null).ShouldThrowAsync<ArgumentNullException>();
+            Should.Throw<ArgumentNullException>(async () =>
+            {
+                var _ = await _myValidatableScreen.ValidatePropertyAsync((Expression<Func<object>>)null);
+            });
         }
         
         [Test]

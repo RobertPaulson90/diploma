@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
@@ -181,16 +180,15 @@ namespace Diploma.Core.Framework.Validations
                 .GetAwaiter()
                 .GetResult();
         }
-
-        [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "It's OK")]
-        protected virtual async Task<bool> ValidatePropertyAsync<TProperty>([NotNull] Expression<Func<TProperty>> property)
+        
+        protected virtual Task<bool> ValidatePropertyAsync<TProperty>([NotNull] Expression<Func<TProperty>> property)
         {
             if (property == null)
             {
                 throw new ArgumentNullException(nameof(property));
             }
 
-            return await ValidatePropertyAsync(property.GetMemberInfo().Name).ConfigureAwait(false);
+            return ValidatePropertyAsync(property.GetMemberInfo().Name);
         }
 
         protected virtual async Task<bool> ValidatePropertyAsync([CallerMemberName] string propertyName = null)
