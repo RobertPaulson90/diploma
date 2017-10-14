@@ -58,6 +58,7 @@ namespace Diploma.Core.Tests.Framework
         }
 
         [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "Used for test purpose")]
         public void Ticket_Should_Never_Call_RemoveWatch_Twice()
         {
             var busyWatcherMock = new Mock<BusyWatcher>(MockBehavior.Strict);

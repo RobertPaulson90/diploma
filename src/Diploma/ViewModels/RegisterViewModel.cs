@@ -47,7 +47,7 @@ namespace Diploma.ViewModels
             [NotNull] IUserService userService,
             [NotNull] IEventAggregator eventAggregator,
             [NotNull] IMessageService messageService,
-            [NotNull] IValidationAdapter<RegisterViewModel> validationAdapter)
+            [NotNull] IValidationAdapter validationAdapter)
             : base(validationAdapter)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));

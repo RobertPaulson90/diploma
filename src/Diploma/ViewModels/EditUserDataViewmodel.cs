@@ -17,7 +17,7 @@ namespace Diploma.ViewModels
 
         private string _middleName;
 
-        public EditUserDataViewModel([NotNull] IValidationAdapter<EditUserDataViewModel> validationAdapter)
+        public EditUserDataViewModel([NotNull] IValidationAdapter validationAdapter)
             : base(validationAdapter)
         {
             Validate();

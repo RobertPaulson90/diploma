@@ -486,6 +486,7 @@ namespace Diploma.Core.Tests.Framework.Validations
                 return base.ValidateProperty(propertyName);
             }
 
+            [SuppressMessage("Microsoft.Design", "CA1061:DoNotHideBaseClassMethods", Justification = "This used for tests")]
             public new bool ValidateProperty<TProperty>(Expression<Func<TProperty>> property)
             {
                 return base.ValidateProperty(property);
@@ -496,6 +497,7 @@ namespace Diploma.Core.Tests.Framework.Validations
                 return base.ValidatePropertyAsync(propertyName);
             }
 
+            [SuppressMessage("Microsoft.Design", "CA1061:DoNotHideBaseClassMethods", Justification = "This used for tests")]
             public new Task<bool> ValidatePropertyAsync<TProperty>(Expression<Func<TProperty>> property)
             {
                 return base.ValidatePropertyAsync(property);

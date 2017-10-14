@@ -15,9 +15,13 @@ namespace Diploma
     {
         public void RegisterServices(Container container)
         {
-            var fluentValidatorsAssemblies = GetAssemblies();
-            container.Register(typeof(IValidator<>), fluentValidatorsAssemblies);
+            container.Register(typeof(IValidator<>), FluentValidatorsAssemblies(), Lifestyle.Singleton);
             container.Register(typeof(IValidationAdapter<>), typeof(FluentValidationAdapter<>));
+            container.RegisterConditional(
+                typeof(IValidationAdapter),
+                c => typeof(FluentValidationAdapter<>).MakeGenericType(c.Consumer.ImplementationType),
+                Lifestyle.Singleton,
+                c => true);
 
             container.RegisterSingleton<IMessageService, MessageService>();
 
@@ -27,11 +31,11 @@ namespace Diploma
             container.Register<LoginViewModel>();
             container.Register<DashboardViewModel>();
             container.Register<EditUserDataViewModel>();
-        }
 
-        private static IEnumerable<Assembly> GetAssemblies()
-        {
-            yield return typeof(Package).Assembly;
+            IEnumerable<Assembly> FluentValidatorsAssemblies()
+            {
+                yield return typeof(Package).Assembly;
+            }
         }
     }
 }
