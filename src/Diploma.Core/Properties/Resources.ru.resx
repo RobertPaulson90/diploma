@@ -133,4 +133,7 @@
     <value>Максимальный возраст должен быть положительным числом.
 Значение: {0}.</value>
   </data>
+  <data name="Exception_BusyWatcher_No_Matching_AddWatch" xml:space="preserve">
+    <value>Невозможно вызвать метод RemoveWatch перед методом AddWatch.</value>
+  </data>
 </root>

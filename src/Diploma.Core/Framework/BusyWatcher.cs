@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using Diploma.Core.Properties;
 using JetBrains.Annotations;
 
 namespace Diploma.Core.Framework
@@ -42,7 +43,7 @@ namespace Diploma.Core.Framework
         {
             if (_counter == 0)
             {
-                throw new InvalidOperationException("NoMatchingAddWatch"); // TODO: Add to resources
+                throw new InvalidOperationException(Resources.Exception_BusyWatcher_No_Matching_AddWatch);
             }
 
             if (Interlocked.Decrement(ref _counter) == 0)

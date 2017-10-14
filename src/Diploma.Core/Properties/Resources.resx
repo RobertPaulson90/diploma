@@ -137,4 +137,7 @@ Value: {0}.</value>
 Max: {0}.
 Min: {1}.</value>
   </data>
+  <data name="Exception_BusyWatcher_No_Matching_AddWatch" xml:space="preserve">
+    <value>Can't call RemoveWatch method before AddWatch.</value>
+  </data>
 </root>

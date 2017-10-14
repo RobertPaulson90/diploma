@@ -92,6 +92,15 @@ namespace Diploma.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t call RemoveWatch method before AddWatch..
+        /// </summary>
+        public static string Exception_BusyWatcher_No_Matching_AddWatch {
+            get {
+                return ResourceManager.GetString("Exception_BusyWatcher_No_Matching_AddWatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The &apos;{PropertyName}&apos; is not a valid date of birth. It must be between {Min} and {Max}. You entered {PropertyValue}..
         /// </summary>
         public static string Validation_BirthDateValidator_Default_Message {
