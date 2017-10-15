@@ -1,0 +1,16 @@
+environment:
+  solution: "Diploma.sln"
+
+version: 1.0.{build}
+
+image: Visual Studio 2017
+
+platform: Any CPU
+
+configuration: Release
+
+build_script:
+  - cmd: dotnet publish %solution% --verbosity m
+
+before_build:
+  - cmd: dotnet restore %solution% --verbosity m
