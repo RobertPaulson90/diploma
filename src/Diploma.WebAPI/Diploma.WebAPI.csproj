@@ -9,33 +9,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper">
+      <Version>6.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection">
+      <Version>3.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="FluentValidation.AspNetCore">
+      <Version>7.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="MediatR">
+      <Version>3.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection">
+      <Version>3.0.0</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication">
-      <Version>2.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies">
-      <Version>2.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer">
-      <Version>2.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design">
-      <Version>2.0.0</Version>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Diploma.DAL\Diploma.DAL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="companyDb.sqlite">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

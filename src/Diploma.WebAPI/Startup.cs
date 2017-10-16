@@ -1,13 +1,18 @@
-﻿using Diploma.DAL.Contexts;
-using Diploma.DAL.Entities;
+﻿using AutoMapper;
+using Diploma.WebAPI.Infrastructure;
+using Diploma.WebAPI.Infrastructure.Contexts;
+using Diploma.WebAPI.Infrastructure.Security;
+using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 
 namespace Diploma.WebAPI
 {
@@ -22,17 +27,25 @@ namespace Diploma.WebAPI
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseAuthentication();
-
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
-            app.UseCors("ServerPolicy");
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
+            app.UseAuthentication();
+
+            app.UseCors(
+                cfg => cfg.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
 
             app.UseMvc();
 
@@ -48,40 +61,42 @@ namespace Diploma.WebAPI
         {
             services.AddSingleton(Configuration);
 
-            services.AddLogging();
+            services.AddOptions();
 
-            services.AddCors(
-                o => o.AddPolicy(
-                    "ServerPolicy",
-                    builder =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        builder.AllowAnyOrigin()
-                            .AllowAnyMethod()
-                            .AllowAnyHeader();
-                    }));
+                        ValidateIssuer = true,
+                        ValidIssuer = AuthOptions.ISSUER,
+                        ValidateAudience = true,
+                        ValidAudience = AuthOptions.AUDIENCE,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true,
+                    };
+                });
 
-            services.AddAuthentication(
-                    o =>
-                    {
-                        o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                        o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    })
-                .AddJwtBearer(
-                    o =>
-                    {
-                        o.Audience = Configuration["JwtSecurityToken:Audience"];
-                        o.ClaimsIssuer = Configuration["JwtSecurityToken:Issuer"];
-                        o.RequireHttpsMetadata = false;
-                    });
+            services.AddMediatR();
+
+            services.AddAutoMapper();
+
+            services.AddCors();
+
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+
+            services.AddMvc(opt => { opt.Filters.Add<ValidatorActionFilter>(); })
+                .AddJsonOptions(opt => opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore)
+                .AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddEntityFrameworkSqlite()
-                .AddDbContext<CompanyContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<CompanyContext>()
-                .AddDefaultTokenProviders();
-
-            services.AddMvc();
+                .AddDbContext<CompanyContext>(
+                    options => options.UseSqlite(
+                        Configuration.GetConnectionString("DefaultConnection"),
+                        sqlOptions => sqlOptions.MigrationsAssembly("Diploma.WebAPI")));
         }
     }
 }
