@@ -30,8 +30,8 @@ namespace Diploma.WebAPI.Infrastructure.Security
             var now = DateTime.UtcNow;
 
             var jwt = new JwtSecurityToken(
-                AuthOptions.ISSUER,
-                AuthOptions.AUDIENCE,
+                issuer: AuthOptions.ISSUER,
+                audience: AuthOptions.AUDIENCE,
                 notBefore: now,
                 claims: identity.Claims,
                 expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),

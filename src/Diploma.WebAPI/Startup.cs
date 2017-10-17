@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Diploma.WebAPI.Behaviors;
 using Diploma.WebAPI.Infrastructure;
 using Diploma.WebAPI.Infrastructure.Contexts;
 using Diploma.WebAPI.Infrastructure.Security;
@@ -92,8 +93,9 @@ namespace Diploma.WebAPI
             services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IRoleManager, RoleManager>();
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
-            services.AddMvc(opt => { opt.Filters.Add<ValidatorActionFilter>(); })
+            services.AddMvc()
                 .AddJsonOptions(opt => opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore)
                 .AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<Startup>());
 

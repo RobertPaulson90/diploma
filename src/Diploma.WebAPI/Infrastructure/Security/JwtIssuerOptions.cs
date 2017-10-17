@@ -9,7 +9,7 @@ namespace Diploma.WebAPI.Infrastructure.Security
 
         public const string ISSUER = "MyAuthServer";
 
-        public const int LIFETIME = 1;
+        public const int LIFETIME = 1 * 60 * 24;
 
         private const string KEY = "mysupersecret_secretkey!123";
 
