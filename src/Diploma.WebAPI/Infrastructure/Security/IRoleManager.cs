@@ -2,8 +2,8 @@
 
 namespace Diploma.WebAPI.Infrastructure.Security
 {
-    public interface IJwtTokenGenerator
+    public interface IRoleManager
     {
-        string CreateToken(UserEntity user);
+        UserRole GetUserRole(UserEntity user);
     }
 }

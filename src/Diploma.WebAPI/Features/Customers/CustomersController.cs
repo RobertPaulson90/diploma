@@ -20,7 +20,7 @@ namespace Diploma.WebAPI.Features.Customers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new[] { "value1", "value2" };
+            return new[] { "Hello" };
         }
 
         // GET: api/customers/5

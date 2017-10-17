@@ -15,7 +15,7 @@ namespace Diploma.WebAPI.Infrastructure.Security
 
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
         {
-            return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));
+            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
         }
     }
 }

@@ -20,11 +20,13 @@ namespace Diploma.WebAPI.Infrastructure
         {
             try
             {
-                await _next(context).ConfigureAwait(false);
+                await _next(context)
+                    .ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(context, ex).ConfigureAwait(false);
+                await HandleExceptionAsync(context, ex)
+                    .ConfigureAwait(false);
             }
         }
 
@@ -42,13 +44,15 @@ namespace Diploma.WebAPI.Infrastructure
             if (!string.IsNullOrWhiteSpace(exception.Message))
             {
                 context.Response.ContentType = "application/json";
-                var result = JsonConvert.SerializeObject(new
-                {
-                    errors = exception.Message
-                });
+                var result = JsonConvert.SerializeObject(
+                    new
+                    {
+                        errors = exception.Message
+                    });
 
                 // ReSharper disable once AsyncConverter.AsyncAwaitMayBeElidedHighlighting
-                await context.Response.WriteAsync(result).ConfigureAwait(false);
+                await context.Response.WriteAsync(result)
+                    .ConfigureAwait(false);
             }
         }
     }

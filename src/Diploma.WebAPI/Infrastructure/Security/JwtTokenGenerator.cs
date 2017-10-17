@@ -1,15 +1,29 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Diploma.WebAPI.Infrastructure.Entities;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Diploma.WebAPI.Infrastructure.Security
 {
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
-        public string CreateToken(string username)
+        private readonly IRoleManager _roleManager;
+
+        public JwtTokenGenerator(IRoleManager roleManager)
         {
-            var claims = new[] { new Claim(JwtRegisteredClaimNames.Sub, username) };
+            _roleManager = roleManager;
+        }
+
+        public string CreateToken(UserEntity user)
+        {
+            var role = _roleManager.GetUserRole(user);
+
+            var claims = new[]
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Username),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, role.ToString())
+            };
 
             var identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 

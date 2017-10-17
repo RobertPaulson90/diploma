@@ -58,10 +58,9 @@ namespace Diploma.WebAPI.Features.Accounts
 
                         return response;
                     }
-                    catch (Exception e)
+                    catch
                     {
                         transaction.Rollback();
-                        Console.WriteLine(e);
                         throw;
                     }
                 }
@@ -100,7 +99,7 @@ namespace Diploma.WebAPI.Features.Accounts
 
             public string FirstName { get; set; }
 
-            public GenderType? Gender { get; set; }
+            public GenderType Gender { get; set; }
 
             public string LastName { get; set; }
 
@@ -115,6 +114,8 @@ namespace Diploma.WebAPI.Features.Accounts
         {
             public enum GenderType
             {
+                Unspecified,
+
                 Female,
 
                 Male,
@@ -127,9 +128,7 @@ namespace Diploma.WebAPI.Features.Accounts
             public string FirstName { get; set; }
 
             public GenderType? Gender { get; set; }
-
-            public int Id { get; set; }
-
+            
             public string LastName { get; set; }
 
             public string MiddleName { get; set; }

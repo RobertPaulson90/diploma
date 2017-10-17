@@ -7,6 +7,10 @@ namespace Diploma.WebAPI.Infrastructure
 {
     public class ValidatorActionFilter : IActionFilter
     {
+        public void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+        }
+
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (filterContext.ModelState.IsValid)
@@ -20,16 +24,16 @@ namespace Diploma.WebAPI.Infrastructure
                 pair => pair.Value.Errors.Select(x => x.ErrorMessage)
                     .ToArray());
 
-            var content = JsonConvert.SerializeObject(new { errors });
+            var content = JsonConvert.SerializeObject(
+                new
+                {
+                    errors
+                });
             result.Content = content;
             result.ContentType = "application/json";
 
-            filterContext.HttpContext.Response.StatusCode = 422; //unprocessable entity;
+            filterContext.HttpContext.Response.StatusCode = 422; // unprocessable entity;
             filterContext.Result = result;
-        }
-
-        public void OnActionExecuted(ActionExecutedContext filterContext)
-        {
         }
     }
 }

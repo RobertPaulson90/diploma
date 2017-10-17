@@ -1,4 +1,3 @@
-using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -53,10 +52,25 @@ namespace Diploma.WebAPI.Features.Accounts
             }
         }
 
+        public class UserRoleTypeResolver : IValueResolver<UserEntity, Response, UserRole>
+        {
+            private readonly IRoleManager _roleManager;
+
+            public UserRoleTypeResolver(IRoleManager roleManager)
+            {
+                _roleManager = roleManager;
+            }
+
+            public UserRole Resolve(UserEntity source, Response destination, UserRole destMember, ResolutionContext context)
+            {
+               return _roleManager.GetUserRole(source);
+            }
+        }
+
         public class JwtTokenResolver : IValueResolver<UserEntity, Response, string>
         {
             private readonly IJwtTokenGenerator _jwtTokenGenerator;
-
+            
             public JwtTokenResolver(IJwtTokenGenerator jwtTokenGenerator)
             {
                 _jwtTokenGenerator = jwtTokenGenerator;
@@ -64,7 +78,7 @@ namespace Diploma.WebAPI.Features.Accounts
 
             public string Resolve(UserEntity source, Response destination, string destMember, ResolutionContext context)
             {
-                return _jwtTokenGenerator.CreateToken(source.Username);
+                return _jwtTokenGenerator.CreateToken(source);
             }
         }
 
@@ -75,8 +89,8 @@ namespace Diploma.WebAPI.Features.Accounts
                 CreateMap<Request, UserEntity>(MemberList.Destination);
 
                 CreateMap<UserEntity, Response>(MemberList.Destination)
-                    .ForMember(x => x.Token, opt => opt.ResolveUsing<JwtTokenResolver>())
-                    .ForMember(x => x.Role, opt => opt.ResolveUsing<UserRoleTypeResolver>());
+                    .ForMember(x => x.Role, opt => opt.ResolveUsing<UserRoleTypeResolver>())
+                    .ForMember(x => x.Token, opt => opt.ResolveUsing<JwtTokenResolver>());
             }
         }
 
@@ -89,40 +103,11 @@ namespace Diploma.WebAPI.Features.Accounts
 
         public class Response
         {
-            public enum UserRole
-            {
-                Customer,
-
-                Manager,
-
-                Programmer,
-
-                Admin
-            }
+            public string Username { get; set; }
 
             public UserRole Role { get; set; }
 
             public string Token { get; set; }
-        }
-
-        public class UserRoleTypeResolver : IValueResolver<UserEntity, Response, Response.UserRole>
-        {
-            public Response.UserRole Resolve(UserEntity source, Response destination, Response.UserRole destMember, ResolutionContext context)
-            {
-                switch (source)
-                {
-                    case CustomerEntity _:
-                        return Response.UserRole.Customer;
-                    case ProgrammerEntity _:
-                        return Response.UserRole.Programmer;
-                    case ManagerEntity _:
-                        return Response.UserRole.Manager;
-                    case AdminEntity _:
-                        return Response.UserRole.Admin;
-                }
-
-                throw new NotSupportedException();
-            }
         }
 
         public class Validator : AbstractValidator<Request>

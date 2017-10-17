@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Diploma.WebAPI.Infrastructure.Security;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,14 @@ namespace Diploma.WebAPI.Features.Accounts
     {
         private readonly IMediator _mediator;
 
-        public AccountController(IMediator mediator)
+        private readonly ICurrentUserAccessor _currentUserAccessor;
+
+        public AccountController(IMediator mediator, ICurrentUserAccessor currentUserAccessor)
         {
             _mediator = mediator;
+            _currentUserAccessor = currentUserAccessor;
         }
-
+        
         [AllowAnonymous]
         [HttpPost("authorize")]
         public Task<Login.Response> Authorize([FromBody] Login.Request request)
@@ -28,6 +32,17 @@ namespace Diploma.WebAPI.Features.Accounts
         [HttpPost("signup")]
         public Task<Register.Response> Signup([FromBody] Register.Request request)
         {
+            return _mediator.Send(request);
+        }
+        
+        [HttpGet("account/details")]
+        public Task<Details.Response> GetDetails()
+        {
+            var request = new Details.Request
+            {
+                Username = _currentUserAccessor.GetCurrentUsername()
+            };
+
             return _mediator.Send(request);
         }
     }

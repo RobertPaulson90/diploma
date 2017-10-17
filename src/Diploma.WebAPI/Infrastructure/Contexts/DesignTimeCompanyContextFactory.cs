@@ -9,8 +9,7 @@ namespace Diploma.WebAPI.Infrastructure.Contexts
     {
         public CompanyContext CreateDbContext(string[] args)
         {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+            var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
 
@@ -19,7 +18,7 @@ namespace Diploma.WebAPI.Infrastructure.Contexts
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
             builder.UseSqlite(connectionString);
-            
+
             return new CompanyContext(builder.Options);
         }
     }

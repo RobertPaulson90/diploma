@@ -11,8 +11,6 @@ namespace Diploma.WebAPI.Infrastructure.Contexts
         {
         }
 
-        public DbSet<UserEntity> Users { get; set; }
-
         public DbSet<CustomerEntity> Customers { get; set; }
 
         public DbSet<EmployeeEntity> Employees { get; set; }
@@ -26,11 +24,13 @@ namespace Diploma.WebAPI.Infrastructure.Contexts
         public DbSet<TeamMemberEntity> TeamMembers { get; set; }
 
         public DbSet<TeamEntity> Teams { get; set; }
-        
+
+        public DbSet<UserEntity> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
             modelBuilder.ApplyConfiguration(new CustomerEntityConfiguration());
             modelBuilder.ApplyConfiguration(new EmployeeEntityConfiguration());
